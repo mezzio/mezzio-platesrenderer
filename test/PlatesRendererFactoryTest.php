@@ -1,20 +1,19 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @see       https://github.com/zendframework/zend-expressive for the canonical source repository
- * @copyright Copyright (c) 2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-expressive/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/mezzio/mezzio-platesrenderer for the canonical source repository
+ * @copyright https://github.com/mezzio/mezzio-platesrenderer/blob/master/COPYRIGHT.md
+ * @license   https://github.com/mezzio/mezzio-platesrenderer/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Expressive\Container\Template;
+namespace MezzioTest\Container\Template;
 
 use Interop\Container\ContainerInterface;
+use Mezzio\Plates\PlatesRenderer;
+use Mezzio\Plates\PlatesRendererFactory;
+use Mezzio\Template\TemplatePath;
 use PHPUnit_Framework_TestCase as TestCase;
 use ReflectionProperty;
-use Zend\Expressive\Plates\PlatesRendererFactory;
-use Zend\Expressive\Plates\PlatesRenderer;
-use Zend\Expressive\Template\TemplatePath;
 
 class PlatesRendererFactoryTest extends TestCase
 {
