@@ -1,12 +1,12 @@
 <?php
 
-namespace ZendTest\Expressive\Plates\Extension;
+namespace MezzioTest\Plates\Extension;
 
+use Laminas\Escaper\Escaper;
 use League\Plates\Engine;
+use Mezzio\Plates\Extension\EscaperExtension;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use Zend\Escaper\Escaper;
-use Zend\Expressive\Plates\Extension\EscaperExtension;
 
 class EscaperExtensionTest extends TestCase
 {
