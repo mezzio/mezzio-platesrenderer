@@ -1,23 +1,24 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/mezzio/mezzio-platesrenderer for the canonical source repository
+ * @copyright https://github.com/mezzio/mezzio-platesrenderer/blob/master/COPYRIGHT.md
+ * @license   https://github.com/mezzio/mezzio-platesrenderer/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Expressive\Plates;
+namespace MezzioTest\Plates;
 
 use Interop\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
 use League\Plates\Extension\ExtensionInterface;
+use Mezzio\Helper\ServerUrlHelper;
+use Mezzio\Helper\UrlHelper;
+use Mezzio\Plates\Exception\InvalidExtensionException;
+use Mezzio\Plates\Extension\UrlExtension;
+use Mezzio\Plates\PlatesEngineFactory;
 use PHPUnit_Framework_TestCase as TestCase;
 use Prophecy\Argument;
 use stdClass;
-use Zend\Expressive\Helper\ServerUrlHelper;
-use Zend\Expressive\Helper\UrlHelper;
-use Zend\Expressive\Plates\Exception\InvalidExtensionException;
-use Zend\Expressive\Plates\Extension\UrlExtension;
-use Zend\Expressive\Plates\PlatesEngineFactory;
 
 class PlatesEngineFactoryTest extends TestCase
 {
@@ -37,6 +38,8 @@ class PlatesEngineFactoryTest extends TestCase
         );
 
         $this->container->has(UrlExtension::class)->willReturn(false);
+
+        $this->container->has(\Zend\Expressive\Plates\Extension\UrlExtension::class)->willReturn(false);
     }
 
     public function testFactoryReturnsPlatesEngine()
@@ -68,6 +71,8 @@ class PlatesEngineFactoryTest extends TestCase
         $this->container->get('ExtensionTwo')->willReturn($extensionTwo->reveal());
 
         $this->container->has(TestAsset\TestExtension::class)->willReturn(false);
+
+        $this->container->has(\ZendTest\Expressive\Plates\TestAsset\TestExtension::class)->willReturn(false);
 
         $config = [
             'plates' => [
@@ -163,6 +168,8 @@ class PlatesEngineFactoryTest extends TestCase
         $this->container->get('config')->willReturn($config);
 
         $this->container->has(stdClass::class)->willReturn(false);
+
+        $this->container->has(\ZendTest\Expressive\Plates\stdClass::class)->willReturn(false);
 
         $factory = new PlatesEngineFactory();
         $this->setExpectedException(InvalidExtensionException::class, 'ExtensionInterface');
