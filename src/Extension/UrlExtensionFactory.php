@@ -1,18 +1,19 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/mezzio/mezzio-platesrenderer for the canonical source repository
+ * @copyright https://github.com/mezzio/mezzio-platesrenderer/blob/master/COPYRIGHT.md
+ * @license   https://github.com/mezzio/mezzio-platesrenderer/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
 
-namespace Zend\Expressive\Plates\Extension;
+namespace Mezzio\Plates\Extension;
 
+use Mezzio\Helper\ServerUrlHelper;
+use Mezzio\Helper\UrlHelper;
+use Mezzio\Plates\Exception\MissingHelperException;
 use Psr\Container\ContainerInterface;
-use Zend\Expressive\Helper\ServerUrlHelper;
-use Zend\Expressive\Helper\UrlHelper;
-use Zend\Expressive\Plates\Exception\MissingHelperException;
 
 use function sprintf;
 
@@ -27,7 +28,9 @@ class UrlExtensionFactory
      */
     public function __invoke(ContainerInterface $container) : UrlExtension
     {
-        if (! $container->has(UrlHelper::class)) {
+        if (! $container->has(UrlHelper::class)
+            && ! $container->has(\Zend\Expressive\Helper\UrlHelper::class)
+        ) {
             throw new MissingHelperException(sprintf(
                 '%s requires that the %s service be present; not found',
                 UrlExtension::class,
@@ -35,7 +38,9 @@ class UrlExtensionFactory
             ));
         }
 
-        if (! $container->has(ServerUrlHelper::class)) {
+        if (! $container->has(ServerUrlHelper::class)
+            && ! $container->has(\Zend\Expressive\Helper\ServerUrlHelper::class)
+        ) {
             throw new MissingHelperException(sprintf(
                 '%s requires that the %s service be present; not found',
                 UrlExtension::class,
@@ -44,8 +49,8 @@ class UrlExtensionFactory
         }
 
         return new UrlExtension(
-            $container->get(UrlHelper::class),
-            $container->get(ServerUrlHelper::class)
+            $container->has(UrlHelper::class) ? $container->get(UrlHelper::class) : $container->get(\Zend\Expressive\Helper\UrlHelper::class),
+            $container->has(ServerUrlHelper::class) ? $container->get(ServerUrlHelper::class) : $container->get(\Zend\Expressive\Helper\ServerUrlHelper::class)
         );
     }
 }
