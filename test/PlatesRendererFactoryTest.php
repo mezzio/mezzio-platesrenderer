@@ -1,24 +1,23 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @see       https://github.com/zendframework/zend-expressive for the canonical source repository
- * @copyright Copyright (c) 2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-expressive/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/mezzio/mezzio-platesrenderer for the canonical source repository
+ * @copyright https://github.com/mezzio/mezzio-platesrenderer/blob/master/COPYRIGHT.md
+ * @license   https://github.com/mezzio/mezzio-platesrenderer/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Expressive\Plates;
+namespace MezzioTest\Plates;
 
 use Interop\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
+use Mezzio\Helper\ServerUrlHelper;
+use Mezzio\Helper\UrlHelper;
+use Mezzio\Plates\Extension\UrlExtension;
+use Mezzio\Plates\PlatesRenderer;
+use Mezzio\Plates\PlatesRendererFactory;
+use Mezzio\Template\TemplatePath;
 use PHPUnit_Framework_TestCase as TestCase;
 use ReflectionProperty;
-use Zend\Expressive\Helper\ServerUrlHelper;
-use Zend\Expressive\Helper\UrlHelper;
-use Zend\Expressive\Plates\Extension\UrlExtension;
-use Zend\Expressive\Plates\PlatesRendererFactory;
-use Zend\Expressive\Plates\PlatesRenderer;
-use Zend\Expressive\Template\TemplatePath;
 
 class PlatesRendererFactoryTest extends TestCase
 {
@@ -42,6 +41,7 @@ class PlatesRendererFactoryTest extends TestCase
     {
         $this->container->has(PlatesEngine::class)->willReturn(false);
         $this->container->has(UrlExtension::class)->willReturn(false);
+        $this->container->has(\Zend\Expressive\Plates\Extension\UrlExtension::class)->willReturn(false);
         $this->container->has(UrlHelper::class)->willReturn(true);
         $this->container->has(ServerUrlHelper::class)->willReturn(true);
         $this->container->get(UrlHelper::class)->willReturn($this->prophesize(UrlHelper::class)->reveal());
