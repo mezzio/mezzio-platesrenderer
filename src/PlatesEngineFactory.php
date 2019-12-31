@@ -1,18 +1,19 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/mezzio/mezzio-platesrenderer for the canonical source repository
+ * @copyright https://github.com/mezzio/mezzio-platesrenderer/blob/master/COPYRIGHT.md
+ * @license   https://github.com/mezzio/mezzio-platesrenderer/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
 
-namespace Zend\Expressive\Plates;
+namespace Mezzio\Plates;
 
-use Psr\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
 use League\Plates\Extension\ExtensionInterface;
-use Zend\Expressive\Helper;
+use Mezzio\Helper;
+use Psr\Container\ContainerInterface;
 
 /**
  * Create and return a Plates engine instance.
@@ -34,7 +35,7 @@ use Zend\Expressive\Helper;
  * and Extension\EscaperExtension to the engine. You can override
  * the functions that extension exposes by providing an extension
  * class in your extensions array, or providing an alternative
- * Zend\Expressive\Plates\Extension\UrlExtension service.
+ * Mezzio\Plates\Extension\UrlExtension service.
  */
 class PlatesEngineFactory
 {
