@@ -1,29 +1,29 @@
-# Plates Integration for Expressive
+# Plates Integration for Mezzio
 
-[![Build Status](https://secure.travis-ci.org/zendframework/zend-expressive-platesrenderer.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-expressive-platesrenderer)
+[![Build Status](https://travis-ci.org/mezzio/mezzio-platesrenderer.svg?branch=master)](https://travis-ci.org/mezzio/mezzio-platesrenderer)
 
 Provides integration with [Plates](http://platesphp.com/) for
-[Expressive](https://github.com/zendframework/zend-expressive).
+[Mezzio](https://github.com/mezzio/mezzio).
 
 ## Installation
 
 Install this library using composer:
 
 ```bash
-$ composer require zendframework/zend-expressive-platesrenderer
+$ composer require mezzio/mezzio-platesrenderer
 ```
 
 We recommend using a dependency injection container, and typehint against
 [container-interop](https://github.com/container-interop/container-interop). We
 can recommend the following implementations:
 
-- [zend-servicemanager](https://github.com/zendframework/zend-servicemanager):
-  `composer require zendframework/zend-servicemanager`
+- [laminas-servicemanager](https://github.com/laminas/laminas-servicemanager):
+  `composer require laminas/laminas-servicemanager`
 - [pimple-interop](https://github.com/moufmouf/pimple-interop):
   `composer require mouf/pimple-interop`
 - [Aura.Di](https://github.com/auraphp/Aura.Di)
 
 ## Documentation
 
-See the [zend-expressive](https://github.com/zendframework/zend-expressive/blob/master/doc/book)
-documentation tree, or browse online at http://zend-expressive.rtfd.org.
+See the [mezzio](https://github.com/mezzio/mezzio/blob/master/doc/book)
+documentation tree, or browse online at http://mezzio.rtfd.org.
