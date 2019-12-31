@@ -1,51 +1,24 @@
 {
-    "name": "zendframework/zend-expressive-platesrenderer",
-    "description": "Plates integration for Expressive",
+    "name": "mezzio/mezzio-platesrenderer",
+    "description": "Plates integration for Mezzio",
     "license": "BSD-3-Clause",
     "keywords": [
-        "expressive",
+        "laminas",
+        "mezzio",
         "http",
         "league",
         "plates",
         "psr",
-        "psr-7",
-        "zf",
-        "zendframework",
-        "zend-expressive"
+        "psr-7"
     ],
+    "homepage": "https://mezzio.dev",
     "support": {
-        "issues": "https://github.com/zendframework/zend-expressive-platesrenderer/issues",
-        "source": "https://github.com/zendframework/zend-expressive-platesrenderer",
-        "rss": "https://github.com/zendframework/zend-expressive-platesrenderer/releases.atom",
-        "slack": "https://zendframework-slack.herokuapp.com",
-        "forum": "https://discourse.zendframework.com/c/questions/expressive"
-    },
-    "require": {
-        "php": "^7.1",
-        "league/plates": "^3.3",
-        "psr/container": "^1.0",
-        "zendframework/zend-expressive-helpers": "^5.2",
-        "zendframework/zend-expressive-router": "^3.0",
-        "zendframework/zend-expressive-template": "^2.0",
-        "zendframework/zend-escaper": "^2.5"
-    },
-    "require-dev": {
-        "malukenho/docheader": "^0.1.5",
-        "phpunit/phpunit": "^7.0.2",
-        "zendframework/zend-coding-standard": "~1.0.0"
-    },
-    "conflict": {
-        "container-interop/container-interop": "<1.2.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "Zend\\Expressive\\Plates\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "ZendTest\\Expressive\\Plates\\": "test/"
-        }
+        "docs": "https://docs.mezzio.dev/mezzio-platesrenderer/",
+        "issues": "https://github.com/mezzio/mezzio-platesrenderer/issues",
+        "source": "https://github.com/mezzio/mezzio-platesrenderer",
+        "rss": "https://github.com/mezzio/mezzio-platesrenderer/releases.atom",
+        "chat": "https://laminas.dev/chat",
+        "forum": "https://discourse.laminas.dev"
     },
     "config": {
         "sort-packages": true
@@ -55,8 +28,36 @@
             "dev-master": "2.1.x-dev",
             "dev-develop": "2.2.x-dev"
         },
-        "zf": {
-            "config-provider": "Zend\\Expressive\\Plates\\ConfigProvider"
+        "laminas": {
+            "config-provider": "Mezzio\\Plates\\ConfigProvider"
+        }
+    },
+    "require": {
+        "php": "^7.1",
+        "laminas/laminas-escaper": "^2.5",
+        "laminas/laminas-zendframework-bridge": "^1.0",
+        "league/plates": "^3.3",
+        "mezzio/mezzio-helpers": "^5.2",
+        "mezzio/mezzio-router": "^3.0",
+        "mezzio/mezzio-template": "^2.0",
+        "psr/container": "^1.0"
+    },
+    "require-dev": {
+        "laminas/laminas-coding-standard": "~1.0.0",
+        "malukenho/docheader": "^0.1.5",
+        "phpunit/phpunit": "^7.0.2"
+    },
+    "conflict": {
+        "container-interop/container-interop": "<1.2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mezzio\\Plates\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MezzioTest\\Plates\\": "test/"
         }
     },
     "scripts": {
@@ -70,5 +71,8 @@
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
         "license-check": "docheader check src/"
+    },
+    "replace": {
+        "zendframework/zend-expressive-platesrenderer": "self.version"
     }
 }
