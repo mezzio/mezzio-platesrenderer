@@ -13,7 +13,7 @@
     ],
     "homepage": "https://mezzio.dev",
     "support": {
-        "docs": "https://docs.mezzio.dev/mezzio-platesrenderer/",
+        "docs": "https://docs.mezzio.dev/mezzio/features/template/plates/",
         "issues": "https://github.com/mezzio/mezzio-platesrenderer/issues",
         "source": "https://github.com/mezzio/mezzio-platesrenderer",
         "rss": "https://github.com/mezzio/mezzio-platesrenderer/releases.atom",
