@@ -1,6 +1,6 @@
 # Plates Integration for Mezzio
 
-[![Build Status](https://travis-ci.org/mezzio/mezzio-platesrenderer.svg?branch=master)](https://travis-ci.org/mezzio/mezzio-platesrenderer)
+[![Build Status](https://travis-ci.com/mezzio/mezzio-platesrenderer.svg?branch=master)](https://travis-ci.com/mezzio/mezzio-platesrenderer)
 [![Coverage Status](https://coveralls.io/repos/github/mezzio/mezzio-platesrenderer/badge.svg?branch=master)](https://coveralls.io/github/mezzio/mezzio-platesrenderer?branch=master)
 
 Provides integration with [Plates](http://platesphp.com/) for
