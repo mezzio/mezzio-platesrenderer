@@ -73,6 +73,6 @@
         "license-check": "docheader check src/"
     },
     "replace": {
-        "zendframework/zend-expressive-platesrenderer": "self.version"
+        "zendframework/zend-expressive-platesrenderer": "^2.2.0"
     }
 }
