@@ -49,8 +49,12 @@ class UrlExtensionFactory
         }
 
         return new UrlExtension(
-            $container->has(UrlHelper::class) ? $container->get(UrlHelper::class) : $container->get(\Zend\Expressive\Helper\UrlHelper::class),
-            $container->has(ServerUrlHelper::class) ? $container->get(ServerUrlHelper::class) : $container->get(\Zend\Expressive\Helper\ServerUrlHelper::class)
+            $container->has(UrlHelper::class)
+                ? $container->get(UrlHelper::class)
+                : $container->get(\Zend\Expressive\Helper\UrlHelper::class),
+            $container->has(ServerUrlHelper::class)
+                ? $container->get(ServerUrlHelper::class)
+                : $container->get(\Zend\Expressive\Helper\ServerUrlHelper::class)
         );
     }
 }
