@@ -2,50 +2,6 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.3.0 - TBD
-
-### Added
-
-- Nothing.
-
-### Changed
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
-
-### Fixed
-
-- Nothing.
-
-## 2.2.1 - TBD
-
-### Added
-
-- Nothing.
-
-### Changed
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
-
-### Fixed
-
-- Nothing.
-
 ## 2.2.0 - 2019-10-08
 
 ### Added
@@ -151,7 +107,7 @@ All notable changes to this project will be documented in this file, in reverse 
   helpers to the Plates engine, based on laminas-escaper: `escapeHtml()`,
   `escapeHtmlAttr()`, `escapeJs()`, `escapeCss()`, and `escapeUrl()`. These are
   registered by default with the Plates engine. If you wish to provide
-  alternates, provide a `Mezzio\PlatesRenderer\Extension\EscaperExtension` 
+  alternates, provide a `Mezzio\PlatesRenderer\Extension\EscaperExtension`
   service that provides the custom extension.
 
 ### Changed
