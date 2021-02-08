@@ -41,8 +41,10 @@
     "require-dev": {
         "laminas/laminas-coding-standard": "~2.1.4",
         "malukenho/docheader": "^0.1.6",
+        "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.3",
-        "phpspec/prophecy-phpunit": "^2.0"
+        "vimeo/psalm": "^4.4",
+        "psalm/plugin-phpunit": "0.15"
     },
     "conflict": {
         "container-interop/container-interop": "<1.2.0"
@@ -67,7 +69,8 @@
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
-        "license-check": "docheader check src/"
+        "license-check": "docheader check src/",
+        "static-analysis": "psalm --shepherd --stats"
     },
     "replace": {
         "zendframework/zend-expressive-platesrenderer": "^2.2.0"
