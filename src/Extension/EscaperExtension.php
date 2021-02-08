@@ -16,15 +16,10 @@ use League\Plates\Extension\ExtensionInterface;
 
 class EscaperExtension implements ExtensionInterface
 {
-    /**
-     * @var Escaper
-     */
+    /** @var Escaper */
     private $escaper;
 
-    /**
-     * EscaperExtension constructor.
-     */
-    public function __construct(string $encoding = null)
+    public function __construct(?string $encoding = null)
     {
         $this->escaper = new Escaper($encoding);
     }
@@ -39,11 +34,8 @@ class EscaperExtension implements ExtensionInterface
      * - escapeJs($string) : string
      * - escapeCss($string) : string
      * - escapeUrl($string) : string
-     *
-     * @param Engine $engine
-     * @return void
      */
-    public function register(Engine $engine) : void
+    public function register(Engine $engine): void
     {
         $engine->registerFunction('escapeHtml', [$this->escaper, 'escapeHtml']);
         $engine->registerFunction('escapeHtmlAttr', [$this->escaper, 'escapeHtmlAttr']);

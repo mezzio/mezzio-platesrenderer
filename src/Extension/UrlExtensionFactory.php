@@ -23,13 +23,14 @@ use function sprintf;
 class UrlExtensionFactory
 {
     /**
-     * @throws MissingHelperException if UrlHelper service is missing.
-     * @throws MissingHelperException if ServerUrlHelper service is missing.
+     * @throws MissingHelperException If UrlHelper service is missing.
+     * @throws MissingHelperException If ServerUrlHelper service is missing.
      */
-    public function __invoke(ContainerInterface $container) : UrlExtension
+    public function __invoke(ContainerInterface $container): UrlExtension
     {
-        if (! $container->has(UrlHelper::class)
-            && ! $container->has(\Zend\Expressive\Helper\UrlHelper::class)
+        if (
+            ! $container->has(UrlHelper::class)
+            && ! $container->has(\Mezzio\Helper\UrlHelper::class)
         ) {
             throw new MissingHelperException(sprintf(
                 '%s requires that the %s service be present; not found',
@@ -38,8 +39,9 @@ class UrlExtensionFactory
             ));
         }
 
-        if (! $container->has(ServerUrlHelper::class)
-            && ! $container->has(\Zend\Expressive\Helper\ServerUrlHelper::class)
+        if (
+            ! $container->has(ServerUrlHelper::class)
+            && ! $container->has(\Mezzio\Helper\ServerUrlHelper::class)
         ) {
             throw new MissingHelperException(sprintf(
                 '%s requires that the %s service be present; not found',
@@ -51,10 +53,10 @@ class UrlExtensionFactory
         return new UrlExtension(
             $container->has(UrlHelper::class)
                 ? $container->get(UrlHelper::class)
-                : $container->get(\Zend\Expressive\Helper\UrlHelper::class),
+                : $container->get(\Mezzio\Helper\UrlHelper::class),
             $container->has(ServerUrlHelper::class)
                 ? $container->get(ServerUrlHelper::class)
-                : $container->get(\Zend\Expressive\Helper\ServerUrlHelper::class)
+                : $container->get(\Mezzio\Helper\ServerUrlHelper::class)
         );
     }
 }

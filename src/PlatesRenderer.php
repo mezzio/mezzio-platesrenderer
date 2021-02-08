@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Mezzio\Plates;
 
 use League\Plates\Engine;
+use League\Plates\Template\Folder;
 use Mezzio\Template\ArrayParametersTrait;
 use Mezzio\Template\Exception;
 use Mezzio\Template\TemplatePath;
@@ -33,12 +34,10 @@ class PlatesRenderer implements TemplateRendererInterface
 {
     use ArrayParametersTrait;
 
-    /**
-     * @var Engine
-     */
+    /** @var Engine */
     private $template;
 
-    public function __construct(Engine $template = null)
+    public function __construct(?Engine $template = null)
     {
         if (null === $template) {
             $template = $this->createTemplate();
@@ -49,7 +48,7 @@ class PlatesRenderer implements TemplateRendererInterface
     /**
      * {@inheritDoc}
      */
-    public function render(string $name, $params = []) : string
+    public function render(string $name, $params = []): string
     {
         $params = $this->normalizeParams($params);
         return $this->template->render($name, $params);
@@ -63,7 +62,7 @@ class PlatesRenderer implements TemplateRendererInterface
      * folders, only the default directory; overwriting the default directory
      * is likely unintended.
      */
-    public function addPath(string $path, string $namespace = null) : void
+    public function addPath(string $path, ?string $namespace = null): void
     {
         if (! $namespace && ! $this->template->getDirectory()) {
             $this->template->setDirectory($path);
@@ -81,10 +80,10 @@ class PlatesRenderer implements TemplateRendererInterface
     /**
      * {@inheritDoc}
      */
-    public function getPaths() : array
+    public function getPaths(): array
     {
         $paths = $this->template->getDirectory()
-            ? [ $this->getDefaultPath() ]
+            ? [$this->getDefaultPath()]
             : [];
 
         foreach ($this->getPlatesFolders() as $folder) {
@@ -98,7 +97,7 @@ class PlatesRenderer implements TemplateRendererInterface
      *
      * {@inheritDoc}
      */
-    public function addDefaultParam(string $templateName, string $param, $value) : void
+    public function addDefaultParam(string $templateName, string $param, $value): void
     {
         if (! is_string($templateName) || empty($templateName)) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -123,11 +122,10 @@ class PlatesRenderer implements TemplateRendererInterface
         $this->template->addData($params, $templateName);
     }
 
-
     /**
      * Create a default Plates engine
      */
-    private function createTemplate() : Engine
+    private function createTemplate(): Engine
     {
         return new Engine();
     }
@@ -135,7 +133,7 @@ class PlatesRenderer implements TemplateRendererInterface
     /**
      * Create and return a TemplatePath representing the default Plates directory.
      */
-    private function getDefaultPath() : TemplatePath
+    private function getDefaultPath(): TemplatePath
     {
         return new TemplatePath($this->template->getDirectory());
     }
@@ -143,12 +141,12 @@ class PlatesRenderer implements TemplateRendererInterface
     /**
      * Return the internal array of plates folders.
      *
-     * @return \League\Plates\Template\Folder[]
+     * @return Folder[]
      */
-    private function getPlatesFolders() : array
+    private function getPlatesFolders(): array
     {
         $folders = $this->template->getFolders();
-        $r = new ReflectionProperty($folders, 'folders');
+        $r       = new ReflectionProperty($folders, 'folders');
         $r->setAccessible(true);
         return $r->getValue($folders);
     }

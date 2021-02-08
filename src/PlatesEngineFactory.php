@@ -47,7 +47,7 @@ use function sprintf;
  */
 class PlatesEngineFactory
 {
-    public function __invoke(ContainerInterface $container) : PlatesEngine
+    public function __invoke(ContainerInterface $container): PlatesEngine
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $config = $config['plates'] ?? [];
@@ -74,7 +74,7 @@ class PlatesEngineFactory
      * Otherwise, instantiates the UrlExtensionFactory, and invokes it with
      * the container, loading the result into the engine.
      */
-    private function injectUrlExtension(ContainerInterface $container, PlatesEngine $engine) : void
+    private function injectUrlExtension(ContainerInterface $container, PlatesEngine $engine): void
     {
         if ($container->has(Extension\UrlExtension::class)) {
             $engine->loadExtension($container->get(Extension\UrlExtension::class));
@@ -99,7 +99,7 @@ class PlatesEngineFactory
      * Otherwise, instantiates the EscaperExtensionFactory, and invokes it with
      * the container, loading the result into the engine.
      */
-    private function injectEscaperExtension(ContainerInterface $container, PlatesEngine $engine) : void
+    private function injectEscaperExtension(ContainerInterface $container, PlatesEngine $engine): void
     {
         if ($container->has(Extension\EscaperExtension::class)) {
             $engine->loadExtension($container->get(Extension\EscaperExtension::class));
@@ -113,7 +113,7 @@ class PlatesEngineFactory
     /**
      * Inject all configured extensions into the engine.
      */
-    private function injectExtensions(ContainerInterface $container, PlatesEngine $engine, array $extensions) : void
+    private function injectExtensions(ContainerInterface $container, PlatesEngine $engine, array $extensions): void
     {
         foreach ($extensions as $extension) {
             $this->injectExtension($container, $engine, $extension);
@@ -132,12 +132,12 @@ class PlatesEngineFactory
      * If anything else is provided, an exception is raised.
      *
      * @param ExtensionInterface|string $extension
-     * @throws Exception\InvalidExtensionException for non-string,
+     * @throws Exception\InvalidExtensionException For non-string,
      *     non-extension $extension values.
-     * @throws Exception\InvalidExtensionException for string $extension values
+     * @throws Exception\InvalidExtensionException For string $extension values
      *     that do not resolve to an extension instance.
      */
-    private function injectExtension(ContainerInterface $container, PlatesEngine $engine, $extension) : void
+    private function injectExtension(ContainerInterface $container, PlatesEngine $engine, $extension): void
     {
         if ($extension instanceof ExtensionInterface) {
             $engine->loadExtension($extension);
@@ -147,15 +147,15 @@ class PlatesEngineFactory
         if (! is_string($extension)) {
             throw new Exception\InvalidExtensionException(sprintf(
                 '%s expects extension instances, service names, or class names; received %s',
-                __CLASS__,
-                (is_object($extension) ? get_class($extension) : gettype($extension))
+                self::class,
+                is_object($extension) ? get_class($extension) : gettype($extension)
             ));
         }
 
         if (! $container->has($extension) && ! class_exists($extension)) {
             throw new Exception\InvalidExtensionException(sprintf(
                 '%s expects extension service names or class names; "%s" does not resolve to either',
-                __CLASS__,
+                self::class,
                 $extension
             ));
         }
@@ -167,9 +167,9 @@ class PlatesEngineFactory
         if (! $extension instanceof ExtensionInterface) {
             throw new Exception\InvalidExtensionException(sprintf(
                 '%s expects extension services to implement %s ; received %s',
-                __CLASS__,
+                self::class,
                 ExtensionInterface::class,
-                (is_object($extension) ? get_class($extension) : gettype($extension))
+                is_object($extension) ? get_class($extension) : gettype($extension)
             ));
         }
 

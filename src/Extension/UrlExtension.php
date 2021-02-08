@@ -18,23 +18,15 @@ use Mezzio\Router\RouteResult;
 
 class UrlExtension implements ExtensionInterface
 {
-    /**
-     * @var ServerUrlHelper
-     */
+    /** @var ServerUrlHelper */
     private $serverUrlHelper;
 
-    /**
-     * @var UrlHelper
-     */
+    /** @var UrlHelper */
     private $urlHelper;
 
-    /**
-     * @param UrlHelper $urlHelper
-     * @param ServerUrlHelper $serverUrlHelper
-     */
     public function __construct(UrlHelper $urlHelper, ServerUrlHelper $serverUrlHelper)
     {
-        $this->urlHelper = $urlHelper;
+        $this->urlHelper       = $urlHelper;
         $this->serverUrlHelper = $serverUrlHelper;
     }
 
@@ -46,7 +38,7 @@ class UrlExtension implements ExtensionInterface
      * - url($route = null, array $params = []) : string
      * - serverurl($path = null) : string
      */
-    public function register(Engine $engine) : void
+    public function register(Engine $engine): void
     {
         $engine->registerFunction('url', $this->urlHelper);
         $engine->registerFunction('serverurl', $this->serverUrlHelper);
@@ -60,7 +52,7 @@ class UrlExtension implements ExtensionInterface
      *     used internally to back the route() Plates function; we now register
      *     the UrlHelper::getRouteResult callback directly.
      */
-    public function getRouteResult() : ?RouteResult
+    public function getRouteResult(): ?RouteResult
     {
         return $this->urlHelper->getRouteResult();
     }
@@ -68,17 +60,18 @@ class UrlExtension implements ExtensionInterface
     /**
      * Generate a URL from either the currently matched route or the specfied route.
      *
+     * @deprecated since 2.2.0; to be removed in 3.0.0. This method was originally
+     *     used internally to back the url() Plates function; we now register
+     *     UrlHelper instance directly, as it is callable.
+     *
      * @param array  $options Can have the following keys:
      *     - router (array): contains options to be passed to the router
      *     - reuse_result_params (bool): indicates if the current RouteResult
      *       parameters will be used, defaults to true
      * @return string
-     * @deprecated since 2.2.0; to be removed in 3.0.0. This method was originally
-     *     used internally to back the url() Plates function; we now register
-     *     UrlHelper instance directly, as it is callable.
      */
     public function generateUrl(
-        string $routeName = null,
+        ?string $routeName = null,
         array $routeParams = [],
         array $queryParams = [],
         ?string $fragmentIdentifier = null,
@@ -94,7 +87,7 @@ class UrlExtension implements ExtensionInterface
      *     used internally to back the serverurl() Plates function; we now register
      *     the ServerUrl instance directly, as it is callable.
      */
-    public function generateServerUrl(string $path = null) : string
+    public function generateServerUrl(?string $path = null): string
     {
         return $this->serverUrlHelper->generate($path);
     }
