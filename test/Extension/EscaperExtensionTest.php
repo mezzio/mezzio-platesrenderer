@@ -24,7 +24,7 @@ class EscaperExtensionTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testRegistersEscaperFunctionsWithEngine()
+    public function testRegistersEscaperFunctionsWithEngine(): void
     {
         $extension = new EscaperExtension();
 

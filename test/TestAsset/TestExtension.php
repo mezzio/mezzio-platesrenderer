@@ -18,7 +18,7 @@ class TestExtension implements ExtensionInterface
     /** @var Engine */
     public static $engine;
 
-    public function register(Engine $engine)
+    public function register(Engine $engine): void
     {
         self::$engine = $engine;
     }

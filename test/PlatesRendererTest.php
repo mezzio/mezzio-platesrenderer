@@ -47,19 +47,19 @@ class PlatesRendererTest extends TestCase
         $this->platesEngine = new Engine();
     }
 
-    public function assertTemplatePath(string $path, TemplatePath $templatePath, ?string $message = null)
+    public function assertTemplatePath(string $path, TemplatePath $templatePath, ?string $message = null): void
     {
         $message = $message ?: sprintf('Failed to assert TemplatePath contained path %s', $path);
         $this->assertEquals($path, $templatePath->getPath(), $message);
     }
 
-    public function assertTemplatePathString(string $path, TemplatePath $templatePath, ?string $message = null)
+    public function assertTemplatePathString(string $path, TemplatePath $templatePath, ?string $message = null): void
     {
         $message = $message ?: sprintf('Failed to assert TemplatePath casts to string path %s', $path);
         $this->assertEquals($path, (string) $templatePath, $message);
     }
 
-    public function assertTemplatePathNamespace(string $namespace, TemplatePath $templatePath, ?string $message = null)
+    public function assertTemplatePathNamespace(string $namespace, TemplatePath $templatePath, ?string $message = null): void
     {
         $message = $message ?: sprintf(
             'Failed to assert TemplatePath namespace matched %s',
@@ -68,13 +68,13 @@ class PlatesRendererTest extends TestCase
         $this->assertEquals($namespace, $templatePath->getNamespace(), $message);
     }
 
-    public function assertEmptyTemplatePathNamespace(TemplatePath $templatePath, ?string $message = null)
+    public function assertEmptyTemplatePathNamespace(TemplatePath $templatePath, ?string $message = null): void
     {
         $message = $message ?: 'Failed to assert TemplatePath namespace was empty';
         $this->assertEmpty($templatePath->getNamespace(), $message);
     }
 
-    public function assertEqualTemplatePath(TemplatePath $expected, TemplatePath $received, ?string $message = null)
+    public function assertEqualTemplatePath(TemplatePath $expected, TemplatePath $received, ?string $message = null): void
     {
         $message = $message ?: 'Failed to assert TemplatePaths are equal';
         if (
@@ -85,14 +85,14 @@ class PlatesRendererTest extends TestCase
         }
     }
 
-    public function testCanProvideEngineAtInstantiation()
+    public function testCanProvideEngineAtInstantiation(): void
     {
         $renderer = new PlatesRenderer($this->platesEngine);
         $this->assertInstanceOf(PlatesRenderer::class, $renderer);
         $this->assertEmpty($renderer->getPaths());
     }
 
-    public function testLazyLoadsEngineAtInstantiationIfNoneProvided()
+    public function testLazyLoadsEngineAtInstantiationIfNoneProvided(): void
     {
         $renderer = new PlatesRenderer();
         $this->assertInstanceOf(PlatesRenderer::class, $renderer);
@@ -116,7 +116,7 @@ class PlatesRendererTest extends TestCase
      * @param PlatesRenderer $renderer
      * @depends testCanAddPath
      */
-    public function testAddingSecondPathWithoutNamespaceIsANoopAndRaisesWarning($renderer)
+    public function testAddingSecondPathWithoutNamespaceIsANoopAndRaisesWarning($renderer): void
     {
         $paths = $renderer->getPaths();
         $path  = array_shift($paths);
@@ -138,7 +138,7 @@ class PlatesRendererTest extends TestCase
         $this->assertEqualTemplatePath($path, $test);
     }
 
-    public function testCanAddPathWithNamespace()
+    public function testCanAddPathWithNamespace(): void
     {
         $renderer = new PlatesRenderer();
         $renderer->addPath(__DIR__ . '/TestAsset', 'test');
@@ -150,7 +150,7 @@ class PlatesRendererTest extends TestCase
         $this->assertTemplatePathNamespace('test', $paths[0]);
     }
 
-    public function testDelegatesRenderingToUnderlyingImplementation()
+    public function testDelegatesRenderingToUnderlyingImplementation(): void
     {
         $renderer = new PlatesRenderer();
         $renderer->addPath(__DIR__ . '/TestAsset');
@@ -179,14 +179,14 @@ class PlatesRendererTest extends TestCase
      * @dataProvider invalidParameterValues
      * @param mixed $params
      */
-    public function testRenderRaisesExceptionForInvalidParameterTypes($params)
+    public function testRenderRaisesExceptionForInvalidParameterTypes($params): void
     {
         $renderer = new PlatesRenderer();
         $this->expectException(Exception\InvalidArgumentException::class);
         $renderer->render('foo', $params);
     }
 
-    public function testCanRenderWithNullParams()
+    public function testCanRenderWithNullParams(): void
     {
         $renderer = new PlatesRenderer();
         $renderer->addPath(__DIR__ . '/TestAsset');
@@ -213,7 +213,7 @@ class PlatesRendererTest extends TestCase
      * @param object $params
      * @param string $search
      */
-    public function testCanRenderWithParameterObjects($params, $search)
+    public function testCanRenderWithParameterObjects($params, $search): void
     {
         $renderer = new PlatesRenderer();
         $renderer->addPath(__DIR__ . '/TestAsset');
@@ -227,7 +227,7 @@ class PlatesRendererTest extends TestCase
     /**
      * @group namespacing
      */
-    public function testProperlyResolvesNamespacedTemplate()
+    public function testProperlyResolvesNamespacedTemplate(): void
     {
         $renderer = new PlatesRenderer();
         $renderer->addPath(__DIR__ . '/TestAsset/test', 'test');
@@ -238,7 +238,7 @@ class PlatesRendererTest extends TestCase
         $this->assertSame($expected, $test);
     }
 
-    public function testAddParameterToOneTemplate()
+    public function testAddParameterToOneTemplate(): void
     {
         $renderer = new PlatesRenderer();
         $renderer->addPath(__DIR__ . '/TestAsset');
@@ -261,7 +261,7 @@ class PlatesRendererTest extends TestCase
         $this->assertEquals($content, $result);
     }
 
-    public function testAddSharedParameters()
+    public function testAddSharedParameters(): void
     {
         $renderer = new PlatesRenderer();
         $renderer->addPath(__DIR__ . '/TestAsset');
@@ -277,7 +277,7 @@ class PlatesRendererTest extends TestCase
         $this->assertEquals($content, $result);
     }
 
-    public function testOverrideSharedParametersPerTemplate()
+    public function testOverrideSharedParametersPerTemplate(): void
     {
         $renderer = new PlatesRenderer();
         $renderer->addPath(__DIR__ . '/TestAsset');
@@ -295,7 +295,7 @@ class PlatesRendererTest extends TestCase
         $this->assertEquals($content, $result);
     }
 
-    public function testOverrideSharedParametersAtRender()
+    public function testOverrideSharedParametersAtRender(): void
     {
         $renderer = new PlatesRenderer();
         $renderer->addPath(__DIR__ . '/TestAsset');

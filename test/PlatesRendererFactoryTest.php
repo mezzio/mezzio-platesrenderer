@@ -49,7 +49,7 @@ class PlatesRendererFactoryTest extends TestCase
         $this->container   = $this->prophesize(ContainerInterface::class);
     }
 
-    public function configureEngineService()
+    public function configureEngineService(): void
     {
         $this->container->has(PlatesEngine::class)->willReturn(false);
         $this->container->has(UrlExtension::class)->willReturn(false);
@@ -100,7 +100,7 @@ class PlatesRendererFactoryTest extends TestCase
         $this->assertTrue($found, $message);
     }
 
-    public function assertPathNamespaceCount(int $expected, ?string $namespace, array $paths, ?string $message = null)
+    public function assertPathNamespaceCount(int $expected, ?string $namespace, array $paths, ?string $message = null): void
     {
         $message = $message ?: sprintf('Did not find %d paths with namespace %s', $expected, $namespace ?: 'null');
 
