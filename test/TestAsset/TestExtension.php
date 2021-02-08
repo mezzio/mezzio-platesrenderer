@@ -15,6 +15,7 @@ use League\Plates\Extension\ExtensionInterface;
 
 class TestExtension implements ExtensionInterface
 {
+    /** @var Engine */
     public static $engine;
 
     public function register(Engine $engine)

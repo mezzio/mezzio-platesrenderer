@@ -20,21 +20,25 @@ use Mezzio\Plates\Extension\UrlExtension;
 use Mezzio\Plates\PlatesEngineFactory;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ProphecyInterface;
 use Psr\Container\ContainerInterface;
 use stdClass;
+use ZendTest\Expressive\Plates\TestAsset\TestExtension;
 
 use function is_string;
 
 class PlatesEngineFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @var ContainerInterface|ProphecyInterface */
     private $container;
 
-    public function setUp()
+    public function setUp(): void
     {
         TestAsset\TestExtension::$engine = null;
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container                 = $this->prophesize(ContainerInterface::class);
 
         $this->container->has(UrlHelper::class)->willReturn(true);
         $this->container->get(UrlHelper::class)->willReturn(
@@ -53,19 +57,17 @@ class PlatesEngineFactoryTest extends TestCase
         $this->container->has(\Zend\Expressive\Plates\Extension\EscaperExtension::class)->willReturn(false);
     }
 
-    public function testFactoryReturnsPlatesEngine()
+    public function testFactoryReturnsPlatesEngine(): PlatesEngine
     {
         $this->container->has('config')->willReturn(false);
         $factory = new PlatesEngineFactory();
-        $engine = $factory($this->container->reveal());
+        $engine  = $factory($this->container->reveal());
         $this->assertInstanceOf(PlatesEngine::class, $engine);
         return $engine;
     }
 
     /**
      * @depends testFactoryReturnsPlatesEngine
-     *
-     * @param PlatesEngine $engine
      */
     public function testUrlExtensionIsRegisteredByDefault(PlatesEngine $engine)
     {
@@ -75,8 +77,6 @@ class PlatesEngineFactoryTest extends TestCase
 
     /**
      * @depends testFactoryReturnsPlatesEngine
-     *
-     * @param PlatesEngine $engine
      */
     public function testEscaperExtensionIsRegisteredByDefault(PlatesEngine $engine)
     {
@@ -100,7 +100,7 @@ class PlatesEngineFactoryTest extends TestCase
         $this->container->get(EscaperExtension::class)->willReturn($escaperExtension);
 
         $factory = new PlatesEngineFactory();
-        $engine = $factory($this->container->reveal());
+        $engine  = $factory($this->container->reveal());
 
         $this->assertTrue($engine->doesFunctionExist('escapeHtml'));
         $this->assertTrue($engine->doesFunctionExist('escapeHtmlAttr'));
@@ -108,7 +108,6 @@ class PlatesEngineFactoryTest extends TestCase
         $this->assertTrue($engine->doesFunctionExist('escapeCss'));
         $this->assertTrue($engine->doesFunctionExist('escapeUrl'));
     }
-
 
     public function testFactoryCanRegisterConfiguredExtensions()
     {
@@ -122,7 +121,7 @@ class PlatesEngineFactoryTest extends TestCase
 
         $this->container->has(TestAsset\TestExtension::class)->willReturn(false);
 
-        $this->container->has(\ZendTest\Expressive\Plates\TestAsset\TestExtension::class)->willReturn(false);
+        $this->container->has(TestExtension::class)->willReturn(false);
 
         $config = [
             'plates' => [
@@ -137,7 +136,7 @@ class PlatesEngineFactoryTest extends TestCase
         $this->container->get('config')->willReturn($config);
 
         $factory = new PlatesEngineFactory();
-        $engine = $factory($this->container->reveal());
+        $engine  = $factory($this->container->reveal());
         $this->assertInstanceOf(PlatesEngine::class, $engine);
 
         // Test that the TestExtension was registered. The other two extensions
@@ -145,28 +144,27 @@ class PlatesEngineFactoryTest extends TestCase
         $this->assertSame($engine, TestAsset\TestExtension::$engine);
     }
 
-    public function invalidExtensions()
+    public function invalidExtensions(): array
     {
         return [
-            'null' => [null],
-            'true' => [true],
-            'false' => [false],
-            'zero' => [0],
-            'int' => [1],
-            'zero-float' => [0.0],
-            'float' => [1.1],
-            'non-class-string' => ['not-a-class'],
-            'array' => [['not-an-extension']],
+            'null'                 => [null],
+            'true'                 => [true],
+            'false'                => [false],
+            'zero'                 => [0],
+            'int'                  => [1],
+            'zero-float'           => [0.0],
+            'float'                => [1.1],
+            'non-class-string'     => ['not-a-class'],
+            'array'                => [['not-an-extension']],
             'non-extension-object' => [(object) ['extension' => 'not-really']],
         ];
     }
 
     /**
      * @dataProvider invalidExtensions
-     *
      * @param mixed $extension
      */
-    public function testFactoryRaisesExceptionForInvalidExtensions($extension)
+    public function testFactoryRaisesExceptionForInvalidExtensions($extension): void
     {
         $config = [
             'plates' => [
@@ -187,7 +185,7 @@ class PlatesEngineFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function testFactoryRaisesExceptionWhenAttemptingToInjectAnInvalidExtensionService()
+    public function testFactoryRaisesExceptionWhenAttemptingToInjectAnInvalidExtensionService(): void
     {
         $config = [
             'plates' => [
@@ -208,7 +206,7 @@ class PlatesEngineFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function testFactoryRaisesExceptionWhenNonServiceClassIsAnInvalidExtension()
+    public function testFactoryRaisesExceptionWhenNonServiceClassIsAnInvalidExtension(): void
     {
         $config = [
             'plates' => [
@@ -230,18 +228,17 @@ class PlatesEngineFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function provideHelpersToUnregister()
+    public function provideHelpersToUnregister(): array
     {
         return [
-            'url-only' => [[UrlHelper::class]],
+            'url-only'        => [[UrlHelper::class]],
             'server-url-only' => [[ServerUrlHelper::class]],
-            'both' => [[ServerUrlHelper::class, UrlHelper::class]],
+            'both'            => [[ServerUrlHelper::class, UrlHelper::class]],
         ];
     }
 
     /**
      * @dataProvider provideHelpersToUnregister
-     *
      * @param array $helpers
      */
     public function testUrlExtensionIsNotLoadedIfHelpersAreNotRegistered(array $helpers)
@@ -252,7 +249,7 @@ class PlatesEngineFactoryTest extends TestCase
         }
 
         $factory = new PlatesEngineFactory();
-        $engine = $factory($this->container->reveal());
+        $engine  = $factory($this->container->reveal());
 
         $this->assertFalse($engine->doesFunctionExist('url'));
         $this->assertFalse($engine->doesFunctionExist('serverurl'));

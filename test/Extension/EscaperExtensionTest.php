@@ -16,10 +16,13 @@ use Mezzio\Plates\Extension\EscaperExtension;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use function is_array;
 
 class EscaperExtensionTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testRegistersEscaperFunctionsWithEngine()
     {
         $extension = new EscaperExtension();

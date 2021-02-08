@@ -16,10 +16,13 @@ use Mezzio\Helper\UrlHelper;
 use Mezzio\Plates\Extension\UrlExtension;
 use Mezzio\Router\RouteResult;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ProphecyInterface;
 
 class UrlExtensionTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @var UrlHelper|ProphecyInterface */
     private $urlHelper;
 
@@ -29,7 +32,7 @@ class UrlExtensionTest extends TestCase
     /** @var UrlExtension */
     private $extension;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->urlHelper       = $this->prophesize(UrlHelper::class);
         $this->serverUrlHelper = $this->prophesize(ServerUrlHelper::class);
@@ -56,7 +59,7 @@ class UrlExtensionTest extends TestCase
         $this->extension->register($engine->reveal());
     }
 
-    public function urlHelperParams()
+    public function urlHelperParams(): array
     {
         return [
             'null'             => [null, []],
@@ -68,11 +71,10 @@ class UrlExtensionTest extends TestCase
 
     /**
      * @dataProvider urlHelperParams
-     *
      * @param null|string $route
      * @param array $params
      */
-    public function testGenerateUrlProxiesToUrlHelper($route, array $params)
+    public function testGenerateUrlProxiesToUrlHelper($route, array $params): void
     {
         $this->urlHelper->generate($route, $params, [], null, [])->willReturn('/success');
         $this->assertEquals('/success', $this->extension->generateUrl($route, $params));
@@ -100,7 +102,7 @@ class UrlExtensionTest extends TestCase
         );
     }
 
-    public function serverUrlHelperParams()
+    public function serverUrlHelperParams(): array
     {
         return [
             'null'          => [null],
@@ -111,16 +113,15 @@ class UrlExtensionTest extends TestCase
 
     /**
      * @dataProvider serverUrlHelperParams
-     *
      * @param null|string $path
      */
-    public function testGenerateServerUrlProxiesToServerUrlHelper($path)
+    public function testGenerateServerUrlProxiesToServerUrlHelper($path): void
     {
         $this->serverUrlHelper->generate($path)->willReturn('/success');
         $this->assertEquals('/success', $this->extension->generateServerUrl($path));
     }
 
-    public function testGetRouteResultReturnsRouteResultWhenPopulated()
+    public function testGetRouteResultReturnsRouteResultWhenPopulated(): void
     {
         $result = $this->prophesize(RouteResult::class);
         $this->urlHelper->getRouteResult()->willReturn($result->reveal());
@@ -128,7 +129,7 @@ class UrlExtensionTest extends TestCase
         $this->assertInstanceOf(RouteResult::class, $this->extension->getRouteResult());
     }
 
-    public function testGetRouteResultReturnsNullWhenRouteResultNotPopulatedInUrlHelper()
+    public function testGetRouteResultReturnsNullWhenRouteResultNotPopulatedInUrlHelper(): void
     {
         $this->urlHelper->getRouteResult()->willReturn(null);
 
