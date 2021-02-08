@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace MezzioTest\Plates;
 
-use Laminas\Escaper\Escaper;
 use League\Plates\Engine;
 use League\Plates\Engine as PlatesEngine;
 use LogicException;
@@ -25,6 +24,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ProphecyInterface;
 use Psr\Container\ContainerInterface;
+use ReflectionClass;
 use ReflectionProperty;
 
 use function restore_error_handler;
@@ -253,7 +253,7 @@ class PlatesRendererFactoryTest extends TestCase
         $factory  = new PlatesRendererFactory();
         $renderer = $factory($this->container->reveal());
 
-        $class   = new \ReflectionClass($renderer);
+        $class    = new ReflectionClass($renderer);
         $property = $class->getProperty('template');
         $property->setAccessible(true);
         $template = $property->getValue($renderer);

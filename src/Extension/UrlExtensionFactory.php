@@ -30,7 +30,7 @@ class UrlExtensionFactory
     {
         if (
             ! $container->has(UrlHelper::class)
-            && ! $container->has(\Mezzio\Helper\UrlHelper::class)
+            && ! $container->has(UrlHelper::class)
         ) {
             throw new MissingHelperException(sprintf(
                 '%s requires that the %s service be present; not found',
@@ -41,7 +41,7 @@ class UrlExtensionFactory
 
         if (
             ! $container->has(ServerUrlHelper::class)
-            && ! $container->has(\Mezzio\Helper\ServerUrlHelper::class)
+            && ! $container->has(ServerUrlHelper::class)
         ) {
             throw new MissingHelperException(sprintf(
                 '%s requires that the %s service be present; not found',
@@ -53,10 +53,10 @@ class UrlExtensionFactory
         return new UrlExtension(
             $container->has(UrlHelper::class)
                 ? $container->get(UrlHelper::class)
-                : $container->get(\Mezzio\Helper\UrlHelper::class),
+                : $container->get(UrlHelper::class),
             $container->has(ServerUrlHelper::class)
                 ? $container->get(ServerUrlHelper::class)
-                : $container->get(\Mezzio\Helper\ServerUrlHelper::class)
+                : $container->get(ServerUrlHelper::class)
         );
     }
 }

@@ -16,8 +16,8 @@ use Mezzio\Plates\PlatesRenderer;
 use Mezzio\Template\Exception;
 use Mezzio\Template\TemplatePath;
 use PHPUnit\Framework\TestCase;
-
 use Prophecy\PhpUnit\ProphecyTrait;
+
 use function array_shift;
 use function file_get_contents;
 use function restore_error_handler;
@@ -250,7 +250,7 @@ class PlatesRendererTest extends TestCase
 
         // @fixme hack to work around https://github.com/thephpleague/plates/issues/60, remove if ever merged
         set_error_handler(function ($error, $message) {
-            $this->assertContains('Undefined variable: name', $message);
+            $this->assertStringContainsString('Undefined variable: name', $message);
             return true;
         }, E_NOTICE);
         $renderer->render('plates-2');

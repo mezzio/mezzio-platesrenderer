@@ -43,7 +43,7 @@ class UrlExtensionFactoryTest extends TestCase
 
     public function testFactoryReturnsUrlExtensionInstanceWhenHelpersArePresent()
     {
-        $urlHelper = $this->urlHelper->reveal();
+        $urlHelper       = $this->urlHelper->reveal();
         $serverUrlHelper = $this->serverUrlHelper->reveal();
 
         $this->container->has(UrlHelper::class)->willReturn(true);
@@ -68,13 +68,13 @@ class UrlExtensionFactoryTest extends TestCase
     public function testFactoryRaisesExceptionIfUrlHelperIsMissing()
     {
         $this->container->has(UrlHelper::class)->willReturn(false);
-        $this->container->has(\Mezzio\Helper\UrlHelper::class)->willReturn(false);
+        $this->container->has(UrlHelper::class)->willReturn(false);
         $this->container->get(UrlHelper::class)->shouldNotBeCalled();
-        $this->container->get(\Mezzio\Helper\UrlHelper::class)->shouldNotBeCalled();
+        $this->container->get(UrlHelper::class)->shouldNotBeCalled();
         $this->container->has(ServerUrlHelper::class)->shouldNotBeCalled();
-        $this->container->has(\Mezzio\Helper\ServerUrlHelper::class)->shouldNotBeCalled();
+        $this->container->has(ServerUrlHelper::class)->shouldNotBeCalled();
         $this->container->get(ServerUrlHelper::class)->shouldNotBeCalled();
-        $this->container->get(\Mezzio\Helper\ServerUrlHelper::class)->shouldNotBeCalled();
+        $this->container->get(ServerUrlHelper::class)->shouldNotBeCalled();
 
         $factory = new UrlExtensionFactory();
 
@@ -87,11 +87,11 @@ class UrlExtensionFactoryTest extends TestCase
     {
         $this->container->has(UrlHelper::class)->willReturn(true);
         $this->container->get(UrlHelper::class)->shouldNotBeCalled();
-        $this->container->get(\Mezzio\Helper\UrlHelper::class)->shouldNotBeCalled();
+        $this->container->get(UrlHelper::class)->shouldNotBeCalled();
         $this->container->has(ServerUrlHelper::class)->willReturn(false);
-        $this->container->has(\Mezzio\Helper\ServerUrlHelper::class)->willReturn(false);
+        $this->container->has(ServerUrlHelper::class)->willReturn(false);
         $this->container->get(ServerUrlHelper::class)->shouldNotBeCalled();
-        $this->container->get(\Mezzio\Helper\ServerUrlHelper::class)->shouldNotBeCalled();
+        $this->container->get(ServerUrlHelper::class)->shouldNotBeCalled();
 
         $factory = new UrlExtensionFactory();
 
