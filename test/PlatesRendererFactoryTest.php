@@ -100,8 +100,12 @@ class PlatesRendererFactoryTest extends TestCase
         $this->assertTrue($found, $message);
     }
 
-    public function assertPathNamespaceCount(int $expected, ?string $namespace, array $paths, ?string $message = null): void
-    {
+    public function assertPathNamespaceCount(
+        int $expected,
+        ?string $namespace,
+        array $paths,
+        ?string $message = null
+    ): void {
         $message = $message ?: sprintf('Did not find %d paths with namespace %s', $expected, $namespace ?: 'null');
 
         $count = 0;
@@ -114,17 +118,12 @@ class PlatesRendererFactoryTest extends TestCase
         $this->assertSame($expected, $count, $message);
     }
 
-<<<<<<< HEAD
     public function assertPathNamespaceContains(
         string $expected,
         ?string $namespace,
         array $paths,
         ?string $message = null
     ): void {
-=======
-    public function assertPathNamespaceContains(string $expected, ?string $namespace, array $paths, ?string $message = null): void
-    {
->>>>>>> 4f24e45... feat: add PHP 8 support, laminas coding standard 2, update to phpunit 9
         $message = $message ?: sprintf('Did not find path %s in namespace %s', $expected, $namespace ?: null);
 
         $found = [];
@@ -262,11 +261,7 @@ class PlatesRendererFactoryTest extends TestCase
         $factory  = new PlatesRendererFactory();
         $renderer = $factory($this->container->reveal());
 
-<<<<<<< HEAD
         $class    = new ReflectionClass($renderer);
-=======
-        $class   = new \ReflectionClass($renderer);
->>>>>>> 4f24e45... feat: add PHP 8 support, laminas coding standard 2, update to phpunit 9
         $property = $class->getProperty('template');
         $property->setAccessible(true);
         $template = $property->getValue($renderer);

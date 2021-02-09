@@ -59,8 +59,11 @@ class PlatesRendererTest extends TestCase
         $this->assertEquals($path, (string) $templatePath, $message);
     }
 
-    public function assertTemplatePathNamespace(string $namespace, TemplatePath $templatePath, ?string $message = null): void
-    {
+    public function assertTemplatePathNamespace(
+        string $namespace,
+        TemplatePath $templatePath,
+        ?string $message = null
+    ): void {
         $message = $message ?: sprintf(
             'Failed to assert TemplatePath namespace matched %s',
             var_export($namespace, true)
@@ -74,8 +77,11 @@ class PlatesRendererTest extends TestCase
         $this->assertEmpty($templatePath->getNamespace(), $message);
     }
 
-    public function assertEqualTemplatePath(TemplatePath $expected, TemplatePath $received, ?string $message = null): void
-    {
+    public function assertEqualTemplatePath(
+        TemplatePath $expected,
+        TemplatePath $received,
+        ?string $message = null
+    ): void {
         $message = $message ?: 'Failed to assert TemplatePaths are equal';
         if (
             $expected->getPath() !== $received->getPath()
