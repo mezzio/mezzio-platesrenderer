@@ -30,7 +30,7 @@ class EscaperExtensionFactory
     /**
      * @throws InvalidArgumentException
      */
-    public function __invoke(ContainerInterface $container) : EscaperExtension
+    public function __invoke(ContainerInterface $container): EscaperExtension
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $config = $config['plates'] ?? [];

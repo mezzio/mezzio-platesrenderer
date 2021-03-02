@@ -15,15 +15,19 @@ use Laminas\Escaper\Exception\InvalidArgumentException;
 use Mezzio\Plates\Extension\EscaperExtension;
 use Mezzio\Plates\Extension\EscaperExtensionFactory;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ProphecyInterface;
 use Psr\Container\ContainerInterface;
+use ReflectionClass;
 
 class EscaperExtensionFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @var ContainerInterface|ProphecyInterface */
     private $container;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->container = $this->prophesize(ContainerInterface::class);
     }
@@ -32,7 +36,7 @@ class EscaperExtensionFactoryTest extends TestCase
     {
         $this->container->has('config')->willReturn(false);
 
-        $factory = new EscaperExtensionFactory();
+        $factory   = new EscaperExtensionFactory();
         $extension = $factory($this->container->reveal());
 
         $this->assertInstanceOf(EscaperExtension::class, $extension);
@@ -43,7 +47,7 @@ class EscaperExtensionFactoryTest extends TestCase
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([]);
 
-        $factory = new EscaperExtensionFactory();
+        $factory   = new EscaperExtensionFactory();
         $extension = $factory($this->container->reveal());
 
         $this->assertInstanceOf(EscaperExtension::class, $extension);
@@ -54,8 +58,8 @@ class EscaperExtensionFactoryTest extends TestCase
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([
             'plates' => [
-                'encoding' => ''
-            ]
+                'encoding' => '',
+            ],
         ]);
 
         $factory = new EscaperExtensionFactory();
@@ -72,20 +76,20 @@ class EscaperExtensionFactoryTest extends TestCase
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([
             'plates' => [
-                'encoding' => 'iso-8859-1'
-            ]
+                'encoding' => 'iso-8859-1',
+            ],
         ]);
 
-        $factory = new EscaperExtensionFactory();
+        $factory   = new EscaperExtensionFactory();
         $extension = $factory($this->container->reveal());
 
         $this->assertInstanceOf(EscaperExtension::class, $extension);
-        $this->assertAttributeInstanceOf(Escaper::class, 'escaper', $extension);
 
-        $class = new \ReflectionClass($extension);
+        $class   = new ReflectionClass($extension);
         $escaper = $class->getProperty('escaper');
         $escaper->setAccessible(true);
         $escaper = $escaper->getValue($extension);
+        $this->assertInstanceOf(Escaper::class, $escaper);
 
         $this->assertEquals('iso-8859-1', $escaper->getEncoding());
     }

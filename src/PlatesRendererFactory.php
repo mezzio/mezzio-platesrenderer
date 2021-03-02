@@ -40,7 +40,7 @@ use function is_numeric;
  */
 class PlatesRendererFactory
 {
-    public function __invoke(ContainerInterface $container) : PlatesRenderer
+    public function __invoke(ContainerInterface $container): PlatesRenderer
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $config = $config['templates'] ?? [];
@@ -76,7 +76,7 @@ class PlatesRendererFactory
      * Otherwise, invokes the PlatesEngineFactory with the $container to create
      * and return the instance.
      */
-    private function createEngine(ContainerInterface $container) : PlatesEngine
+    private function createEngine(ContainerInterface $container): PlatesEngine
     {
         if ($container->has(PlatesEngine::class)) {
             return $container->get(PlatesEngine::class);
