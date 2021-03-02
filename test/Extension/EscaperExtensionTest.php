@@ -17,7 +17,6 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 
-use Prophecy\PhpUnit\ProphecyTrait;
 use function is_array;
 
 class EscaperExtensionTest extends TestCase

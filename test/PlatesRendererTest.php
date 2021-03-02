@@ -18,7 +18,6 @@ use Mezzio\Template\TemplatePath;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
-use Prophecy\PhpUnit\ProphecyTrait;
 use function array_shift;
 use function file_get_contents;
 use function restore_error_handler;
