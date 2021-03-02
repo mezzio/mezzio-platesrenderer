@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.6.2@bca09d74adc704c4eaee36a3c3e9d379e290fc3b">
+  <file src="src/Extension/EscaperExtensionFactory.php">
+    <MixedArgument occurrences="1">
+      <code>$config['encoding'] ?? null</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$config['encoding']</code>
+      <code>$config['plates']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="2">
+      <code>$config</code>
+      <code>$config</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Extension/UrlExtensionFactory.php">
+    <MixedArgument occurrences="2"/>
+  </file>
+  <file src="src/PlatesEngineFactory.php">
+    <DocblockTypeContradiction occurrences="1">
+      <code>is_string($extension)</code>
+    </DocblockTypeContradiction>
+    <InvalidStringClass occurrences="1">
+      <code>new $extension()</code>
+    </InvalidStringClass>
+    <MixedArgument occurrences="3">
+      <code>$container-&gt;get(Extension\EscaperExtension::class)</code>
+      <code>$container-&gt;get(Extension\UrlExtension::class)</code>
+      <code>$extension</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="1">
+      <code>$config['plates']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="4">
+      <code>$config</code>
+      <code>$config</code>
+      <code>$extension</code>
+      <code>$extension</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/PlatesRenderer.php">
+    <MixedInferredReturnType occurrences="1">
+      <code>Folder[]</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>$r-&gt;getValue($folders)</code>
+    </MixedReturnStatement>
+    <RedundantCondition occurrences="2">
+      <code>gettype($param)</code>
+      <code>gettype($templateName)</code>
+    </RedundantCondition>
+    <TypeDoesNotContainType occurrences="4">
+      <code>! is_string($param)</code>
+      <code>! is_string($templateName)</code>
+      <code>is_object($param)</code>
+      <code>is_object($templateName)</code>
+    </TypeDoesNotContainType>
+  </file>
+  <file src="src/PlatesRendererFactory.php">
+    <MixedArgument occurrences="3">
+      <code>$config['extension']</code>
+      <code>$namespace</code>
+      <code>$path</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="1">
+      <code>$config['templates']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="7">
+      <code>$allPaths</code>
+      <code>$config</code>
+      <code>$config</code>
+      <code>$namespace</code>
+      <code>$namespace</code>
+      <code>$path</code>
+      <code>$paths</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>PlatesEngine</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>$container-&gt;get(PlatesEngine::class)</code>
+    </MixedReturnStatement>
+  </file>
+  <file src="test/ConfigProviderTest.php">
+    <RedundantCondition occurrences="1">
+      <code>assertIsArray</code>
+    </RedundantCondition>
+  </file>
+  <file src="test/ExceptionTest.php">
+    <InvalidLiteralArgument occurrences="1">
+      <code>ExceptionInterface::class</code>
+    </InvalidLiteralArgument>
+    <MixedInferredReturnType occurrences="1">
+      <code>Generator</code>
+    </MixedInferredReturnType>
+    <PossiblyFalseOperand occurrences="1">
+      <code>strrpos(ExceptionInterface::class, '\\')</code>
+    </PossiblyFalseOperand>
+  </file>
+  <file src="test/Extension/EscaperExtensionFactoryTest.php">
+    <MixedArgument occurrences="4">
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$escaper</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="7">
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <PossiblyUndefinedMethod occurrences="11">
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="test/Extension/EscaperExtensionTest.php">
+    <MissingClosureParamType occurrences="5">
+      <code>$argument</code>
+      <code>$argument</code>
+      <code>$argument</code>
+      <code>$argument</code>
+      <code>$argument</code>
+    </MissingClosureParamType>
+  </file>
+  <file src="test/Extension/UrlExtensionFactoryTest.php">
+    <MixedArgument occurrences="3">
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="2">
+      <code>$serverUrlHelper</code>
+      <code>$urlHelper</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="19">
+      <code>shouldNotBeCalled</code>
+      <code>shouldNotBeCalled</code>
+      <code>shouldNotBeCalled</code>
+      <code>shouldNotBeCalled</code>
+      <code>shouldNotBeCalled</code>
+      <code>shouldNotBeCalled</code>
+      <code>shouldNotBeCalled</code>
+      <code>shouldNotBeCalled</code>
+      <code>shouldNotBeCalled</code>
+      <code>shouldNotBeCalled</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <PossiblyUndefinedMethod occurrences="24">
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="test/Extension/UrlExtensionTest.php">
+    <DeprecatedMethod occurrences="5">
+      <code>generateServerUrl</code>
+      <code>generateUrl</code>
+      <code>generateUrl</code>
+      <code>getRouteResult</code>
+      <code>getRouteResult</code>
+    </DeprecatedMethod>
+    <MixedInferredReturnType occurrences="2">
+      <code>array</code>
+      <code>array</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="5">
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <PossiblyUndefinedMethod occurrences="5">
+      <code>generate</code>
+      <code>generate</code>
+      <code>generate</code>
+      <code>getRouteResult</code>
+      <code>getRouteResult</code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="test/PlatesEngineFactoryTest.php">
+    <MixedArgument occurrences="10">
+      <code>$helper</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>TestExtension::class</code>
+      <code>\ZendTest\Expressive\Plates\stdClass::class</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$helper</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="2">
+      <code>array</code>
+      <code>array</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="23">
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <PossiblyUndefinedMethod occurrences="30">
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+    </PossiblyUndefinedMethod>
+    <UndefinedClass occurrences="2">
+      <code>TestExtension</code>
+      <code>\ZendTest\Expressive\Plates\stdClass</code>
+    </UndefinedClass>
+  </file>
+  <file src="test/PlatesRendererFactoryTest.php">
+    <InvalidArgument occurrences="1"/>
+    <MissingClosureParamType occurrences="2">
+      <code>$errno</code>
+      <code>$errstr</code>
+    </MissingClosureParamType>
+    <MixedArgument occurrences="6">
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+    </MixedArgument>
+    <MixedInferredReturnType occurrences="1">
+      <code>Engine</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="21">
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <MixedReturnStatement occurrences="1">
+      <code>$r-&gt;getValue($plates)</code>
+    </MixedReturnStatement>
+    <PossiblyNullArgument occurrences="1">
+      <code>$namespace ?: null</code>
+    </PossiblyNullArgument>
+    <PossiblyUndefinedMethod occurrences="27">
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>get</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+      <code>reveal</code>
+    </PossiblyUndefinedMethod>
+    <RedundantCondition occurrences="1">
+      <code>assertIsArray</code>
+    </RedundantCondition>
+  </file>
+  <file src="test/PlatesRendererTest.php">
+    <MissingClosureParamType occurrences="4">
+      <code>$error</code>
+      <code>$error</code>
+      <code>$message</code>
+      <code>$message</code>
+    </MissingClosureParamType>
+    <MixedArgument occurrences="6">
+      <code>$message</code>
+      <code>$message</code>
+      <code>$params</code>
+      <code>$renderer::TEMPLATE_ALL</code>
+      <code>$renderer::TEMPLATE_ALL</code>
+      <code>$renderer::TEMPLATE_ALL</code>
+    </MixedArgument>
+    <MixedInferredReturnType occurrences="2">
+      <code>array</code>
+      <code>array</code>
+    </MixedInferredReturnType>
+    <NullArgument occurrences="1">
+      <code>null</code>
+    </NullArgument>
+    <RedundantCondition occurrences="3">
+      <code>assertIsArray</code>
+      <code>assertIsArray</code>
+      <code>assertIsArray</code>
+    </RedundantCondition>
+  </file>
+</files>
