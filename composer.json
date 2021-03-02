@@ -29,7 +29,7 @@
         }
     },
     "require": {
-        "php": "^7.3 || ^8.0",
+        "php": "^7.3 || ~8.0.0",
         "laminas/laminas-escaper": "^2.5",
         "laminas/laminas-zendframework-bridge": "^1.0",
         "league/plates": "^3.3",
@@ -39,7 +39,7 @@
         "psr/container": "^1.0"
     },
     "require-dev": {
-        "laminas/laminas-coding-standard": "~2.1.0",
+        "laminas/laminas-coding-standard": "~2.1.4",
         "malukenho/docheader": "^0.1.6",
         "phpunit/phpunit": "^9.3",
         "phpspec/prophecy-phpunit": "^2.0"
