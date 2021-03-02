@@ -69,7 +69,7 @@ class PlatesEngineFactoryTest extends TestCase
     /**
      * @depends testFactoryReturnsPlatesEngine
      */
-    public function testUrlExtensionIsRegisteredByDefault(PlatesEngine $engine)
+    public function testUrlExtensionIsRegisteredByDefault(PlatesEngine $engine): void
     {
         $this->assertTrue($engine->doesFunctionExist('url'));
         $this->assertTrue($engine->doesFunctionExist('serverurl'));
@@ -78,7 +78,7 @@ class PlatesEngineFactoryTest extends TestCase
     /**
      * @depends testFactoryReturnsPlatesEngine
      */
-    public function testEscaperExtensionIsRegisteredByDefault(PlatesEngine $engine)
+    public function testEscaperExtensionIsRegisteredByDefault(PlatesEngine $engine): void
     {
         $this->assertTrue($engine->doesFunctionExist('escapeHtml'));
         $this->assertTrue($engine->doesFunctionExist('escapeHtmlAttr'));
@@ -90,7 +90,7 @@ class PlatesEngineFactoryTest extends TestCase
     /**
      * @depends testEscaperExtensionIsRegisteredByDefault
      */
-    public function testEscaperExtensionIsRegisteredFromContainer()
+    public function testEscaperExtensionIsRegisteredFromContainer(): void
     {
         $escaperExtension = new EscaperExtension();
 
@@ -109,7 +109,7 @@ class PlatesEngineFactoryTest extends TestCase
         $this->assertTrue($engine->doesFunctionExist('escapeUrl'));
     }
 
-    public function testFactoryCanRegisterConfiguredExtensions()
+    public function testFactoryCanRegisterConfiguredExtensions(): void
     {
         $extensionOne = $this->prophesize(ExtensionInterface::class);
         $extensionOne->register(Argument::type(PlatesEngine::class))->shouldBeCalled();
@@ -241,7 +241,7 @@ class PlatesEngineFactoryTest extends TestCase
      * @dataProvider provideHelpersToUnregister
      * @param array $helpers
      */
-    public function testUrlExtensionIsNotLoadedIfHelpersAreNotRegistered(array $helpers)
+    public function testUrlExtensionIsNotLoadedIfHelpersAreNotRegistered(array $helpers): void
     {
         $this->container->has('config')->willReturn(false);
         foreach ($helpers as $helper) {

@@ -32,7 +32,7 @@ class EscaperExtensionFactoryTest extends TestCase
         $this->container = $this->prophesize(ContainerInterface::class);
     }
 
-    public function testFactoryWithoutConfig()
+    public function testFactoryWithoutConfig(): void
     {
         $this->container->has('config')->willReturn(false);
 
@@ -42,7 +42,7 @@ class EscaperExtensionFactoryTest extends TestCase
         $this->assertInstanceOf(EscaperExtension::class, $extension);
     }
 
-    public function testFactoryWithEmptyConfig()
+    public function testFactoryWithEmptyConfig(): void
     {
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([]);
@@ -53,7 +53,7 @@ class EscaperExtensionFactoryTest extends TestCase
         $this->assertInstanceOf(EscaperExtension::class, $extension);
     }
 
-    public function testFactoryWithInvalidEncodingSetIn()
+    public function testFactoryWithInvalidEncodingSetIn(): void
     {
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([
@@ -71,7 +71,7 @@ class EscaperExtensionFactoryTest extends TestCase
     /**
      * @depends testFactoryWithInvalidEncodingSetIn
      */
-    public function testFactoryWithValidEncodingSetIn()
+    public function testFactoryWithValidEncodingSetIn(): void
     {
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn([

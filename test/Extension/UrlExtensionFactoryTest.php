@@ -41,7 +41,7 @@ class UrlExtensionFactoryTest extends TestCase
         $this->serverUrlHelper = $this->prophesize(ServerUrlHelper::class);
     }
 
-    public function testFactoryReturnsUrlExtensionInstanceWhenHelpersArePresent()
+    public function testFactoryReturnsUrlExtensionInstanceWhenHelpersArePresent(): void
     {
         $urlHelper       = $this->urlHelper->reveal();
         $serverUrlHelper = $this->serverUrlHelper->reveal();
@@ -65,7 +65,7 @@ class UrlExtensionFactoryTest extends TestCase
         $extension->register($engine);
     }
 
-    public function testFactoryRaisesExceptionIfUrlHelperIsMissing()
+    public function testFactoryRaisesExceptionIfUrlHelperIsMissing(): void
     {
         $this->container->has(UrlHelper::class)->willReturn(false);
         $this->container->has(UrlHelper::class)->willReturn(false);
@@ -83,7 +83,7 @@ class UrlExtensionFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
-    public function testFactoryRaisesExceptionIfServerUrlHelperIsMissing()
+    public function testFactoryRaisesExceptionIfServerUrlHelperIsMissing(): void
     {
         $this->container->has(UrlHelper::class)->willReturn(true);
         $this->container->get(UrlHelper::class)->shouldNotBeCalled();

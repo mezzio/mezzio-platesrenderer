@@ -43,7 +43,7 @@ class UrlExtensionTest extends TestCase
         );
     }
 
-    public function testRegistersUrlFunctionWithEngine()
+    public function testRegistersUrlFunctionWithEngine(): void
     {
         $engine = $this->prophesize(Engine::class);
         $engine
@@ -80,7 +80,7 @@ class UrlExtensionTest extends TestCase
         $this->assertEquals('/success', $this->extension->generateUrl($route, $params));
     }
 
-    public function testUrlHelperAcceptsQueryParametersFragmentAndOptions()
+    public function testUrlHelperAcceptsQueryParametersFragmentAndOptions(): void
     {
         $this->urlHelper->generate(
             'resource',
