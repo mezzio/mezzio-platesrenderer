@@ -114,8 +114,12 @@ class PlatesRendererFactoryTest extends TestCase
         $this->assertSame($expected, $count, $message);
     }
 
-    public function assertPathNamespaceContains(string $expected, ?string $namespace, array $paths, ?string $message = null): void
-    {
+    public function assertPathNamespaceContains(
+        string $expected,
+        ?string $namespace,
+        array $paths,
+        ?string $message = null
+    ): void {
         $message = $message ?: sprintf('Did not find path %s in namespace %s', $expected, $namespace ?: null);
 
         $found = [];
