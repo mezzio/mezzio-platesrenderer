@@ -39,12 +39,11 @@
         "psr/container": "^1.0"
     },
     "require-dev": {
-        "laminas/laminas-coding-standard": "~2.1.4",
-        "malukenho/docheader": "^0.1.6",
+        "laminas/laminas-coding-standard": "~2.2.0",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.3",
-        "vimeo/psalm": "^4.4",
-        "psalm/plugin-phpunit": "0.15"
+        "psalm/plugin-phpunit": "0.15",
+        "vimeo/psalm": "^4.4"
     },
     "conflict": {
         "container-interop/container-interop": "<1.2.0"
@@ -61,7 +60,7 @@
     },
     "scripts": {
         "check": [
-            "@license-check",
+            
             "@cs-check",
             "@test"
         ],
@@ -69,7 +68,6 @@
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
-        "license-check": "docheader check src/",
         "static-analysis": "psalm --shepherd --stats"
     },
     "replace": {
