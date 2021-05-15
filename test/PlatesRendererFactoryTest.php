@@ -183,7 +183,8 @@ class PlatesRendererFactoryTest extends TestCase
         $this->configureEngineService();
         $factory = new PlatesRendererFactory();
 
-        set_error_handler(function ($errno, $errstr) {
+        // phpcs:ignore WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCaps
+        set_error_handler(function (int $_errno, string $_errstr) {
             $this->errorCaught = true;
         }, E_USER_WARNING);
         $factory($this->container->reveal());

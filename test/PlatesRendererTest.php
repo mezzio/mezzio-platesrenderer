@@ -120,7 +120,8 @@ class PlatesRendererTest extends TestCase
         $paths = $renderer->getPaths();
         $path  = array_shift($paths);
 
-        set_error_handler(function ($error, $message) {
+        // phpcs:ignore WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCaps
+        set_error_handler(function (int $_errno, string $message) {
             $this->error = true;
             $this->assertStringContainsString('duplicate', $message);
             return true;
@@ -248,8 +249,8 @@ class PlatesRendererTest extends TestCase
         $content = str_replace('<?=$this->e($name)?>', $name, $content);
         $this->assertEquals($content, $result);
 
-        // @fixme hack to work around https://github.com/thephpleague/plates/issues/60, remove if ever merged
-        set_error_handler(function ($error, $message) {
+        // phpcs:ignore WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCaps
+        set_error_handler(function (int $_errno, string $message) {
             $this->assertStringContainsString('Undefined variable: name', $message);
             return true;
         }, E_NOTICE);
