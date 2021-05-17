@@ -1,7 +1,6 @@
 {
     "name": "mezzio/mezzio-platesrenderer",
     "description": "Plates integration for Mezzio",
-    "license": "BSD-3-Clause",
     "keywords": [
         "laminas",
         "mezzio",
@@ -12,22 +11,7 @@
         "psr-7"
     ],
     "homepage": "https://mezzio.dev",
-    "support": {
-        "docs": "https://docs.mezzio.dev/mezzio/features/template/plates/",
-        "issues": "https://github.com/mezzio/mezzio-platesrenderer/issues",
-        "source": "https://github.com/mezzio/mezzio-platesrenderer",
-        "rss": "https://github.com/mezzio/mezzio-platesrenderer/releases.atom",
-        "chat": "https://laminas.dev/chat",
-        "forum": "https://discourse.laminas.dev"
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "laminas": {
-            "config-provider": "Mezzio\\Plates\\ConfigProvider"
-        }
-    },
+    "license": "BSD-3-Clause",
     "require": {
         "php": "^7.3 || ~8.0.0",
         "laminas/laminas-escaper": "^2.5",
@@ -38,16 +22,27 @@
         "mezzio/mezzio-template": "^2.0",
         "psr/container": "^1.0"
     },
+    "replace": {
+        "zendframework/zend-expressive-platesrenderer": "^2.2.0"
+    },
+    "conflict": {
+        "container-interop/container-interop": "<1.2.0"
+    },
     "require-dev": {
         "laminas/laminas-coding-standard": "~2.1.4",
         "malukenho/docheader": "^0.1.6",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.3",
-        "vimeo/psalm": "^4.4",
-        "psalm/plugin-phpunit": "0.15"
+        "psalm/plugin-phpunit": "0.15",
+        "vimeo/psalm": "^4.4"
     },
-    "conflict": {
-        "container-interop/container-interop": "<1.2.0"
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laminas": {
+            "config-provider": "Mezzio\\Plates\\ConfigProvider"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -67,12 +62,17 @@
         ],
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
-        "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
         "license-check": "docheader check src/",
-        "static-analysis": "psalm --shepherd --stats"
+        "static-analysis": "psalm --shepherd --stats",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     },
-    "replace": {
-        "zendframework/zend-expressive-platesrenderer": "^2.2.0"
+    "support": {
+        "issues": "https://github.com/mezzio/mezzio-platesrenderer/issues",
+        "forum": "https://discourse.laminas.dev",
+        "chat": "https://laminas.dev/chat",
+        "source": "https://github.com/mezzio/mezzio-platesrenderer",
+        "docs": "https://docs.mezzio.dev/mezzio/features/template/plates/",
+        "rss": "https://github.com/mezzio/mezzio-platesrenderer/releases.atom"
     }
 }
