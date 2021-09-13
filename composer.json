@@ -31,7 +31,6 @@
     "require": {
         "php": "^7.3 || ~8.0.0 || ~8.1.0",
         "laminas/laminas-escaper": "^2.5",
-        "laminas/laminas-zendframework-bridge": "^1.0",
         "league/plates": "^3.3",
         "mezzio/mezzio-helpers": "^5.2",
         "mezzio/mezzio-router": "^3.0",
@@ -46,7 +45,8 @@
         "vimeo/psalm": "^4.4"
     },
     "conflict": {
-        "container-interop/container-interop": "<1.2.0"
+        "container-interop/container-interop": "<1.2.0",
+        "zendframework/zend-expressive-platesrenderer": "*"
     },
     "autoload": {
         "psr-4": {
@@ -68,8 +68,5 @@
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
         "static-analysis": "psalm --shepherd --stats"
-    },
-    "replace": {
-        "zendframework/zend-expressive-platesrenderer": "^2.2.0"
     }
 }
