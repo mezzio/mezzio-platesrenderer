@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.6.2@bca09d74adc704c4eaee36a3c3e9d379e290fc3b">
+<files psalm-version="4.27.0@faf106e717c37b8c81721845dba9de3d8deed8ff">
   <file src="src/Extension/EscaperExtensionFactory.php">
     <MixedArgument occurrences="1">
       <code>$config['encoding'] ?? null</code>
@@ -87,9 +87,6 @@
     </RedundantCondition>
   </file>
   <file src="test/ExceptionTest.php">
-    <InvalidLiteralArgument occurrences="1">
-      <code>ExceptionInterface::class</code>
-    </InvalidLiteralArgument>
     <MixedInferredReturnType occurrences="1">
       <code>Generator</code>
     </MixedInferredReturnType>
@@ -129,15 +126,6 @@
       <code>reveal</code>
       <code>reveal</code>
     </PossiblyUndefinedMethod>
-  </file>
-  <file src="test/Extension/EscaperExtensionTest.php">
-    <MissingClosureParamType occurrences="5">
-      <code>$argument</code>
-      <code>$argument</code>
-      <code>$argument</code>
-      <code>$argument</code>
-      <code>$argument</code>
-    </MissingClosureParamType>
   </file>
   <file src="test/Extension/UrlExtensionFactoryTest.php">
     <MixedArgument occurrences="3">
@@ -308,10 +296,6 @@
   </file>
   <file src="test/PlatesRendererFactoryTest.php">
     <InvalidArgument occurrences="1"/>
-    <MissingClosureParamType occurrences="2">
-      <code>$errno</code>
-      <code>$errstr</code>
-    </MissingClosureParamType>
     <MixedArgument occurrences="6">
       <code>$this-&gt;container-&gt;reveal()</code>
       <code>$this-&gt;container-&gt;reveal()</code>
@@ -386,19 +370,8 @@
     </RedundantCondition>
   </file>
   <file src="test/PlatesRendererTest.php">
-    <MissingClosureParamType occurrences="4">
-      <code>$error</code>
-      <code>$error</code>
-      <code>$message</code>
-      <code>$message</code>
-    </MissingClosureParamType>
-    <MixedArgument occurrences="6">
-      <code>$message</code>
-      <code>$message</code>
+    <MixedArgument occurrences="1">
       <code>$params</code>
-      <code>$renderer::TEMPLATE_ALL</code>
-      <code>$renderer::TEMPLATE_ALL</code>
-      <code>$renderer::TEMPLATE_ALL</code>
     </MixedArgument>
     <MixedInferredReturnType occurrences="2">
       <code>array</code>

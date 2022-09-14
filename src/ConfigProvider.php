@@ -23,8 +23,8 @@ class ConfigProvider
                 TemplateRendererInterface::class => PlatesRenderer::class,
 
                 // Legacy Zend Framework aliases
-                \Zend\Expressive\Template\TemplateRendererInterface::class => TemplateRendererInterface::class,
-                \Zend\Expressive\Plates\PlatesRenderer::class              => PlatesRenderer::class,
+                'Zend\Expressive\Template\TemplateRendererInterface' => TemplateRendererInterface::class,
+                'Zend\Expressive\Plates\PlatesRenderer'              => PlatesRenderer::class,
             ],
             'factories' => [
                 PlatesRenderer::class => PlatesRendererFactory::class,
