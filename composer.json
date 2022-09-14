@@ -41,7 +41,7 @@
         "mezzio/mezzio-helpers": "^5.2",
         "mezzio/mezzio-router": "^3.0",
         "mezzio/mezzio-template": "^2.0",
-        "psr/container": "^1.0"
+        "psr/container": "^1.0 || ^2.0"
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~2.2.0",
