@@ -47,9 +47,9 @@ class PlatesRendererFactoryTest extends TestCase
     {
         $this->container->has(PlatesEngine::class)->willReturn(false);
         $this->container->has(UrlExtension::class)->willReturn(false);
-        $this->container->has(\Zend\Expressive\Plates\Extension\UrlExtension::class)->willReturn(false);
+        $this->container->has('Zend\Expressive\Plates\Extension\UrlExtension')->willReturn(false);
         $this->container->has(EscaperExtension::class)->willReturn(false);
-        $this->container->has(\Zend\Expressive\Plates\Extension\EscaperExtension::class)->willReturn(false);
+        $this->container->has('Zend\Expressive\Plates\Extension\EscaperExtension')->willReturn(false);
         $this->container->has(UrlHelper::class)->willReturn(true);
         $this->container->has(ServerUrlHelper::class)->willReturn(true);
         $this->container->get(UrlHelper::class)->willReturn($this->prophesize(UrlHelper::class)->reveal());
