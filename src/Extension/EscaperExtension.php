@@ -10,8 +10,7 @@ use League\Plates\Extension\ExtensionInterface;
 
 class EscaperExtension implements ExtensionInterface
 {
-    /** @var Escaper */
-    private $escaper;
+    private Escaper $escaper;
 
     public function __construct(?string $encoding = null)
     {

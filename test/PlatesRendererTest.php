@@ -28,11 +28,9 @@ class PlatesRendererTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var Engine */
-    private $platesEngine;
+    private Engine $platesEngine;
 
-    /** @var bool */
-    private $error;
+    private bool $error;
 
     public function setUp(): void
     {
@@ -121,7 +119,7 @@ class PlatesRendererTest extends TestCase
         $path  = array_shift($paths);
 
         // phpcs:ignore WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCaps
-        set_error_handler(function (int $_errno, string $message) {
+        set_error_handler(function (int $_errno, string $message): bool {
             $this->error = true;
             $this->assertStringContainsString('duplicate', $message);
             return true;
@@ -250,7 +248,7 @@ class PlatesRendererTest extends TestCase
         $this->assertEquals($content, $result);
 
         // phpcs:ignore WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCaps
-        set_error_handler(function (int $_errno, string $message) {
+        set_error_handler(function (int $_errno, string $message): bool {
             $this->assertStringContainsString('Undefined variable: name', $message);
             return true;
         }, E_NOTICE);

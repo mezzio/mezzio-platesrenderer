@@ -23,25 +23,30 @@ class EscaperExtensionTest extends TestCase
 
         $engine = $this->prophesize(Engine::class);
         $engine
-            ->registerFunction('escapeHtml', Argument::that(function ($argument) {
-                return is_array($argument) && $argument[0] instanceof Escaper && $argument[1] === 'escapeHtml';
-            }))->shouldBeCalled();
+            ->registerFunction('escapeHtml', Argument::that(
+                static fn($argument) => is_array($argument) &&
+                    $argument[0] instanceof Escaper && $argument[1] === 'escapeHtml'
+            ))->shouldBeCalled();
         $engine
-            ->registerFunction('escapeHtmlAttr', Argument::that(function ($argument) {
-                return is_array($argument) && $argument[0] instanceof Escaper && $argument[1] === 'escapeHtmlAttr';
-            }))->shouldBeCalled();
+            ->registerFunction('escapeHtmlAttr', Argument::that(
+                static fn($argument) => is_array($argument) &&
+                    $argument[0] instanceof Escaper && $argument[1] === 'escapeHtmlAttr'
+            ))->shouldBeCalled();
         $engine
-            ->registerFunction('escapeJs', Argument::that(function ($argument) {
-                return is_array($argument) && $argument[0] instanceof Escaper && $argument[1] === 'escapeJs';
-            }))->shouldBeCalled();
+            ->registerFunction('escapeJs', Argument::that(
+                static fn($argument) => is_array($argument) &&
+                    $argument[0] instanceof Escaper && $argument[1] === 'escapeJs'
+            ))->shouldBeCalled();
         $engine
-            ->registerFunction('escapeCss', Argument::that(function ($argument) {
-                return is_array($argument) && $argument[0] instanceof Escaper && $argument[1] === 'escapeCss';
-            }))->shouldBeCalled();
+            ->registerFunction('escapeCss', Argument::that(
+                static fn($argument) => is_array($argument) &&
+                    $argument[0] instanceof Escaper && $argument[1] === 'escapeCss'
+            ))->shouldBeCalled();
         $engine
-            ->registerFunction('escapeUrl', Argument::that(function ($argument) {
-                return is_array($argument) && $argument[0] instanceof Escaper && $argument[1] === 'escapeUrl';
-            }))->shouldBeCalled();
+            ->registerFunction('escapeUrl', Argument::that(
+                static fn($argument) => is_array($argument) &&
+                    $argument[0] instanceof Escaper && $argument[1] === 'escapeUrl'
+            ))->shouldBeCalled();
 
         $extension->register($engine->reveal());
     }

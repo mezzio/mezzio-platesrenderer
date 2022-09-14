@@ -12,11 +12,9 @@ use Mezzio\Router\RouteResult;
 
 class UrlExtension implements ExtensionInterface
 {
-    /** @var ServerUrlHelper */
-    private $serverUrlHelper;
+    private ServerUrlHelper $serverUrlHelper;
 
-    /** @var UrlHelper */
-    private $urlHelper;
+    private UrlHelper $urlHelper;
 
     public function __construct(UrlHelper $urlHelper, ServerUrlHelper $serverUrlHelper)
     {

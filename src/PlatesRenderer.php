@@ -28,8 +28,7 @@ class PlatesRenderer implements TemplateRendererInterface
 {
     use ArrayParametersTrait;
 
-    /** @var Engine */
-    private $template;
+    private Engine $template;
 
     public function __construct(?Engine $template = null)
     {
