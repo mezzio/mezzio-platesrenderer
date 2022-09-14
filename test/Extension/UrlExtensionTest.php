@@ -23,8 +23,7 @@ class UrlExtensionTest extends TestCase
     /** @var ServerUrlHelper|ProphecyInterface */
     private $serverUrlHelper;
 
-    /** @var UrlExtension */
-    private $extension;
+    private UrlExtension $extension;
 
     public function setUp(): void
     {

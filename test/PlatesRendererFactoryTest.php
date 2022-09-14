@@ -34,8 +34,7 @@ class PlatesRendererFactoryTest extends TestCase
     /** @var ContainerInterface|ProphecyInterface */
     private $container;
 
-    /** @var bool */
-    private $errorCaught = false;
+    private bool $errorCaught = false;
 
     public function setUp(): void
     {
@@ -184,7 +183,7 @@ class PlatesRendererFactoryTest extends TestCase
         $factory = new PlatesRendererFactory();
 
         // phpcs:ignore WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCaps
-        set_error_handler(function (int $_errno, string $_errstr) {
+        set_error_handler(function (int $_errno, string $_errstr): void {
             $this->errorCaught = true;
         }, E_USER_WARNING);
         $factory($this->container->reveal());
