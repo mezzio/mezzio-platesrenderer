@@ -23,19 +23,31 @@
     <InvalidStringClass occurrences="1">
       <code>new $extension()</code>
     </InvalidStringClass>
-    <MixedArgument occurrences="3">
+    <MixedArgument occurrences="7">
+      <code>$config['extension']</code>
       <code>$container-&gt;get(Extension\EscaperExtension::class)</code>
       <code>$container-&gt;get(Extension\UrlExtension::class)</code>
       <code>$extension</code>
+      <code>$namespace</code>
+      <code>$path</code>
+      <code>$path</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="1">
+    <MixedArrayAccess occurrences="2">
       <code>$config['plates']</code>
+      <code>$config['templates']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="4">
+    <MixedAssignment occurrences="11">
+      <code>$allPaths</code>
+      <code>$config</code>
+      <code>$config</code>
       <code>$config</code>
       <code>$config</code>
       <code>$extension</code>
       <code>$extension</code>
+      <code>$namespace</code>
+      <code>$namespace</code>
+      <code>$path</code>
+      <code>$paths</code>
     </MixedAssignment>
   </file>
   <file src="src/PlatesRenderer.php">
@@ -188,8 +200,11 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="test/PlatesEngineFactoryTest.php">
-    <MixedArgument occurrences="10">
+    <InvalidArgument occurrences="1"/>
+    <MixedArgument occurrences="12">
       <code>$helper</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
+      <code>$this-&gt;container-&gt;reveal()</code>
       <code>$this-&gt;container-&gt;reveal()</code>
       <code>$this-&gt;container-&gt;reveal()</code>
       <code>$this-&gt;container-&gt;reveal()</code>
@@ -207,7 +222,11 @@
       <code>array</code>
       <code>array</code>
     </MixedInferredReturnType>
-    <MixedMethodCall occurrences="23">
+    <MixedMethodCall occurrences="27">
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
       <code>willReturn</code>
       <code>willReturn</code>
       <code>willReturn</code>
@@ -232,7 +251,7 @@
       <code>willReturn</code>
       <code>willReturn</code>
     </MixedMethodCall>
-    <PossiblyUndefinedMethod occurrences="30">
+    <PossiblyUndefinedMethod occurrences="36">
       <code>get</code>
       <code>get</code>
       <code>get</code>
@@ -240,6 +259,8 @@
       <code>get</code>
       <code>get</code>
       <code>get</code>
+      <code>get</code>
+      <code>get</code>
       <code>has</code>
       <code>has</code>
       <code>has</code>
@@ -256,6 +277,10 @@
       <code>has</code>
       <code>has</code>
       <code>has</code>
+      <code>has</code>
+      <code>has</code>
+      <code>reveal</code>
+      <code>reveal</code>
       <code>reveal</code>
       <code>reveal</code>
       <code>reveal</code>
@@ -268,10 +293,15 @@
       <code>TestExtension</code>
       <code>\ZendTest\Expressive\Plates\stdClass</code>
     </UndefinedClass>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;errorCaught</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="1">
+      <code>$this-&gt;errorCaught</code>
+    </UndefinedThisPropertyFetch>
   </file>
   <file src="test/PlatesRendererFactoryTest.php">
     <MixedArgument occurrences="5">
-      <code>$this-&gt;container-&gt;reveal()</code>
       <code>$this-&gt;container-&gt;reveal()</code>
       <code>$this-&gt;container-&gt;reveal()</code>
       <code>$this-&gt;container-&gt;reveal()</code>
@@ -282,10 +312,6 @@
       <code>Engine</code>
     </MixedInferredReturnType>
     <MixedMethodCall occurrences="17">
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
       <code>willReturn</code>
       <code>willReturn</code>
       <code>willReturn</code>
@@ -317,7 +343,6 @@
       <code>get</code>
       <code>get</code>
       <code>get</code>
-      <code>get</code>
       <code>has</code>
       <code>has</code>
       <code>has</code>
@@ -329,10 +354,6 @@
       <code>has</code>
       <code>has</code>
       <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>reveal</code>
       <code>reveal</code>
       <code>reveal</code>
       <code>reveal</code>
