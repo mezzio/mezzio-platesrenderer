@@ -56,31 +56,6 @@
       <code>is_object($templateName)</code>
     </TypeDoesNotContainType>
   </file>
-  <file src="src/PlatesRendererFactory.php">
-    <MixedArgument occurrences="3">
-      <code>$config['extension']</code>
-      <code>$namespace</code>
-      <code>$path</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="1">
-      <code>$config['templates']</code>
-    </MixedArrayAccess>
-    <MixedAssignment occurrences="7">
-      <code>$allPaths</code>
-      <code>$config</code>
-      <code>$config</code>
-      <code>$namespace</code>
-      <code>$namespace</code>
-      <code>$path</code>
-      <code>$paths</code>
-    </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
-      <code>PlatesEngine</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$container-&gt;get(PlatesEngine::class)</code>
-    </MixedReturnStatement>
-  </file>
   <file src="test/ConfigProviderTest.php">
     <RedundantCondition occurrences="1">
       <code>assertIsArray</code>
@@ -295,8 +270,7 @@
     </UndefinedClass>
   </file>
   <file src="test/PlatesRendererFactoryTest.php">
-    <InvalidArgument occurrences="1"/>
-    <MixedArgument occurrences="6">
+    <MixedArgument occurrences="5">
       <code>$this-&gt;container-&gt;reveal()</code>
       <code>$this-&gt;container-&gt;reveal()</code>
       <code>$this-&gt;container-&gt;reveal()</code>
@@ -307,7 +281,7 @@
     <MixedInferredReturnType occurrences="1">
       <code>Engine</code>
     </MixedInferredReturnType>
-    <MixedMethodCall occurrences="21">
+    <MixedMethodCall occurrences="17">
       <code>willReturn</code>
       <code>willReturn</code>
       <code>willReturn</code>
@@ -336,7 +310,7 @@
     <PossiblyNullArgument occurrences="1">
       <code>$namespace ?: null</code>
     </PossiblyNullArgument>
-    <PossiblyUndefinedMethod occurrences="27">
+    <PossiblyUndefinedMethod occurrences="22">
       <code>get</code>
       <code>get</code>
       <code>get</code>
