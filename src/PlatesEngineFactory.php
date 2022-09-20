@@ -10,6 +10,7 @@ use Mezzio\Helper;
 use Psr\Container\ContainerInterface;
 
 use function class_exists;
+use function get_class;
 use function gettype;
 use function is_array;
 use function is_numeric;
@@ -173,7 +174,7 @@ class PlatesEngineFactory
             throw new Exception\InvalidExtensionException(sprintf(
                 '%s expects extension instances, service names, or class names; received %s',
                 self::class,
-                is_object($extension) ? $extension::class : gettype($extension)
+                is_object($extension) ? get_class($extension) : gettype($extension)
             ));
         }
 
@@ -194,7 +195,7 @@ class PlatesEngineFactory
                 '%s expects extension services to implement %s ; received %s',
                 self::class,
                 ExtensionInterface::class,
-                is_object($extension) ? $extension::class : gettype($extension)
+                is_object($extension) ? get_class($extension) : gettype($extension)
             ));
         }
 
