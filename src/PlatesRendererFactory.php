@@ -36,34 +36,9 @@ class PlatesRendererFactory
 {
     public function __invoke(ContainerInterface $container): PlatesRenderer
     {
-        $engine = $this->getEngine($container);
+        /** @var PlatesEngine $engine */
+        $engine = $container->get(PlatesEngine::class);
 
         return new PlatesRenderer($engine);
-    }
-
-    /**
-     * Create and return a Plates Engine instance.
-     *
-     * If the container has the League\Plates\Engine service, returns it.
-     *
-     * Otherwise, invokes the PlatesEngineFactory with the $container to create
-     * and return the instance.
-     */
-    private function getEngine(ContainerInterface $container): PlatesEngine
-    {
-        if ($container->has(PlatesEngine::class)) {
-            return $container->get(PlatesEngine::class);
-        }
-
-        trigger_error(sprintf(
-            '%s now expects you to register the factory %s for the service %s; '
-            . 'please update your dependency configuration.',
-            self::class,
-            PlatesEngineFactory::class,
-            PlatesEngine::class
-        ), E_USER_DEPRECATED);
-
-        $factory = new PlatesEngineFactory();
-        return $factory($container);
     }
 }
