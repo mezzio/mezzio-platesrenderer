@@ -56,6 +56,28 @@ class PlatesEngineFactory
             $this->injectExtensions($container, $engine, $config['extensions']);
         }
 
+        $config = $container->has('config') ? $container->get('config') : [];
+        $config = $config['templates'] ?? [];
+
+        // Set file extension
+        if (isset($config['extension'])) {
+            $engine->setFileExtension($config['extension']);
+        }
+
+        // Add template paths
+        $allPaths = isset($config['paths']) && is_array($config['paths']) ? $config['paths'] : [];
+        foreach ($allPaths as $namespace => $paths) {
+            $namespace = is_numeric($namespace) ? null : $namespace;
+            foreach ((array) $paths as $path) {
+                if (! $namespace && ! $engine->getDirectory()) {
+                    $engine->setDirectory($path);
+                    continue;
+                }
+
+                $engine->addFolder($path, $namespace, true);
+            }
+        }
+
         return $engine;
     }
 

@@ -36,30 +36,9 @@ class PlatesRendererFactory
 {
     public function __invoke(ContainerInterface $container): PlatesRenderer
     {
-        $config = $container->has('config') ? $container->get('config') : [];
-        $config = $config['templates'] ?? [];
+        $engine = $this->getEngine($container);
 
-        // Create the engine instance:
-        $engine = $this->createEngine($container);
-
-        // Set file extension
-        if (isset($config['extension'])) {
-            $engine->setFileExtension($config['extension']);
-        }
-
-        // Inject engine
-        $plates = new PlatesRenderer($engine);
-
-        // Add template paths
-        $allPaths = isset($config['paths']) && is_array($config['paths']) ? $config['paths'] : [];
-        foreach ($allPaths as $namespace => $paths) {
-            $namespace = is_numeric($namespace) ? null : $namespace;
-            foreach ((array) $paths as $path) {
-                $plates->addPath($path, $namespace);
-            }
-        }
-
-        return $plates;
+        return new PlatesRenderer($engine);
     }
 
     /**
@@ -70,13 +49,21 @@ class PlatesRendererFactory
      * Otherwise, invokes the PlatesEngineFactory with the $container to create
      * and return the instance.
      */
-    private function createEngine(ContainerInterface $container): PlatesEngine
+    private function getEngine(ContainerInterface $container): PlatesEngine
     {
         if ($container->has(PlatesEngine::class)) {
             return $container->get(PlatesEngine::class);
         }
 
-        $engineFactory = new PlatesEngineFactory();
-        return $engineFactory($container);
+        trigger_error(sprintf(
+            '%s now expects you to register the factory %s for the service %s; '
+            . 'please update your dependency configuration.',
+            self::class,
+            PlatesEngineFactory::class,
+            PlatesEngine::class
+        ), E_USER_DEPRECATED);
+
+        $factory = new PlatesEngineFactory();
+        return $factory($container);
     }
 }
