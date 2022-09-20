@@ -11,6 +11,7 @@ use Mezzio\Helper\ServerUrlHelper;
 use Mezzio\Helper\UrlHelper;
 use Mezzio\Plates\Extension\EscaperExtension;
 use Mezzio\Plates\Extension\UrlExtension;
+use Mezzio\Plates\PlatesEngineFactory;
 use Mezzio\Plates\PlatesRenderer;
 use Mezzio\Plates\PlatesRendererFactory;
 use Mezzio\Template\TemplatePath;
@@ -44,7 +45,6 @@ class PlatesRendererFactoryTest extends TestCase
 
     public function configureEngineService(): void
     {
-        $this->container->has(PlatesEngine::class)->willReturn(false);
         $this->container->has(UrlExtension::class)->willReturn(false);
         $this->container->has('Zend\Expressive\Plates\Extension\UrlExtension')->willReturn(false);
         $this->container->has(EscaperExtension::class)->willReturn(false);
@@ -53,6 +53,9 @@ class PlatesRendererFactoryTest extends TestCase
         $this->container->has(ServerUrlHelper::class)->willReturn(true);
         $this->container->get(UrlHelper::class)->willReturn($this->prophesize(UrlHelper::class)->reveal());
         $this->container->get(ServerUrlHelper::class)->willReturn($this->prophesize(ServerUrlHelper::class)->reveal());
+
+        $engineFactory = new PlatesEngineFactory();
+        $this->container->get(PlatesEngine::class)->willReturn($engineFactory($this->container->reveal()));
     }
 
     public function fetchPlatesEngine(PlatesRenderer $plates): Engine
@@ -165,52 +168,6 @@ class PlatesRendererFactoryTest extends TestCase
         $engine = $this->fetchPlatesEngine($plates);
 
         $this->assertEquals($config['templates']['extension'], $engine->getFileExtension());
-    }
-
-    public function testExceptionIsRaisedIfMultiplePathsSpecifyDefaultNamespace(): void
-    {
-        $config = [
-            'templates' => [
-                'paths' => [
-                    0 => __DIR__ . '/TestAsset/bar',
-                    1 => __DIR__ . '/TestAsset/baz',
-                ],
-            ],
-        ];
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn($config);
-        $this->configureEngineService();
-        $factory = new PlatesRendererFactory();
-
-        // phpcs:ignore WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCaps
-        set_error_handler(function (int $_errno, string $_errstr): void {
-            $this->errorCaught = true;
-        }, E_USER_WARNING);
-        $factory($this->container->reveal());
-        restore_error_handler();
-        $this->assertTrue($this->errorCaught, 'Did not detect duplicate path for default namespace');
-    }
-
-    public function testExceptionIsRaisedIfMultiplePathsInSameNamespace(): void
-    {
-        $config = [
-            'templates' => [
-                'paths' => [
-                    'bar' => [
-                        __DIR__ . '/TestAsset/baz',
-                        __DIR__ . '/TestAsset/bat',
-                    ],
-                ],
-            ],
-        ];
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn($config);
-        $this->configureEngineService();
-        $factory = new PlatesRendererFactory();
-
-        $this->expectException(LogicException::class);
-        $this->expectExceptionMessage('already being used');
-        $factory($this->container->reveal());
     }
 
     public function testConfiguresPaths(): void

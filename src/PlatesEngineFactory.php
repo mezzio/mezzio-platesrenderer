@@ -66,6 +66,7 @@ class PlatesEngineFactory
 
         // Add template paths
         $allPaths = isset($config['paths']) && is_array($config['paths']) ? $config['paths'] : [];
+
         foreach ($allPaths as $namespace => $paths) {
             $namespace = is_numeric($namespace) ? null : $namespace;
             foreach ((array) $paths as $path) {
@@ -74,7 +75,12 @@ class PlatesEngineFactory
                     continue;
                 }
 
-                $engine->addFolder($path, $namespace, true);
+                if (! $namespace) {
+                    trigger_error('Cannot add duplicate un-namespaced path in Plates template adapter', E_USER_WARNING);
+                    continue;
+                }
+
+                $engine->addFolder($namespace, $path, true);
             }
         }
 

@@ -6,12 +6,14 @@ namespace MezzioTest\Plates;
 
 use League\Plates\Engine as PlatesEngine;
 use League\Plates\Extension\ExtensionInterface;
+use LogicException;
 use Mezzio\Helper\ServerUrlHelper;
 use Mezzio\Helper\UrlHelper;
 use Mezzio\Plates\Exception\InvalidExtensionException;
 use Mezzio\Plates\Extension\EscaperExtension;
 use Mezzio\Plates\Extension\UrlExtension;
 use Mezzio\Plates\PlatesEngineFactory;
+use Mezzio\Plates\PlatesRendererFactory;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -219,6 +221,50 @@ class PlatesEngineFactoryTest extends TestCase
         $factory = new PlatesEngineFactory();
         $this->expectException(InvalidExtensionException::class);
         $this->expectExceptionMessage('ExtensionInterface');
+        $factory($this->container->reveal());
+    }
+
+    public function testExceptionIsRaisedIfMultiplePathsSpecifyDefaultNamespace(): void
+    {
+        $config = [
+            'templates' => [
+                'paths' => [
+                    0 => __DIR__ . '/TestAsset/bar',
+                    1 => __DIR__ . '/TestAsset/baz',
+                ],
+            ],
+        ];
+        $this->container->has('config')->willReturn(true);
+        $this->container->get('config')->willReturn($config);
+        $factory = new PlatesEngineFactory();
+
+        // phpcs:ignore WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCaps
+        set_error_handler(function (int $_errno, string $_errstr): void {
+            $this->errorCaught = true;
+        }, E_USER_WARNING);
+        $factory($this->container->reveal());
+        restore_error_handler();
+        $this->assertTrue($this->errorCaught, 'Did not detect duplicate path for default namespace');
+    }
+
+    public function testExceptionIsRaisedIfMultiplePathsInSameNamespace(): void
+    {
+        $config = [
+            'templates' => [
+                'paths' => [
+                    'bar' => [
+                        __DIR__ . '/TestAsset/baz',
+                        __DIR__ . '/TestAsset/bat',
+                    ],
+                ],
+            ],
+        ];
+        $this->container->has('config')->willReturn(true);
+        $this->container->get('config')->willReturn($config);
+        $factory = new PlatesEngineFactory();
+
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('already being used');
         $factory($this->container->reveal());
     }
 
