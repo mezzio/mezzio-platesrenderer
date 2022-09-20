@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Mezzio\Plates;
 
-use Mezzio\Template\TemplateRendererInterface;
 use League\Plates\Engine as PlatesEngine;
+use Mezzio\Template\TemplateRendererInterface;
 
 class ConfigProvider
 {
@@ -28,7 +28,7 @@ class ConfigProvider
                 'Zend\Expressive\Plates\PlatesRenderer'              => PlatesRenderer::class,
             ],
             'factories' => [
-                PlatesEngine::class => PlatesEngineFactory::class,
+                PlatesEngine::class   => PlatesEngineFactory::class,
                 PlatesRenderer::class => PlatesRendererFactory::class,
             ],
         ];

@@ -6,7 +6,6 @@ namespace MezzioTest\Plates;
 
 use League\Plates\Engine;
 use League\Plates\Engine as PlatesEngine;
-use LogicException;
 use Mezzio\Helper\ServerUrlHelper;
 use Mezzio\Helper\UrlHelper;
 use Mezzio\Plates\Extension\EscaperExtension;
@@ -22,11 +21,7 @@ use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use ReflectionProperty;
 
-use function restore_error_handler;
-use function set_error_handler;
 use function sprintf;
-
-use const E_USER_WARNING;
 
 class PlatesRendererFactoryTest extends TestCase
 {

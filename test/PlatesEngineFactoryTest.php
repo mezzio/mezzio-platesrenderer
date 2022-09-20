@@ -13,7 +13,6 @@ use Mezzio\Plates\Exception\InvalidExtensionException;
 use Mezzio\Plates\Extension\EscaperExtension;
 use Mezzio\Plates\Extension\UrlExtension;
 use Mezzio\Plates\PlatesEngineFactory;
-use Mezzio\Plates\PlatesRendererFactory;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -23,6 +22,10 @@ use stdClass;
 use ZendTest\Expressive\Plates\TestAsset\TestExtension;
 
 use function is_string;
+use function restore_error_handler;
+use function set_error_handler;
+
+use const E_USER_WARNING;
 
 class PlatesEngineFactoryTest extends TestCase
 {

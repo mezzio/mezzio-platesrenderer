@@ -7,9 +7,6 @@ namespace Mezzio\Plates;
 use League\Plates\Engine as PlatesEngine;
 use Psr\Container\ContainerInterface;
 
-use function is_array;
-use function is_numeric;
-
 /**
  * Create and return a Plates template instance.
  *

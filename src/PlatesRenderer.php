@@ -12,7 +12,6 @@ use Mezzio\Template\TemplatePath;
 use Mezzio\Template\TemplateRendererInterface;
 use ReflectionProperty;
 
-use function get_class;
 use function gettype;
 use function is_object;
 use function is_string;
@@ -95,14 +94,14 @@ class PlatesRenderer implements TemplateRendererInterface
         if (! is_string($templateName) || empty($templateName)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '$templateName must be a non-empty string; received %s',
-                is_object($templateName) ? get_class($templateName) : gettype($templateName)
+                is_object($templateName) ? $templateName::class : gettype($templateName)
             ));
         }
 
         if (! is_string($param) || empty($param)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '$param must be a non-empty string; received %s',
-                is_object($param) ? get_class($param) : gettype($param)
+                is_object($param) ? $param::class : gettype($param)
             ));
         }
 
