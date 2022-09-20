@@ -13,9 +13,13 @@ use function class_exists;
 use function get_class;
 use function gettype;
 use function is_array;
+use function is_numeric;
 use function is_object;
 use function is_string;
 use function sprintf;
+use function trigger_error;
+
+use const E_USER_WARNING;
 
 /**
  * Create and return a Plates engine instance.
@@ -54,6 +58,34 @@ class PlatesEngineFactory
 
         if (isset($config['extensions']) && is_array($config['extensions'])) {
             $this->injectExtensions($container, $engine, $config['extensions']);
+        }
+
+        $config = $container->has('config') ? $container->get('config') : [];
+        $config = $config['templates'] ?? [];
+
+        // Set file extension
+        if (isset($config['extension'])) {
+            $engine->setFileExtension($config['extension']);
+        }
+
+        // Add template paths
+        $allPaths = isset($config['paths']) && is_array($config['paths']) ? $config['paths'] : [];
+
+        foreach ($allPaths as $namespace => $paths) {
+            $namespace = is_numeric($namespace) ? null : $namespace;
+            foreach ((array) $paths as $path) {
+                if (! $namespace && ! $engine->getDirectory()) {
+                    $engine->setDirectory($path);
+                    continue;
+                }
+
+                if (! $namespace) {
+                    trigger_error('Cannot add duplicate un-namespaced path in Plates template adapter', E_USER_WARNING);
+                    continue;
+                }
+
+                $engine->addFolder($namespace, $path, true);
+            }
         }
 
         return $engine;
