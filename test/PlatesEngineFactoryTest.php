@@ -271,6 +271,41 @@ class PlatesEngineFactoryTest extends TestCase
         $factory($this->container->reveal());
     }
 
+    public function testSetExtensionByTemplatesConfig(): void
+    {
+        $config = [
+            'templates' => [
+                'extension' => 'html.twig',
+            ],
+        ];
+        $this->container->has('config')->willReturn(true);
+        $this->container->get('config')->willReturn($config);
+        $factory = new PlatesEngineFactory();
+
+        $engine = $factory($this->container->reveal());
+
+        $this->assertSame('html.twig', $engine->getFileExtension());
+    }
+
+    public function testOverrideExtensionByPlatesConfig(): void
+    {
+        $config = [
+            'templates' => [
+                'extension' => 'html.twig',
+            ],
+            'plates'    => [
+                'extension' => 'plates.php',
+            ],
+        ];
+        $this->container->has('config')->willReturn(true);
+        $this->container->get('config')->willReturn($config);
+        $factory = new PlatesEngineFactory();
+
+        $engine = $factory($this->container->reveal());
+
+        $this->assertSame('plates.php', $engine->getFileExtension());
+    }
+
     public function provideHelpersToUnregister(): array
     {
         return [

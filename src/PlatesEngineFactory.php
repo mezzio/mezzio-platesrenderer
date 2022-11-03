@@ -9,6 +9,7 @@ use League\Plates\Extension\ExtensionInterface;
 use Mezzio\Helper;
 use Psr\Container\ContainerInterface;
 
+use function array_replace_recursive;
 use function class_exists;
 use function get_class;
 use function gettype;
@@ -48,7 +49,15 @@ class PlatesEngineFactory
     public function __invoke(ContainerInterface $container): PlatesEngine
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $config = $config['plates'] ?? [];
+
+        $mezzioConfig = isset($config['templates']) && is_array($config['templates'])
+            ? $config['templates']
+            : [];
+        $platesConfig = isset($config['plates']) && is_array($config['plates'])
+            ? $config['plates']
+            : [];
+
+        $config = array_replace_recursive($mezzioConfig, $platesConfig);
 
         // Create the engine instance:
         $engine = new PlatesEngine();
@@ -59,9 +68,6 @@ class PlatesEngineFactory
         if (isset($config['extensions']) && is_array($config['extensions'])) {
             $this->injectExtensions($container, $engine, $config['extensions']);
         }
-
-        $config = $container->has('config') ? $container->get('config') : [];
-        $config = $config['templates'] ?? [];
 
         // Set file extension
         if (isset($config['extension'])) {
@@ -138,6 +144,8 @@ class PlatesEngineFactory
 
     /**
      * Inject all configured extensions into the engine.
+     *
+     * @param array<ExtensionInterface|string> $extensions
      */
     private function injectExtensions(ContainerInterface $container, PlatesEngine $engine, array $extensions): void
     {
