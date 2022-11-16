@@ -146,16 +146,7 @@ class PlatesEngineFactoryTest extends TestCase
     public function invalidExtensions(): array
     {
         return [
-            'null'                 => [null],
-            'true'                 => [true],
-            'false'                => [false],
-            'zero'                 => [0],
-            'int'                  => [1],
-            'zero-float'           => [0.0],
-            'float'                => [1.1],
-            'non-class-string'     => ['not-a-class'],
-            'array'                => [['not-an-extension']],
-            'non-extension-object' => [(object) ['extension' => 'not-really']],
+            'non-class-string' => ['not-a-class'],
         ];
     }
 
