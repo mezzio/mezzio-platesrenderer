@@ -12,12 +12,10 @@ use Mezzio\Template\TemplatePath;
 use Mezzio\Template\TemplateRendererInterface;
 use ReflectionProperty;
 
-use function get_class;
-use function gettype;
-use function is_object;
-use function is_string;
+use function get_debug_type;
 use function sprintf;
 use function trigger_error;
+use function trim;
 
 use const E_USER_WARNING;
 
@@ -90,19 +88,19 @@ class PlatesRenderer implements TemplateRendererInterface
      *
      * {@inheritDoc}
      */
-    public function addDefaultParam(string $templateName, string $param, $value): void
+    public function addDefaultParam(string $templateName, string $param, mixed $value): void
     {
-        if (! is_string($templateName) || empty($templateName)) {
+        if ('' === trim($templateName)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '$templateName must be a non-empty string; received %s',
-                is_object($templateName) ? get_class($templateName) : gettype($templateName)
+                get_debug_type($templateName)
             ));
         }
 
-        if (! is_string($param) || empty($param)) {
+        if ('' === trim($param)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '$param must be a non-empty string; received %s',
-                is_object($param) ? get_class($param) : gettype($param)
+                get_debug_type($param)
             ));
         }
 

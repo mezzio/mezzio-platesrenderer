@@ -11,12 +11,9 @@ use Psr\Container\ContainerInterface;
 
 use function array_replace_recursive;
 use function class_exists;
-use function get_class;
-use function gettype;
+use function get_debug_type;
 use function is_array;
 use function is_numeric;
-use function is_object;
-use function is_string;
 use function sprintf;
 use function trigger_error;
 
@@ -165,25 +162,19 @@ class PlatesEngineFactory
      *
      * If anything else is provided, an exception is raised.
      *
-     * @param ExtensionInterface|string $extension
      * @throws Exception\InvalidExtensionException For non-string,
      *     non-extension $extension values.
      * @throws Exception\InvalidExtensionException For string $extension values
      *     that do not resolve to an extension instance.
      */
-    private function injectExtension(ContainerInterface $container, PlatesEngine $engine, $extension): void
-    {
+    private function injectExtension(
+        ContainerInterface $container,
+        PlatesEngine $engine,
+        ExtensionInterface|string $extension
+    ): void {
         if ($extension instanceof ExtensionInterface) {
             $engine->loadExtension($extension);
             return;
-        }
-
-        if (! is_string($extension)) {
-            throw new Exception\InvalidExtensionException(sprintf(
-                '%s expects extension instances, service names, or class names; received %s',
-                self::class,
-                is_object($extension) ? get_class($extension) : gettype($extension)
-            ));
         }
 
         if (! $container->has($extension) && ! class_exists($extension)) {
@@ -203,7 +194,7 @@ class PlatesEngineFactory
                 '%s expects extension services to implement %s ; received %s',
                 self::class,
                 ExtensionInterface::class,
-                is_object($extension) ? get_class($extension) : gettype($extension)
+                get_debug_type($extension)
             ));
         }
 
