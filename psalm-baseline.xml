@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.29.0@7ec5ffbd5f68ae03782d7fd33fff0c45a69f95b3">
+<files psalm-version="5.4.0@62db5d4f6a7ae0a20f7cc5a4952d730272fc0863">
   <file src="src/Extension/EscaperExtensionFactory.php">
     <MixedArgument occurrences="1">
       <code>$config['encoding'] ?? null</code>
@@ -17,9 +17,6 @@
     <MixedArgument occurrences="2"/>
   </file>
   <file src="src/PlatesEngineFactory.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>is_string($extension)</code>
-    </DocblockTypeContradiction>
     <InvalidStringClass occurrences="1">
       <code>new $extension()</code>
     </InvalidStringClass>
@@ -51,16 +48,6 @@
     <MixedReturnStatement occurrences="1">
       <code>$r-&gt;getValue($folders)</code>
     </MixedReturnStatement>
-    <RedundantCondition occurrences="2">
-      <code>gettype($param)</code>
-      <code>gettype($templateName)</code>
-    </RedundantCondition>
-    <TypeDoesNotContainType occurrences="4">
-      <code>! is_string($param)</code>
-      <code>! is_string($templateName)</code>
-      <code>is_object($param)</code>
-      <code>is_object($templateName)</code>
-    </TypeDoesNotContainType>
   </file>
   <file src="test/ConfigProviderTest.php">
     <RedundantCondition occurrences="1">
@@ -174,7 +161,7 @@
       <code>getRouteResult</code>
       <code>getRouteResult</code>
     </DeprecatedMethod>
-    <MixedInferredReturnType occurrences="2">
+    <MixedInferredReturnType occurrences="1">
       <code>array</code>
       <code>array</code>
     </MixedInferredReturnType>

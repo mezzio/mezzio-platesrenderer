@@ -10,6 +10,7 @@ use Mezzio\Helper\ServerUrlHelper;
 use Mezzio\Helper\UrlHelper;
 use Mezzio\Router\RouteResult;
 
+/** @psalm-import-type UrlGeneratorOptions from UrlHelper */
 class UrlExtension implements ExtensionInterface
 {
     public function __construct(private UrlHelper $urlHelper, private ServerUrlHelper $serverUrlHelper)
@@ -50,7 +51,10 @@ class UrlExtension implements ExtensionInterface
      *     used internally to back the url() Plates function; we now register
      *     UrlHelper instance directly, as it is callable.
      *
-     * @param array  $options Can have the following keys:
+     * @param non-empty-string|null $routeName
+     * @param array<string, mixed> $routeParams
+     * @param array<string, mixed> $queryParams
+     * @psalm-param UrlGeneratorOptions $options Can have the following keys:
      *     - router (array): contains options to be passed to the router
      *     - reuse_result_params (bool): indicates if the current RouteResult
      *       parameters will be used, defaults to true
