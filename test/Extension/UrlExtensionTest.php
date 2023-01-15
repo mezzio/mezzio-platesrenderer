@@ -52,6 +52,7 @@ class UrlExtensionTest extends TestCase
         $this->extension->register($engine->reveal());
     }
 
+    /** @return array<string, array{0: null|non-empty-string, 1: array<string, mixed>}> */
     public function urlHelperParams(): array
     {
         return [
@@ -64,8 +65,8 @@ class UrlExtensionTest extends TestCase
 
     /**
      * @dataProvider urlHelperParams
-     * @param null|string $route
-     * @param array $params
+     * @param null|non-empty-string $route
+     * @param array<string, mixed> $params
      */
     public function testGenerateUrlProxiesToUrlHelper($route, array $params): void
     {
