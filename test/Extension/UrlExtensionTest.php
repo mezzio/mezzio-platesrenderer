@@ -9,47 +9,42 @@ use Mezzio\Helper\ServerUrlHelper;
 use Mezzio\Helper\UrlHelper;
 use Mezzio\Plates\Extension\UrlExtension;
 use Mezzio\Router\RouteResult;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ProphecyInterface;
 
-class UrlExtensionTest extends TestCase
+final class UrlExtensionTest extends TestCase
 {
-    use ProphecyTrait;
+    /** @var UrlHelper&MockObject */
+    private UrlHelper $urlHelper;
 
-    /** @var UrlHelper|ProphecyInterface */
-    private $urlHelper;
-
-    /** @var ServerUrlHelper|ProphecyInterface */
-    private $serverUrlHelper;
+    /** @var ServerUrlHelper&MockObject */
+    private ServerUrlHelper $serverUrlHelper;
 
     private UrlExtension $extension;
 
     public function setUp(): void
     {
-        $this->urlHelper       = $this->prophesize(UrlHelper::class);
-        $this->serverUrlHelper = $this->prophesize(ServerUrlHelper::class);
+        $this->urlHelper       = $this->createMock(UrlHelper::class);
+        $this->serverUrlHelper = $this->createMock(ServerUrlHelper::class);
 
         $this->extension = new UrlExtension(
-            $this->urlHelper->reveal(),
-            $this->serverUrlHelper->reveal()
+            $this->urlHelper,
+            $this->serverUrlHelper
         );
     }
 
     public function testRegistersUrlFunctionWithEngine(): void
     {
-        $engine = $this->prophesize(Engine::class);
+        $engine = $this->createMock(Engine::class);
         $engine
-            ->registerFunction('url', $this->urlHelper)
-            ->shouldBeCalled();
-        $engine
-            ->registerFunction('serverurl', $this->serverUrlHelper)
-            ->shouldBeCalled();
-        $engine
-            ->registerFunction('route', [$this->urlHelper, 'getRouteResult'])
-            ->shouldBeCalled();
+            ->expects(self::exactly(3))
+            ->method('registerFunction')
+            ->with(
+                self::logicalOr('url', 'serverurl', 'route'),
+                self::logicalOr($this->urlHelper, $this->serverUrlHelper, [$this->urlHelper, 'getRouteResult']),
+            );
 
-        $this->extension->register($engine->reveal());
+        $this->extension->register($engine);
     }
 
     /** @return array<string, array{0: null|non-empty-string, 1: array<string, mixed>}> */
@@ -70,19 +65,24 @@ class UrlExtensionTest extends TestCase
      */
     public function testGenerateUrlProxiesToUrlHelper($route, array $params): void
     {
-        $this->urlHelper->generate($route, $params, [], null, [])->willReturn('/success');
+        $this->urlHelper->method('generate')
+            ->with($route, $params, [], null, [])
+            ->willReturn('/success');
+
         $this->assertEquals('/success', $this->extension->generateUrl($route, $params));
     }
 
     public function testUrlHelperAcceptsQueryParametersFragmentAndOptions(): void
     {
-        $this->urlHelper->generate(
-            'resource',
-            ['id' => 'sha1'],
-            ['foo' => 'bar'],
-            'fragment',
-            ['reuse_result_params' => true]
-        )->willReturn('PATH');
+        $this->urlHelper->method('generate')
+            ->with(
+                'resource',
+                ['id' => 'sha1'],
+                ['foo' => 'bar'],
+                'fragment',
+                ['reuse_result_params' => true]
+            )
+            ->willReturn('PATH');
 
         $this->assertEquals(
             'PATH',
@@ -111,21 +111,25 @@ class UrlExtensionTest extends TestCase
      */
     public function testGenerateServerUrlProxiesToServerUrlHelper($path): void
     {
-        $this->serverUrlHelper->generate($path)->willReturn('/success');
+        $this->serverUrlHelper->method('generate')
+            ->with($path)
+            ->willReturn('/success');
         $this->assertEquals('/success', $this->extension->generateServerUrl($path));
     }
 
     public function testGetRouteResultReturnsRouteResultWhenPopulated(): void
     {
-        $result = $this->prophesize(RouteResult::class);
-        $this->urlHelper->getRouteResult()->willReturn($result->reveal());
+        $result = $this->createMock(RouteResult::class);
+        $this->urlHelper->method('getRouteResult')
+            ->willReturn($result);
 
         $this->assertInstanceOf(RouteResult::class, $this->extension->getRouteResult());
     }
 
     public function testGetRouteResultReturnsNullWhenRouteResultNotPopulatedInUrlHelper(): void
     {
-        $this->urlHelper->getRouteResult()->willReturn(null);
+        $this->urlHelper->method('getRouteResult')
+            ->willReturn(null);
 
         $this->assertNull($this->extension->getRouteResult());
     }

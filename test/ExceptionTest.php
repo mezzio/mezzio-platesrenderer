@@ -15,7 +15,7 @@ use function is_a;
 use function strrpos;
 use function substr;
 
-class ExceptionTest extends TestCase
+final class ExceptionTest extends TestCase
 {
     public function testExceptionInterfaceExtendsTemplateExceptionInterface(): void
     {
