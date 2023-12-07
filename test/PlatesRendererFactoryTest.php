@@ -8,49 +8,33 @@ use League\Plates\Engine;
 use League\Plates\Engine as PlatesEngine;
 use Mezzio\Helper\ServerUrlHelper;
 use Mezzio\Helper\UrlHelper;
-use Mezzio\Plates\Extension\EscaperExtension;
-use Mezzio\Plates\Extension\UrlExtension;
 use Mezzio\Plates\PlatesEngineFactory;
 use Mezzio\Plates\PlatesRenderer;
 use Mezzio\Plates\PlatesRendererFactory;
 use Mezzio\Template\TemplatePath;
+use MezzioTest\Plates\TestAsset\DummyPsrContainer;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ProphecyInterface;
-use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use ReflectionProperty;
 
 use function sprintf;
 
-class PlatesRendererFactoryTest extends TestCase
+final class PlatesRendererFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
-    /** @var ContainerInterface|ProphecyInterface */
-    private $container;
-
-    private bool $errorCaught = false;
+    private DummyPsrContainer $container;
 
     public function setUp(): void
     {
-        $this->errorCaught = false;
-        $this->container   = $this->prophesize(ContainerInterface::class);
+        $this->container = new DummyPsrContainer();
     }
 
     public function configureEngineService(): void
     {
-        $this->container->has(UrlExtension::class)->willReturn(false);
-        $this->container->has('Zend\Expressive\Plates\Extension\UrlExtension')->willReturn(false);
-        $this->container->has(EscaperExtension::class)->willReturn(false);
-        $this->container->has('Zend\Expressive\Plates\Extension\EscaperExtension')->willReturn(false);
-        $this->container->has(UrlHelper::class)->willReturn(true);
-        $this->container->has(ServerUrlHelper::class)->willReturn(true);
-        $this->container->get(UrlHelper::class)->willReturn($this->prophesize(UrlHelper::class)->reveal());
-        $this->container->get(ServerUrlHelper::class)->willReturn($this->prophesize(ServerUrlHelper::class)->reveal());
-
         $engineFactory = new PlatesEngineFactory();
-        $this->container->get(PlatesEngine::class)->willReturn($engineFactory($this->container->reveal()));
+
+        $this->container->services[UrlHelper::class]       = $this->createMock(UrlHelper::class);
+        $this->container->services[ServerUrlHelper::class] = $this->createMock(ServerUrlHelper::class);
+        $this->container->services[PlatesEngine::class]    = $engineFactory($this->container);
     }
 
     public function fetchPlatesEngine(PlatesRenderer $plates): Engine
@@ -129,10 +113,9 @@ class PlatesRendererFactoryTest extends TestCase
 
     public function testCallingFactoryWithNoConfigReturnsPlatesInstance(): PlatesRenderer
     {
-        $this->container->has('config')->willReturn(false);
         $this->configureEngineService();
         $factory = new PlatesRendererFactory();
-        $plates  = $factory($this->container->reveal());
+        $plates  = $factory($this->container);
         $this->assertInstanceOf(PlatesRenderer::class, $plates);
         return $plates;
     }
@@ -149,25 +132,24 @@ class PlatesRendererFactoryTest extends TestCase
 
     public function testConfiguresTemplateSuffix(): void
     {
-        $config = [
+        $this->container->services['config'] = [
             'templates' => [
                 'extension' => 'html',
             ],
         ];
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn($config);
+
         $this->configureEngineService();
         $factory = new PlatesRendererFactory();
-        $plates  = $factory($this->container->reveal());
+        $plates  = $factory($this->container);
 
         $engine = $this->fetchPlatesEngine($plates);
 
-        $this->assertEquals($config['templates']['extension'], $engine->getFileExtension());
+        $this->assertEquals('html', $engine->getFileExtension());
     }
 
     public function testConfiguresPaths(): void
     {
-        $config = [
+        $this->container->services['config'] = [
             'templates' => [
                 'paths' => [
                     'foo' => __DIR__ . '/TestAsset/bar',
@@ -176,11 +158,10 @@ class PlatesRendererFactoryTest extends TestCase
                 ],
             ],
         ];
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn($config);
+
         $this->configureEngineService();
         $factory = new PlatesRendererFactory();
-        $plates  = $factory($this->container->reveal());
+        $plates  = $factory($this->container);
 
         $paths = $plates->getPaths();
         $this->assertPathsHasNamespace('foo', $paths);
@@ -198,19 +179,17 @@ class PlatesRendererFactoryTest extends TestCase
 
     public function testWillPullPlatesEngineFromContainerIfPresent(): void
     {
-        $engine = $this->prophesize(PlatesEngine::class);
-        $this->container->has(PlatesEngine::class)->willReturn(true);
-        $this->container->get(PlatesEngine::class)->willReturn($engine->reveal());
+        $engine = $this->createMock(PlatesEngine::class);
 
-        $this->container->has('config')->willReturn(false);
+        $this->container->services[PlatesEngine::class] = $engine;
 
         $factory  = new PlatesRendererFactory();
-        $renderer = $factory($this->container->reveal());
+        $renderer = $factory($this->container);
 
         $class    = new ReflectionClass($renderer);
         $property = $class->getProperty('template');
         $property->setAccessible(true);
         $template = $property->getValue($renderer);
-        $this->assertSame($engine->reveal(), $template);
+        $this->assertSame($engine, $template);
     }
 }

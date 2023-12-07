@@ -11,74 +11,42 @@ use Mezzio\Helper\ServerUrlHelper;
 use Mezzio\Helper\UrlHelper;
 use Mezzio\Plates\Exception\InvalidExtensionException;
 use Mezzio\Plates\Extension\EscaperExtension;
-use Mezzio\Plates\Extension\UrlExtension;
 use Mezzio\Plates\PlatesEngineFactory;
+use MezzioTest\Plates\TestAsset\DummyPsrContainer;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ProphecyInterface;
-use Psr\Container\ContainerInterface;
 use stdClass;
-use ZendTest\Expressive\Plates\TestAsset\TestExtension;
 
-use function is_string;
 use function restore_error_handler;
 use function set_error_handler;
 
 use const E_USER_WARNING;
 
-class PlatesEngineFactoryTest extends TestCase
+final class PlatesEngineFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
-    /** @var ContainerInterface|ProphecyInterface */
-    private $container;
+    private DummyPsrContainer $container;
 
     public function setUp(): void
     {
         TestAsset\TestExtension::$engine = null;
-        $this->container                 = $this->prophesize(ContainerInterface::class);
 
-        $this->container->has(UrlHelper::class)->willReturn(true);
-        $this->container->get(UrlHelper::class)->willReturn(
-            $this->prophesize(UrlHelper::class)->reveal()
-        );
+        $this->container = new DummyPsrContainer();
 
-        $this->container->has(ServerUrlHelper::class)->willReturn(true);
-        $this->container->get(ServerUrlHelper::class)->willReturn(
-            $this->prophesize(ServerUrlHelper::class)->reveal()
-        );
-
-        $this->container->has(UrlExtension::class)->willReturn(false);
-
-        $this->container->has('Zend\Expressive\Plates\Extension\UrlExtension')->willReturn(false);
-        $this->container->has(EscaperExtension::class)->willReturn(false);
-        $this->container->has('Zend\Expressive\Plates\Extension\EscaperExtension')->willReturn(false);
+        $this->container->services[UrlHelper::class]       = $this->createStub(UrlHelper::class);
+        $this->container->services[ServerUrlHelper::class] = $this->createStub(ServerUrlHelper::class);
     }
 
-    public function testFactoryReturnsPlatesEngine(): PlatesEngine
+    public function testUrlExtensionIsRegisteredByDefault(): void
     {
-        $this->container->has('config')->willReturn(false);
-        $factory = new PlatesEngineFactory();
-        $engine  = $factory($this->container->reveal());
-        $this->assertInstanceOf(PlatesEngine::class, $engine);
-        return $engine;
-    }
+        $engine = (new PlatesEngineFactory())($this->container);
 
-    /**
-     * @depends testFactoryReturnsPlatesEngine
-     */
-    public function testUrlExtensionIsRegisteredByDefault(PlatesEngine $engine): void
-    {
         $this->assertTrue($engine->doesFunctionExist('url'));
         $this->assertTrue($engine->doesFunctionExist('serverurl'));
     }
 
-    /**
-     * @depends testFactoryReturnsPlatesEngine
-     */
-    public function testEscaperExtensionIsRegisteredByDefault(PlatesEngine $engine): void
+    public function testEscaperExtensionIsRegisteredByDefault(): void
     {
+        $engine = (new PlatesEngineFactory())($this->container);
+
         $this->assertTrue($engine->doesFunctionExist('escapeHtml'));
         $this->assertTrue($engine->doesFunctionExist('escapeHtmlAttr'));
         $this->assertTrue($engine->doesFunctionExist('escapeJs'));
@@ -91,15 +59,10 @@ class PlatesEngineFactoryTest extends TestCase
      */
     public function testEscaperExtensionIsRegisteredFromContainer(): void
     {
-        $escaperExtension = new EscaperExtension();
-
-        $this->container->has(EscaperExtension::class)->willReturn(true);
-        $this->container->has('config')->willReturn(false);
-
-        $this->container->get(EscaperExtension::class)->willReturn($escaperExtension);
+        $this->container->services[EscaperExtension::class] = new EscaperExtension();
 
         $factory = new PlatesEngineFactory();
-        $engine  = $factory($this->container->reveal());
+        $engine  = $factory($this->container);
 
         $this->assertTrue($engine->doesFunctionExist('escapeHtml'));
         $this->assertTrue($engine->doesFunctionExist('escapeHtmlAttr'));
@@ -110,32 +73,29 @@ class PlatesEngineFactoryTest extends TestCase
 
     public function testFactoryCanRegisterConfiguredExtensions(): void
     {
-        $extensionOne = $this->prophesize(ExtensionInterface::class);
-        $extensionOne->register(Argument::type(PlatesEngine::class))->shouldBeCalled();
+        $extensionOne = $this->createMock(ExtensionInterface::class);
+        $extensionOne->expects(self::atLeastOnce())
+            ->method('register')
+            ->with(self::isInstanceOf(PlatesEngine::class));
 
-        $extensionTwo = $this->prophesize(ExtensionInterface::class);
-        $extensionTwo->register(Argument::type(PlatesEngine::class))->shouldBeCalled();
-        $this->container->has('ExtensionTwo')->willReturn(true);
-        $this->container->get('ExtensionTwo')->willReturn($extensionTwo->reveal());
+        $extensionTwo = $this->createMock(ExtensionInterface::class);
+        $extensionTwo->expects(self::atLeastOnce())
+            ->method('register')
+            ->with(self::isInstanceOf(PlatesEngine::class));
 
-        $this->container->has(TestAsset\TestExtension::class)->willReturn(false);
-
-        $this->container->has(TestExtension::class)->willReturn(false);
-
-        $config = [
+        $this->container->services['ExtensionTwo'] = $extensionTwo;
+        $this->container->services['config']       = [
             'plates' => [
                 'extensions' => [
-                    $extensionOne->reveal(),
+                    $extensionOne,
                     'ExtensionTwo',
                     TestAsset\TestExtension::class,
                 ],
             ],
         ];
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn($config);
 
         $factory = new PlatesEngineFactory();
-        $engine  = $factory($this->container->reveal());
+        $engine  = $factory($this->container);
         $this->assertInstanceOf(PlatesEngine::class, $engine);
 
         // Test that the TestExtension was registered. The other two extensions
@@ -143,84 +103,66 @@ class PlatesEngineFactoryTest extends TestCase
         $this->assertSame($engine, TestAsset\TestExtension::$engine);
     }
 
-    public function invalidExtensions(): array
+    /** @return non-empty-array<non-empty-string, array{non-empty-string}> */
+    public static function invalidExtensions(): array
     {
         return [
             'non-class-string' => ['not-a-class'],
         ];
     }
 
-    /**
-     * @dataProvider invalidExtensions
-     * @param mixed $extension
-     */
-    public function testFactoryRaisesExceptionForInvalidExtensions($extension): void
+    /** @dataProvider invalidExtensions */
+    public function testFactoryRaisesExceptionForInvalidExtensions(string $extension): void
     {
-        $config = [
+        $this->container->services['config'] = [
             'plates' => [
                 'extensions' => [
                     $extension,
                 ],
             ],
         ];
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn($config);
-
-        if (is_string($extension)) {
-            $this->container->has($extension)->willReturn(false);
-        }
 
         $factory = new PlatesEngineFactory();
         $this->expectException(InvalidExtensionException::class);
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 
     public function testFactoryRaisesExceptionWhenAttemptingToInjectAnInvalidExtensionService(): void
     {
-        $config = [
+        $this->container->services['FooExtension'] = new stdClass();
+        $this->container->services['config']       = [
             'plates' => [
                 'extensions' => [
                     'FooExtension',
                 ],
             ],
         ];
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn($config);
-
-        $this->container->has('FooExtension')->willReturn(true);
-        $this->container->get('FooExtension')->willReturn(new stdClass());
 
         $factory = new PlatesEngineFactory();
         $this->expectException(InvalidExtensionException::class);
         $this->expectExceptionMessage('ExtensionInterface');
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 
     public function testFactoryRaisesExceptionWhenNonServiceClassIsAnInvalidExtension(): void
     {
-        $config = [
+        $this->container->services['config'] = [
             'plates' => [
                 'extensions' => [
                     stdClass::class,
                 ],
             ],
         ];
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn($config);
-
-        $this->container->has(stdClass::class)->willReturn(false);
-
-        $this->container->has(\ZendTest\Expressive\Plates\stdClass::class)->willReturn(false);
 
         $factory = new PlatesEngineFactory();
         $this->expectException(InvalidExtensionException::class);
         $this->expectExceptionMessage('ExtensionInterface');
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 
     public function testExceptionIsRaisedIfMultiplePathsSpecifyDefaultNamespace(): void
     {
-        $config = [
+        $this->container->services['config'] = [
             'templates' => [
                 'paths' => [
                     0 => __DIR__ . '/TestAsset/bar',
@@ -228,22 +170,21 @@ class PlatesEngineFactoryTest extends TestCase
                 ],
             ],
         ];
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn($config);
+
         $factory = new PlatesEngineFactory();
 
         // phpcs:ignore WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCaps
         set_error_handler(function (int $_errno, string $_errstr): void {
             $this->errorCaught = true;
         }, E_USER_WARNING);
-        $factory($this->container->reveal());
+        $factory($this->container);
         restore_error_handler();
         $this->assertTrue($this->errorCaught, 'Did not detect duplicate path for default namespace');
     }
 
     public function testExceptionIsRaisedIfMultiplePathsInSameNamespace(): void
     {
-        $config = [
+        $this->container->services['config'] = [
             'templates' => [
                 'paths' => [
                     'bar' => [
@@ -253,34 +194,32 @@ class PlatesEngineFactoryTest extends TestCase
                 ],
             ],
         ];
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn($config);
+
         $factory = new PlatesEngineFactory();
 
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('already being used');
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 
     public function testSetExtensionByTemplatesConfig(): void
     {
-        $config = [
+        $this->container->services['config'] = [
             'templates' => [
                 'extension' => 'html.twig',
             ],
         ];
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn($config);
+
         $factory = new PlatesEngineFactory();
 
-        $engine = $factory($this->container->reveal());
+        $engine = $factory($this->container);
 
         $this->assertSame('html.twig', $engine->getFileExtension());
     }
 
     public function testOverrideExtensionByPlatesConfig(): void
     {
-        $config = [
+        $this->container->services['config'] = [
             'templates' => [
                 'extension' => 'html.twig',
             ],
@@ -288,16 +227,16 @@ class PlatesEngineFactoryTest extends TestCase
                 'extension' => 'plates.php',
             ],
         ];
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn($config);
+
         $factory = new PlatesEngineFactory();
 
-        $engine = $factory($this->container->reveal());
+        $engine = $factory($this->container);
 
         $this->assertSame('plates.php', $engine->getFileExtension());
     }
 
-    public function provideHelpersToUnregister(): array
+    /** @return non-empty-array<non-empty-string, array{non-empty-list<non-empty-string>}> */
+    public static function provideHelpersToUnregister(): array
     {
         return [
             'url-only'        => [[UrlHelper::class]],
@@ -308,17 +247,16 @@ class PlatesEngineFactoryTest extends TestCase
 
     /**
      * @dataProvider provideHelpersToUnregister
-     * @param array $helpers
+     * @param non-empty-list<non-empty-string> $helpers
      */
     public function testUrlExtensionIsNotLoadedIfHelpersAreNotRegistered(array $helpers): void
     {
-        $this->container->has('config')->willReturn(false);
         foreach ($helpers as $helper) {
-            $this->container->has($helper)->willReturn(false);
+            unset($this->container->services[$helper]);
         }
 
         $factory = new PlatesEngineFactory();
-        $engine  = $factory($this->container->reveal());
+        $engine  = $factory($this->container);
 
         $this->assertFalse($engine->doesFunctionExist('url'));
         $this->assertFalse($engine->doesFunctionExist('serverurl'));

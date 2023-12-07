@@ -10,7 +10,6 @@ use Mezzio\Plates\PlatesRenderer;
 use Mezzio\Template\Exception;
 use Mezzio\Template\TemplatePath;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 use function array_shift;
 use function file_get_contents;
@@ -24,10 +23,8 @@ use function var_export;
 use const E_NOTICE;
 use const E_USER_WARNING;
 
-class PlatesRendererTest extends TestCase
+final class PlatesRendererTest extends TestCase
 {
-    use ProphecyTrait;
-
     private Engine $platesEngine;
 
     private bool $error;

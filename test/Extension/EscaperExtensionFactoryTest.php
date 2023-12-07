@@ -8,58 +8,65 @@ use Laminas\Escaper\Escaper;
 use Laminas\Escaper\Exception\InvalidArgumentException;
 use Mezzio\Plates\Extension\EscaperExtension;
 use Mezzio\Plates\Extension\EscaperExtensionFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ProphecyInterface;
 use Psr\Container\ContainerInterface;
 use ReflectionClass;
 
-class EscaperExtensionFactoryTest extends TestCase
+final class EscaperExtensionFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
-    /** @var ContainerInterface|ProphecyInterface */
-    private $container;
+    /** @var ContainerInterface&MockObject */
+    private ContainerInterface $container;
 
     public function setUp(): void
     {
-        $this->container = $this->prophesize(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
     }
 
     public function testFactoryWithoutConfig(): void
     {
-        $this->container->has('config')->willReturn(false);
+        $this->container->method('has')
+            ->with('config')
+            ->willReturn(false);
 
         $factory   = new EscaperExtensionFactory();
-        $extension = $factory($this->container->reveal());
+        $extension = $factory($this->container);
 
         $this->assertInstanceOf(EscaperExtension::class, $extension);
     }
 
     public function testFactoryWithEmptyConfig(): void
     {
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn([]);
+        $this->container->method('has')
+            ->with('config')
+            ->willReturn(true);
+        $this->container->method('get')
+            ->with('config')
+            ->willReturn([]);
 
         $factory   = new EscaperExtensionFactory();
-        $extension = $factory($this->container->reveal());
+        $extension = $factory($this->container);
 
         $this->assertInstanceOf(EscaperExtension::class, $extension);
     }
 
     public function testFactoryWithInvalidEncodingSetIn(): void
     {
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn([
-            'plates' => [
-                'encoding' => '',
-            ],
-        ]);
+        $this->container->method('has')
+            ->with('config')
+            ->willReturn(true);
+        $this->container->method('get')
+            ->with('config')
+            ->willReturn([
+                'plates' => [
+                    'encoding' => '',
+                ],
+            ]);
 
         $factory = new EscaperExtensionFactory();
 
         $this->expectException(InvalidArgumentException::class);
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 
     /**
@@ -67,15 +74,19 @@ class EscaperExtensionFactoryTest extends TestCase
      */
     public function testFactoryWithValidEncodingSetIn(): void
     {
-        $this->container->has('config')->willReturn(true);
-        $this->container->get('config')->willReturn([
-            'plates' => [
-                'encoding' => 'iso-8859-1',
-            ],
-        ]);
+        $this->container->method('has')
+            ->with('config')
+            ->willReturn(true);
+        $this->container->method('get')
+            ->with('config')
+            ->willReturn([
+                'plates' => [
+                    'encoding' => 'iso-8859-1',
+                ],
+            ]);
 
         $factory   = new EscaperExtensionFactory();
-        $extension = $factory($this->container->reveal());
+        $extension = $factory($this->container);
 
         $this->assertInstanceOf(EscaperExtension::class, $extension);
 

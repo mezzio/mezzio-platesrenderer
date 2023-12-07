@@ -10,43 +10,46 @@ use Mezzio\Helper\UrlHelper;
 use Mezzio\Plates\Exception\MissingHelperException;
 use Mezzio\Plates\Extension\UrlExtension;
 use Mezzio\Plates\Extension\UrlExtensionFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ProphecyInterface;
 use Psr\Container\ContainerInterface;
 
-class UrlExtensionFactoryTest extends TestCase
+final class UrlExtensionFactoryTest extends TestCase
 {
-    use ProphecyTrait;
+    /** @var ContainerInterface&MockObject */
+    private ContainerInterface $container;
 
-    /** @var ContainerInterface|ProphecyInterface */
-    private $container;
+    /** @var UrlHelper&MockObject */
+    private UrlHelper $urlHelper;
 
-    /** @var UrlHelper|ProphecyInterface */
-    private $urlHelper;
-
-    /** @var ServerUrlHelper|ProphecyInterface */
-    private $serverUrlHelper;
+    /** @var ServerUrlHelper&MockObject */
+    private ServerUrlHelper $serverUrlHelper;
 
     public function setUp(): void
     {
-        $this->container       = $this->prophesize(ContainerInterface::class);
-        $this->urlHelper       = $this->prophesize(UrlHelper::class);
-        $this->serverUrlHelper = $this->prophesize(ServerUrlHelper::class);
+        $this->container       = $this->createMock(ContainerInterface::class);
+        $this->urlHelper       = $this->createMock(UrlHelper::class);
+        $this->serverUrlHelper = $this->createMock(ServerUrlHelper::class);
     }
 
     public function testFactoryReturnsUrlExtensionInstanceWhenHelpersArePresent(): void
     {
-        $urlHelper       = $this->urlHelper->reveal();
-        $serverUrlHelper = $this->serverUrlHelper->reveal();
+        $urlHelper       = $this->urlHelper;
+        $serverUrlHelper = $this->serverUrlHelper;
 
-        $this->container->has(UrlHelper::class)->willReturn(true);
-        $this->container->get(UrlHelper::class)->willReturn($urlHelper);
-        $this->container->has(ServerUrlHelper::class)->willReturn(true);
-        $this->container->get(ServerUrlHelper::class)->willReturn($serverUrlHelper);
+        $this->container->method('has')
+            ->willReturnMap([
+                [UrlHelper::class, true],
+                [ServerUrlHelper::class, true],
+            ]);
+        $this->container->method('get')
+            ->willReturnMap([
+                [UrlHelper::class, $urlHelper],
+                [ServerUrlHelper::class, $serverUrlHelper],
+            ]);
 
         $factory   = new UrlExtensionFactory();
-        $extension = $factory($this->container->reveal());
+        $extension = $factory($this->container);
         $this->assertInstanceOf(UrlExtension::class, $extension);
 
         $engine = $this->createMock(Engine::class);
@@ -61,36 +64,35 @@ class UrlExtensionFactoryTest extends TestCase
 
     public function testFactoryRaisesExceptionIfUrlHelperIsMissing(): void
     {
-        $this->container->has(UrlHelper::class)->willReturn(false);
-        $this->container->has(UrlHelper::class)->willReturn(false);
-        $this->container->get(UrlHelper::class)->shouldNotBeCalled();
-        $this->container->get(UrlHelper::class)->shouldNotBeCalled();
-        $this->container->has(ServerUrlHelper::class)->shouldNotBeCalled();
-        $this->container->has(ServerUrlHelper::class)->shouldNotBeCalled();
-        $this->container->get(ServerUrlHelper::class)->shouldNotBeCalled();
-        $this->container->get(ServerUrlHelper::class)->shouldNotBeCalled();
+        $this->container->method('has')
+            ->willReturnMap([
+                [UrlHelper::class, false],
+                [ServerUrlHelper::class, false],
+            ]);
+        $this->container->expects(self::never())
+            ->method('get');
 
         $factory = new UrlExtensionFactory();
 
         $this->expectException(MissingHelperException::class);
         $this->expectExceptionMessage(UrlHelper::class);
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 
     public function testFactoryRaisesExceptionIfServerUrlHelperIsMissing(): void
     {
-        $this->container->has(UrlHelper::class)->willReturn(true);
-        $this->container->get(UrlHelper::class)->shouldNotBeCalled();
-        $this->container->get(UrlHelper::class)->shouldNotBeCalled();
-        $this->container->has(ServerUrlHelper::class)->willReturn(false);
-        $this->container->has(ServerUrlHelper::class)->willReturn(false);
-        $this->container->get(ServerUrlHelper::class)->shouldNotBeCalled();
-        $this->container->get(ServerUrlHelper::class)->shouldNotBeCalled();
+        $this->container->method('has')
+            ->willReturnMap([
+                [UrlHelper::class, true],
+                [ServerUrlHelper::class, false],
+            ]);
+        $this->container->expects(self::never())
+            ->method('get');
 
         $factory = new UrlExtensionFactory();
 
         $this->expectException(MissingHelperException::class);
         $this->expectExceptionMessage(ServerUrlHelper::class);
-        $factory($this->container->reveal());
+        $factory($this->container);
     }
 }
