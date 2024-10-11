@@ -96,6 +96,7 @@ final class UrlExtensionTest extends TestCase
         );
     }
 
+    /** @return array<string, array{0: string|null}> */
     public function serverUrlHelperParams(): array
     {
         return [
@@ -107,9 +108,8 @@ final class UrlExtensionTest extends TestCase
 
     /**
      * @dataProvider serverUrlHelperParams
-     * @param null|string $path
      */
-    public function testGenerateServerUrlProxiesToServerUrlHelper($path): void
+    public function testGenerateServerUrlProxiesToServerUrlHelper(string|null $path): void
     {
         $this->serverUrlHelper->method('generate')
             ->with($path)

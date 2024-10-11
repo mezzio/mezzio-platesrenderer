@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MezzioTest\Plates;
 
-use Generator;
 use Mezzio\Plates\Exception\ExceptionInterface;
 use Mezzio\Template\Exception\ExceptionInterface as TemplateExceptionInterface;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +21,8 @@ final class ExceptionTest extends TestCase
         self::assertTrue(is_a(ExceptionInterface::class, TemplateExceptionInterface::class, true));
     }
 
-    public function exception(): Generator
+    /** @return iterable<string, array{0: string}> */
+    public function exception(): iterable
     {
         $namespace = substr(ExceptionInterface::class, 0, strrpos(ExceptionInterface::class, '\\') + 1);
 
