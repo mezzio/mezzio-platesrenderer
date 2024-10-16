@@ -77,12 +77,12 @@ class PlatesEngineFactory
         foreach ($allPaths as $namespace => $paths) {
             $namespace = is_numeric($namespace) ? null : $namespace;
             foreach ((array) $paths as $path) {
-                if (! $namespace && ! $engine->getDirectory()) {
+                if ($namespace === null && ! $engine->getDirectory()) {
                     $engine->setDirectory($path);
                     continue;
                 }
 
-                if (! $namespace) {
+                if ($namespace === null) {
                     trigger_error('Cannot add duplicate un-namespaced path in Plates template adapter', E_USER_WARNING);
                     continue;
                 }

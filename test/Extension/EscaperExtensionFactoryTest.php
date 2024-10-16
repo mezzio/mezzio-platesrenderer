@@ -92,7 +92,6 @@ final class EscaperExtensionFactoryTest extends TestCase
 
         $class   = new ReflectionClass($extension);
         $escaper = $class->getProperty('escaper');
-        $escaper->setAccessible(true);
         $escaper = $escaper->getValue($extension);
         $this->assertInstanceOf(Escaper::class, $escaper);
 

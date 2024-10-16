@@ -1,133 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.6.0@e784128902dfe01d489c4123d69918a9f3c1eac5">
+<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
   <file src="src/Extension/EscaperExtensionFactory.php">
     <MixedArgument>
-      <code>$config['encoding'] ?? null</code>
+      <code><![CDATA[$config['encoding'] ?? null]]></code>
     </MixedArgument>
     <MixedArrayAccess>
-      <code>$config['encoding']</code>
-      <code>$config['plates']</code>
+      <code><![CDATA[$config['encoding']]]></code>
+      <code><![CDATA[$config['plates']]]></code>
     </MixedArrayAccess>
     <MixedAssignment>
-      <code>$config</code>
-      <code>$config</code>
+      <code><![CDATA[$config]]></code>
+      <code><![CDATA[$config]]></code>
     </MixedAssignment>
   </file>
   <file src="src/Extension/UrlExtensionFactory.php">
     <MixedArgument>
-      <code>$container-&gt;has(ServerUrlHelper::class)
-                ? $container-&gt;get(ServerUrlHelper::class)
-                : $container-&gt;get(ServerUrlHelper::class)</code>
-      <code>$container-&gt;has(UrlHelper::class)
-                ? $container-&gt;get(UrlHelper::class)
-                : $container-&gt;get(UrlHelper::class)</code>
+      <code><![CDATA[$container->has(ServerUrlHelper::class)
+                ? $container->get(ServerUrlHelper::class)
+                : $container->get(ServerUrlHelper::class)]]></code>
+      <code><![CDATA[$container->has(UrlHelper::class)
+                ? $container->get(UrlHelper::class)
+                : $container->get(UrlHelper::class)]]></code>
     </MixedArgument>
   </file>
   <file src="src/PlatesEngineFactory.php">
     <InvalidStringClass>
-      <code>new $extension()</code>
+      <code><![CDATA[new $extension()]]></code>
     </InvalidStringClass>
     <MixedArgument>
-      <code>$config['extension']</code>
-      <code>$container-&gt;get(Extension\EscaperExtension::class)</code>
-      <code>$container-&gt;get(Extension\UrlExtension::class)</code>
-      <code>$mezzioConfig</code>
-      <code>$path</code>
-      <code>$path</code>
-      <code>$platesConfig</code>
+      <code><![CDATA[$config['extension']]]></code>
+      <code><![CDATA[$container->get(Extension\EscaperExtension::class)]]></code>
+      <code><![CDATA[$container->get(Extension\UrlExtension::class)]]></code>
+      <code><![CDATA[$mezzioConfig]]></code>
+      <code><![CDATA[$path]]></code>
+      <code><![CDATA[$path]]></code>
+      <code><![CDATA[$platesConfig]]></code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
-      <code>$config['extensions']</code>
+      <code><![CDATA[$config['extensions']]]></code>
     </MixedArgumentTypeCoercion>
     <MixedAssignment>
-      <code>$config</code>
-      <code>$extension</code>
-      <code>$mezzioConfig</code>
-      <code>$path</code>
-      <code>$paths</code>
-      <code>$platesConfig</code>
+      <code><![CDATA[$config]]></code>
+      <code><![CDATA[$extension]]></code>
+      <code><![CDATA[$mezzioConfig]]></code>
+      <code><![CDATA[$path]]></code>
+      <code><![CDATA[$paths]]></code>
+      <code><![CDATA[$platesConfig]]></code>
     </MixedAssignment>
   </file>
   <file src="src/PlatesRenderer.php">
     <MixedInferredReturnType>
-      <code>Folder[]</code>
+      <code><![CDATA[Folder[]]]></code>
     </MixedInferredReturnType>
     <MixedReturnStatement>
-      <code>$r-&gt;getValue($folders)</code>
+      <code><![CDATA[$r->getValue($folders)]]></code>
     </MixedReturnStatement>
   </file>
   <file src="test/ConfigProviderTest.php">
     <RedundantCondition>
-      <code>assertIsArray</code>
+      <code><![CDATA[assertIsArray]]></code>
     </RedundantCondition>
   </file>
   <file src="test/ExceptionTest.php">
-    <MixedInferredReturnType>
-      <code>Generator</code>
-    </MixedInferredReturnType>
     <PossiblyFalseOperand>
-      <code>strrpos(ExceptionInterface::class, '\\')</code>
+      <code><![CDATA[strrpos(ExceptionInterface::class, '\\')]]></code>
     </PossiblyFalseOperand>
   </file>
   <file src="test/Extension/EscaperExtensionFactoryTest.php">
     <MixedAssignment>
-      <code>$escaper</code>
+      <code><![CDATA[$escaper]]></code>
     </MixedAssignment>
+  </file>
+  <file src="test/Extension/UrlExtensionFactoryTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[withConsecutive]]></code>
+    </DeprecatedMethod>
   </file>
   <file src="test/Extension/UrlExtensionTest.php">
     <DeprecatedMethod>
-      <code>generateServerUrl</code>
-      <code>generateUrl</code>
-      <code>generateUrl</code>
-      <code>getRouteResult</code>
-      <code>getRouteResult</code>
+      <code><![CDATA[generateServerUrl]]></code>
+      <code><![CDATA[generateUrl]]></code>
+      <code><![CDATA[generateUrl]]></code>
+      <code><![CDATA[getRouteResult]]></code>
+      <code><![CDATA[getRouteResult]]></code>
     </DeprecatedMethod>
-    <MixedInferredReturnType>
-      <code>array</code>
-    </MixedInferredReturnType>
   </file>
   <file src="test/PlatesEngineFactoryTest.php">
     <InvalidArgument>
-      <code>function (int $_errno, string $_errstr): void {
-            $this-&gt;errorCaught = true;
-        }</code>
+      <code><![CDATA[function (int $_errno, string $_errstr): void {
+            $this->errorCaught = true;
+        }]]></code>
     </InvalidArgument>
     <UndefinedThisPropertyAssignment>
-      <code>$this-&gt;errorCaught</code>
+      <code><![CDATA[$this->errorCaught]]></code>
     </UndefinedThisPropertyAssignment>
     <UndefinedThisPropertyFetch>
-      <code>$this-&gt;errorCaught</code>
+      <code><![CDATA[$this->errorCaught]]></code>
     </UndefinedThisPropertyFetch>
   </file>
   <file src="test/PlatesRendererFactoryTest.php">
     <MixedInferredReturnType>
-      <code>Engine</code>
+      <code><![CDATA[Engine]]></code>
     </MixedInferredReturnType>
     <MixedReturnStatement>
-      <code>$r-&gt;getValue($plates)</code>
+      <code><![CDATA[$r->getValue($plates)]]></code>
     </MixedReturnStatement>
-    <PossiblyNullArgument>
-      <code>$namespace ?: null</code>
-    </PossiblyNullArgument>
     <RedundantCondition>
-      <code>assertIsArray</code>
+      <code><![CDATA[assertIsArray]]></code>
     </RedundantCondition>
   </file>
   <file src="test/PlatesRendererTest.php">
     <MixedArgument>
-      <code>$params</code>
+      <code><![CDATA[$params]]></code>
     </MixedArgument>
-    <MixedInferredReturnType>
-      <code>array</code>
-      <code>array</code>
-    </MixedInferredReturnType>
     <NullArgument>
-      <code>null</code>
+      <code><![CDATA[null]]></code>
     </NullArgument>
     <RedundantCondition>
-      <code>assertIsArray</code>
-      <code>assertIsArray</code>
-      <code>assertIsArray</code>
+      <code><![CDATA[assertIsArray]]></code>
+      <code><![CDATA[assertIsArray]]></code>
+      <code><![CDATA[assertIsArray]]></code>
     </RedundantCondition>
   </file>
 </files>

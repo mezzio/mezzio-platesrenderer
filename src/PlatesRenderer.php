@@ -55,12 +55,12 @@ class PlatesRenderer implements TemplateRendererInterface
      */
     public function addPath(string $path, ?string $namespace = null): void
     {
-        if (! $namespace && ! $this->template->getDirectory()) {
+        if ($namespace === null && ! $this->template->getDirectory()) {
             $this->template->setDirectory($path);
             return;
         }
 
-        if (! $namespace) {
+        if ($namespace === null) {
             trigger_error('Cannot add duplicate un-namespaced path in Plates template adapter', E_USER_WARNING);
             return;
         }
@@ -138,7 +138,6 @@ class PlatesRenderer implements TemplateRendererInterface
     {
         $folders = $this->template->getFolders();
         $r       = new ReflectionProperty($folders, 'folders');
-        $r->setAccessible(true);
         return $r->getValue($folders);
     }
 }

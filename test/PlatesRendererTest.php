@@ -20,8 +20,8 @@ use function str_replace;
 use function uniqid;
 use function var_export;
 
-use const E_NOTICE;
 use const E_USER_WARNING;
+use const E_WARNING;
 
 final class PlatesRendererTest extends TestCase
 {
@@ -37,13 +37,13 @@ final class PlatesRendererTest extends TestCase
 
     public function assertTemplatePath(string $path, TemplatePath $templatePath, ?string $message = null): void
     {
-        $message = $message ?: sprintf('Failed to assert TemplatePath contained path %s', $path);
+        $message = $message ?? sprintf('Failed to assert TemplatePath contained path %s', $path);
         $this->assertEquals($path, $templatePath->getPath(), $message);
     }
 
     public function assertTemplatePathString(string $path, TemplatePath $templatePath, ?string $message = null): void
     {
-        $message = $message ?: sprintf('Failed to assert TemplatePath casts to string path %s', $path);
+        $message = $message ?? sprintf('Failed to assert TemplatePath casts to string path %s', $path);
         $this->assertEquals($path, (string) $templatePath, $message);
     }
 
@@ -52,7 +52,7 @@ final class PlatesRendererTest extends TestCase
         TemplatePath $templatePath,
         ?string $message = null
     ): void {
-        $message = $message ?: sprintf(
+        $message = $message ?? sprintf(
             'Failed to assert TemplatePath namespace matched %s',
             var_export($namespace, true)
         );
@@ -61,7 +61,7 @@ final class PlatesRendererTest extends TestCase
 
     public function assertEmptyTemplatePathNamespace(TemplatePath $templatePath, ?string $message = null): void
     {
-        $message = $message ?: 'Failed to assert TemplatePath namespace was empty';
+        $message = $message ?? 'Failed to assert TemplatePath namespace was empty';
         $this->assertEmpty($templatePath->getNamespace(), $message);
     }
 
@@ -70,7 +70,7 @@ final class PlatesRendererTest extends TestCase
         TemplatePath $received,
         ?string $message = null
     ): void {
-        $message = $message ?: 'Failed to assert TemplatePaths are equal';
+        $message = $message ?? 'Failed to assert TemplatePaths are equal';
         if (
             $expected->getPath() !== $received->getPath()
             || $expected->getNamespace() !== $received->getNamespace()
@@ -157,6 +157,7 @@ final class PlatesRendererTest extends TestCase
         $this->assertEquals($content, $result);
     }
 
+    /** @return array<string, array{0: mixed}> */
     public function invalidParameterValues(): array
     {
         return [
@@ -172,9 +173,8 @@ final class PlatesRendererTest extends TestCase
 
     /**
      * @dataProvider invalidParameterValues
-     * @param mixed $params
      */
-    public function testRenderRaisesExceptionForInvalidParameterTypes($params): void
+    public function testRenderRaisesExceptionForInvalidParameterTypes(mixed $params): void
     {
         $renderer = new PlatesRenderer();
         $this->expectException(Exception\InvalidArgumentException::class);
@@ -190,6 +190,7 @@ final class PlatesRendererTest extends TestCase
         $this->assertEquals($content, $result);
     }
 
+    /** @return array<string, array{0: object, 1: string}> */
     public function objectParameterValues(): array
     {
         $names = [
@@ -233,6 +234,7 @@ final class PlatesRendererTest extends TestCase
         $this->assertSame($expected, $test);
     }
 
+    /** @withoutE */
     public function testAddParameterToOneTemplate(): void
     {
         $renderer = new PlatesRenderer();
@@ -246,9 +248,9 @@ final class PlatesRendererTest extends TestCase
 
         // phpcs:ignore WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCaps
         set_error_handler(function (int $_errno, string $message): bool {
-            $this->assertStringContainsString('Undefined variable: name', $message);
+            $this->assertStringContainsString('Undefined variable $name', $message);
             return true;
-        }, E_NOTICE);
+        }, E_WARNING);
         $renderer->render('plates-2');
         restore_error_handler();
 
