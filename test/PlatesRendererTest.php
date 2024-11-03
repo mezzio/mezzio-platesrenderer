@@ -37,13 +37,13 @@ final class PlatesRendererTest extends TestCase
 
     public function assertTemplatePath(string $path, TemplatePath $templatePath, ?string $message = null): void
     {
-        $message = $message ?? sprintf('Failed to assert TemplatePath contained path %s', $path);
+        $message ??= sprintf('Failed to assert TemplatePath contained path %s', $path);
         $this->assertEquals($path, $templatePath->getPath(), $message);
     }
 
     public function assertTemplatePathString(string $path, TemplatePath $templatePath, ?string $message = null): void
     {
-        $message = $message ?? sprintf('Failed to assert TemplatePath casts to string path %s', $path);
+        $message ??= sprintf('Failed to assert TemplatePath casts to string path %s', $path);
         $this->assertEquals($path, (string) $templatePath, $message);
     }
 
@@ -52,7 +52,7 @@ final class PlatesRendererTest extends TestCase
         TemplatePath $templatePath,
         ?string $message = null
     ): void {
-        $message = $message ?? sprintf(
+        $message ??= sprintf(
             'Failed to assert TemplatePath namespace matched %s',
             var_export($namespace, true)
         );
@@ -61,7 +61,7 @@ final class PlatesRendererTest extends TestCase
 
     public function assertEmptyTemplatePathNamespace(TemplatePath $templatePath, ?string $message = null): void
     {
-        $message = $message ?? 'Failed to assert TemplatePath namespace was empty';
+        $message ??= 'Failed to assert TemplatePath namespace was empty';
         $this->assertEmpty($templatePath->getNamespace(), $message);
     }
 
@@ -70,7 +70,7 @@ final class PlatesRendererTest extends TestCase
         TemplatePath $received,
         ?string $message = null
     ): void {
-        $message = $message ?? 'Failed to assert TemplatePaths are equal';
+        $message ??= 'Failed to assert TemplatePaths are equal';
         if (
             $expected->getPath() !== $received->getPath()
             || $expected->getNamespace() !== $received->getNamespace()
