@@ -121,7 +121,14 @@ final class UrlExtensionTest extends TestCase
 
     public function testGetRouteResultReturnsRouteResultWhenPopulated(): void
     {
-        $result = RouteResult::fromRoute(new Route('/foo', $this->createMock(MiddlewareInterface::class)));
+        $result = RouteResult::fromRoute(
+            new Route(
+                '/foo',
+                $this->createMock(MiddlewareInterface::class),
+                ['GET'],
+                'some-route',
+            ),
+        );
 
         $this->urlHelper->method('getRouteResult')
             ->willReturn($result);
