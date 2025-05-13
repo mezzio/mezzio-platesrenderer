@@ -12,6 +12,7 @@ class EscaperExtension implements ExtensionInterface
 {
     private readonly Escaper $escaper;
 
+    /** @param non-empty-string|null $encoding */
     public function __construct(?string $encoding = null)
     {
         $this->escaper = new Escaper($encoding);
