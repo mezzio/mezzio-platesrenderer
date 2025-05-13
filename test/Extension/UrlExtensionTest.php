@@ -8,9 +8,11 @@ use League\Plates\Engine;
 use Mezzio\Helper\ServerUrlHelper;
 use Mezzio\Helper\UrlHelper;
 use Mezzio\Plates\Extension\UrlExtension;
+use Mezzio\Router\Route;
 use Mezzio\Router\RouteResult;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Server\MiddlewareInterface;
 
 final class UrlExtensionTest extends TestCase
 {
@@ -119,11 +121,12 @@ final class UrlExtensionTest extends TestCase
 
     public function testGetRouteResultReturnsRouteResultWhenPopulated(): void
     {
-        $result = $this->createMock(RouteResult::class);
+        $result = RouteResult::fromRoute(new Route('/foo', $this->createMock(MiddlewareInterface::class)));
+
         $this->urlHelper->method('getRouteResult')
             ->willReturn($result);
 
-        $this->assertInstanceOf(RouteResult::class, $this->extension->getRouteResult());
+        self::assertSame($result, $this->extension->getRouteResult());
     }
 
     public function testGetRouteResultReturnsNullWhenRouteResultNotPopulatedInUrlHelper(): void
