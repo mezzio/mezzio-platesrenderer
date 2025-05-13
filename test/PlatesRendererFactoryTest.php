@@ -43,22 +43,6 @@ final class PlatesRendererFactoryTest extends TestCase
         return $r->getValue($plates);
     }
 
-    public function getConfigurationPaths(): array
-    {
-        return [
-            'foo' => __DIR__ . '/TestAsset/bar',
-            1     => __DIR__ . '/TestAsset/one',
-            'bar' => [
-                __DIR__ . '/TestAsset/baz',
-                __DIR__ . '/TestAsset/bat',
-            ],
-            0     => [
-                __DIR__ . '/TestAsset/two',
-                __DIR__ . '/TestAsset/three',
-            ],
-        ];
-    }
-
     public function assertPathsHasNamespace(?string $namespace, array $paths, ?string $message = null): void
     {
         $message ??= sprintf('Paths do not contain namespace %s', $namespace ?? 'null');
