@@ -82,12 +82,6 @@
       <code><![CDATA[$escaper]]></code>
     </MixedAssignment>
   </file>
-  <file src="test/Extension/UrlExtensionFactoryTest.php">
-    <InternalMethod>
-      <code><![CDATA[numberOfInvocations]]></code>
-      <code><![CDATA[numberOfInvocations]]></code>
-    </InternalMethod>
-  </file>
   <file src="test/Extension/UrlExtensionTest.php">
     <DeprecatedMethod>
       <code><![CDATA[generateServerUrl]]></code>
