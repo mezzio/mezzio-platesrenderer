@@ -10,6 +10,7 @@ use Mezzio\Helper\UrlHelper;
 use Mezzio\Plates\Extension\UrlExtension;
 use Mezzio\Router\Route;
 use Mezzio\Router\RouteResult;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\MiddlewareInterface;
@@ -50,7 +51,7 @@ final class UrlExtensionTest extends TestCase
     }
 
     /** @return array<string, array{0: null|non-empty-string, 1: array<string, mixed>}> */
-    public function urlHelperParams(): array
+    public static function urlHelperParams(): array
     {
         return [
             'null'             => [null, []],
@@ -61,10 +62,10 @@ final class UrlExtensionTest extends TestCase
     }
 
     /**
-     * @dataProvider urlHelperParams
      * @param null|non-empty-string $route
      * @param array<string, mixed> $params
      */
+    #[DataProvider('urlHelperParams')]
     public function testGenerateUrlProxiesToUrlHelper($route, array $params): void
     {
         $this->urlHelper->method('generate')
@@ -99,7 +100,7 @@ final class UrlExtensionTest extends TestCase
     }
 
     /** @return array<string, array{0: string|null}> */
-    public function serverUrlHelperParams(): array
+    public static function serverUrlHelperParams(): array
     {
         return [
             'null'          => [null],
@@ -108,9 +109,7 @@ final class UrlExtensionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider serverUrlHelperParams
-     */
+    #[DataProvider('serverUrlHelperParams')]
     public function testGenerateServerUrlProxiesToServerUrlHelper(string|null $path): void
     {
         $this->serverUrlHelper->method('generate')

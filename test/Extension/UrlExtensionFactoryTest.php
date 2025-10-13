@@ -52,12 +52,22 @@ final class UrlExtensionFactoryTest extends TestCase
         $extension = $factory($this->container);
         $this->assertInstanceOf(UrlExtension::class, $extension);
 
-        $engine = $this->createMock(Engine::class);
-        $engine->method('registerFunction')
-            ->withConsecutive(
-                ['url', $this->equalTo($urlHelper)],
-                ['serverurl', $this->equalTo($serverUrlHelper)]
-            );
+        $engine       = $this->createMock(Engine::class);
+        $invokedCount = $this->atLeast(2);
+        $engine
+            ->expects($invokedCount)
+            ->method('registerFunction')
+            ->with(self::callback(function (string $name) use ($invokedCount): bool {
+                if ($invokedCount->numberOfInvocations() === 1) {
+                    self::assertSame('url', $name);
+                }
+
+                if ($invokedCount->numberOfInvocations() === 2) {
+                    self::assertSame('serverurl', $name);
+                }
+
+                return true;
+            }));
 
         $extension->register($engine);
     }

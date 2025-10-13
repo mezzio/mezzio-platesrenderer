@@ -83,9 +83,10 @@
     </MixedAssignment>
   </file>
   <file src="test/Extension/UrlExtensionFactoryTest.php">
-    <DeprecatedMethod>
-      <code><![CDATA[withConsecutive]]></code>
-    </DeprecatedMethod>
+    <InternalMethod>
+      <code><![CDATA[numberOfInvocations]]></code>
+      <code><![CDATA[numberOfInvocations]]></code>
+    </InternalMethod>
   </file>
   <file src="test/Extension/UrlExtensionTest.php">
     <DeprecatedMethod>

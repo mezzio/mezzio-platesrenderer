@@ -9,6 +9,8 @@ use League\Plates\Engine;
 use Mezzio\Plates\PlatesRenderer;
 use Mezzio\Template\Exception;
 use Mezzio\Template\TemplatePath;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;
@@ -106,11 +108,8 @@ final class PlatesRendererTest extends TestCase
         return $renderer;
     }
 
-    /**
-     * @param PlatesRenderer $renderer
-     * @depends testCanAddPath
-     */
-    public function testAddingSecondPathWithoutNamespaceIsANoopAndRaisesWarning($renderer): void
+    #[Depends('testCanAddPath')]
+    public function testAddingSecondPathWithoutNamespaceIsANoopAndRaisesWarning(PlatesRenderer $renderer): void
     {
         $paths = $renderer->getPaths();
         $path  = array_shift($paths);
@@ -160,7 +159,7 @@ final class PlatesRendererTest extends TestCase
     }
 
     /** @return array<string, array{0: mixed}> */
-    public function invalidParameterValues(): array
+    public static function invalidParameterValues(): array
     {
         return [
             'true'       => [true],
@@ -173,9 +172,7 @@ final class PlatesRendererTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider invalidParameterValues
-     */
+    #[DataProvider('invalidParameterValues')]
     public function testRenderRaisesExceptionForInvalidParameterTypes(mixed $params): void
     {
         $renderer = new PlatesRenderer();
@@ -193,7 +190,7 @@ final class PlatesRendererTest extends TestCase
     }
 
     /** @return array<string, array{0: object, 1: string}> */
-    public function objectParameterValues(): array
+    public static function objectParameterValues(): array
     {
         $names = [
             'stdClass'    => uniqid(),
@@ -207,10 +204,10 @@ final class PlatesRendererTest extends TestCase
     }
 
     /**
-     * @dataProvider objectParameterValues
      * @param object $params
      * @param string $search
      */
+    #[DataProvider('objectParameterValues')]
     public function testCanRenderWithParameterObjects($params, $search): void
     {
         $renderer = new PlatesRenderer();
@@ -222,9 +219,6 @@ final class PlatesRendererTest extends TestCase
         $this->assertEquals($content, $result);
     }
 
-    /**
-     * @group namespacing
-     */
     public function testProperlyResolvesNamespacedTemplate(): void
     {
         $renderer = new PlatesRenderer();
