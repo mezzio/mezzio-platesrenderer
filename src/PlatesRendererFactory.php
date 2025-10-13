@@ -28,6 +28,10 @@ use Psr\Container\ContainerInterface;
  * If the service League\Plates\Engine exists, that value will be used
  * for the PlatesEngine; otherwise, this factory invokes the PlatesEngineFactory
  * to create an instance.
+ *
+ * @final
+ * @psalm-internal Mezzio\Plates
+ * @psalm-internal MezzioTest\Plates
  */
 class PlatesRendererFactory
 {

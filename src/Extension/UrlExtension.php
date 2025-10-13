@@ -11,7 +11,10 @@ use Mezzio\Helper\UrlHelper;
 use Mezzio\Helper\UrlHelperInterface;
 use Mezzio\Router\RouteResult;
 
-/** @psalm-import-type UrlGeneratorOptions from UrlHelperInterface */
+/**
+ * @psalm-import-type UrlGeneratorOptions from UrlHelperInterface
+ * @final
+ */
 class UrlExtension implements ExtensionInterface
 {
     public function __construct(

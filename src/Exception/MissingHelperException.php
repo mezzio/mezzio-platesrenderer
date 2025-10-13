@@ -7,6 +7,7 @@ namespace Mezzio\Plates\Exception;
 use Psr\Container\ContainerExceptionInterface;
 use RuntimeException;
 
+/** @final */
 class MissingHelperException extends RuntimeException implements
     ExceptionInterface,
     ContainerExceptionInterface

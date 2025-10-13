@@ -18,6 +18,10 @@ use Psr\Container\ContainerInterface;
  *     'encoding' => 'global encoding value, if not set then will fallback to UTF-8'
  * ]
  * </code>
+ *
+ * @final
+ * @psalm-internal Mezzio\Plates
+ * @psalm-internal MezzioTest\Plates
  */
 class EscaperExtensionFactory
 {

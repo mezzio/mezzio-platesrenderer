@@ -40,6 +40,10 @@ use const E_USER_WARNING;
  * the functions that extension exposes by providing an extension
  * class in your extensions array, or providing an alternative
  * Mezzio\Plates\Extension\UrlExtension service.
+ *
+ * @final
+ * @psalm-internal Mezzio\Plates
+ * @psalm-internal MezzioTest\Plates
  */
 class PlatesEngineFactory
 {

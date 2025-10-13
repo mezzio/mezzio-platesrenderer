@@ -13,6 +13,10 @@ use function sprintf;
 
 /**
  * Factory for creating a UrlExtension instance.
+ *
+ * @final
+ * @psalm-internal Mezzio\Plates
+ * @psalm-internal MezzioTest\Plates
  */
 class UrlExtensionFactory
 {

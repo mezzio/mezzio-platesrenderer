@@ -7,6 +7,7 @@ namespace Mezzio\Plates;
 use League\Plates\Engine as PlatesEngine;
 use Mezzio\Template\TemplateRendererInterface;
 
+/** @final */
 class ConfigProvider
 {
     public function __invoke(): array

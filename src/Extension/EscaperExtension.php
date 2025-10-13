@@ -8,6 +8,7 @@ use Laminas\Escaper\Escaper;
 use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 
+/** @final */
 class EscaperExtension implements ExtensionInterface
 {
     private readonly Escaper $escaper;
