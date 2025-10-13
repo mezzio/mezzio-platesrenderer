@@ -6,6 +6,7 @@ namespace MezzioTest\Plates;
 
 use Mezzio\Plates\Exception\ExceptionInterface;
 use Mezzio\Template\Exception\ExceptionInterface as TemplateExceptionInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use function basename;
@@ -22,7 +23,7 @@ final class ExceptionTest extends TestCase
     }
 
     /** @return iterable<string, array{0: string}> */
-    public function exception(): iterable
+    public static function exception(): iterable
     {
         $namespace = substr(ExceptionInterface::class, 0, strrpos(ExceptionInterface::class, '\\') + 1);
 
@@ -34,9 +35,7 @@ final class ExceptionTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider exception
-     */
+    #[DataProvider('exception')]
     public function testExceptionIsInstanceOfExceptionInterface(string $exception): void
     {
         self::assertStringContainsString('Exception', $exception);

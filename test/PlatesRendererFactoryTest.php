@@ -13,6 +13,7 @@ use Mezzio\Plates\PlatesRenderer;
 use Mezzio\Plates\PlatesRendererFactory;
 use Mezzio\Template\TemplatePath;
 use MezzioTest\Plates\TestAsset\DummyPsrContainer;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionProperty;
@@ -103,9 +104,7 @@ final class PlatesRendererFactoryTest extends TestCase
         return $plates;
     }
 
-    /**
-     * @depends testCallingFactoryWithNoConfigReturnsPlatesInstance
-     */
+    #[Depends('testCallingFactoryWithNoConfigReturnsPlatesInstance')]
     public function testUnconfiguredPlatesInstanceContainsNoPaths(PlatesRenderer $plates): void
     {
         $paths = $plates->getPaths();

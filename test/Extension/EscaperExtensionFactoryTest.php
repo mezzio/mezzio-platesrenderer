@@ -8,6 +8,7 @@ use Laminas\Escaper\Escaper;
 use Laminas\Escaper\Exception\InvalidArgumentException;
 use Mezzio\Plates\Extension\EscaperExtension;
 use Mezzio\Plates\Extension\EscaperExtensionFactory;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -69,9 +70,7 @@ final class EscaperExtensionFactoryTest extends TestCase
         $factory($this->container);
     }
 
-    /**
-     * @depends testFactoryWithInvalidEncodingSetIn
-     */
+    #[Depends('testFactoryWithInvalidEncodingSetIn')]
     public function testFactoryWithValidEncodingSetIn(): void
     {
         $this->container->method('has')

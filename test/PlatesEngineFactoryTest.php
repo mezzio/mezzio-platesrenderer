@@ -13,6 +13,8 @@ use Mezzio\Plates\Exception\InvalidExtensionException;
 use Mezzio\Plates\Extension\EscaperExtension;
 use Mezzio\Plates\PlatesEngineFactory;
 use MezzioTest\Plates\TestAsset\DummyPsrContainer;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -54,9 +56,7 @@ final class PlatesEngineFactoryTest extends TestCase
         $this->assertTrue($engine->doesFunctionExist('escapeUrl'));
     }
 
-    /**
-     * @depends testEscaperExtensionIsRegisteredByDefault
-     */
+    #[Depends('testEscaperExtensionIsRegisteredByDefault')]
     public function testEscaperExtensionIsRegisteredFromContainer(): void
     {
         $this->container->services[EscaperExtension::class] = new EscaperExtension();
@@ -111,7 +111,7 @@ final class PlatesEngineFactoryTest extends TestCase
         ];
     }
 
-    /** @dataProvider invalidExtensions */
+    #[DataProvider('invalidExtensions')]
     public function testFactoryRaisesExceptionForInvalidExtensions(string $extension): void
     {
         $this->container->services['config'] = [
@@ -246,9 +246,9 @@ final class PlatesEngineFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider provideHelpersToUnregister
      * @param non-empty-list<non-empty-string> $helpers
      */
+    #[DataProvider('provideHelpersToUnregister')]
     public function testUrlExtensionIsNotLoadedIfHelpersAreNotRegistered(array $helpers): void
     {
         foreach ($helpers as $helper) {
