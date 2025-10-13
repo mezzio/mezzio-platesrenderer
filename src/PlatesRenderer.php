@@ -21,6 +21,8 @@ use const E_USER_WARNING;
 
 /**
  * Template implementation bridging league/plates
+ *
+ * @final
  */
 class PlatesRenderer implements TemplateRendererInterface
 {
