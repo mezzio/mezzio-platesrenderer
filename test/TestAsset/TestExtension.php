@@ -7,7 +7,7 @@ namespace MezzioTest\Plates\TestAsset;
 use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 
-class TestExtension implements ExtensionInterface
+final class TestExtension implements ExtensionInterface
 {
     /** @var Engine */
     public static $engine;

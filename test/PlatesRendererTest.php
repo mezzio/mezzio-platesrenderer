@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use function array_shift;
 use function file_get_contents;
+use function reset;
 use function restore_error_handler;
 use function set_error_handler;
 use function sprintf;
@@ -50,11 +51,11 @@ final class PlatesRendererTest extends TestCase
     public function assertTemplatePathNamespace(
         string $namespace,
         TemplatePath $templatePath,
-        ?string $message = null
+        ?string $message = null,
     ): void {
         $message ??= sprintf(
             'Failed to assert TemplatePath namespace matched %s',
-            var_export($namespace, true)
+            var_export($namespace, true),
         );
         $this->assertEquals($namespace, $templatePath->getNamespace(), $message);
     }
@@ -68,7 +69,7 @@ final class PlatesRendererTest extends TestCase
     public function assertEqualTemplatePath(
         TemplatePath $expected,
         TemplatePath $received,
-        ?string $message = null
+        ?string $message = null,
     ): void {
         $message ??= 'Failed to assert TemplatePaths are equal';
         if (
@@ -114,6 +115,7 @@ final class PlatesRendererTest extends TestCase
     {
         $paths = $renderer->getPaths();
         $path  = array_shift($paths);
+        self::assertNotNull($path);
 
         // phpcs:ignore WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCaps
         set_error_handler(function (int $_errno, string $message): bool {
@@ -130,6 +132,7 @@ final class PlatesRendererTest extends TestCase
         $this->assertIsArray($paths);
         $this->assertCount(1, $paths);
         $test = array_shift($paths);
+        self::assertNotNull($test);
         $this->assertEqualTemplatePath($path, $test);
     }
 
@@ -152,7 +155,7 @@ final class PlatesRendererTest extends TestCase
         $name   = 'Plates';
         $result = $renderer->render('plates', ['name' => $name]);
         $this->assertStringContainsString($name, $result);
-        $content = file_get_contents(__DIR__ . '/TestAsset/plates.php');
+        $content = $this->fileContents(__DIR__ . '/TestAsset/plates.php');
         $content = str_replace('<?=$this->e($name)?>', $name, $content);
         $this->assertEquals($content, $result);
     }
@@ -186,7 +189,7 @@ final class PlatesRendererTest extends TestCase
         $renderer = new PlatesRenderer();
         $renderer->addPath(__DIR__ . '/TestAsset');
         $result  = $renderer->render('plates-null', null);
-        $content = file_get_contents(__DIR__ . '/TestAsset/plates-null.php');
+        $content = $this->fileContents(__DIR__ . '/TestAsset/plates-null.php');
         $this->assertEquals($content, $result);
     }
 
@@ -215,7 +218,7 @@ final class PlatesRendererTest extends TestCase
         $renderer->addPath(__DIR__ . '/TestAsset');
         $result = $renderer->render('plates', $params);
         $this->assertStringContainsString($search, $result);
-        $content = file_get_contents(__DIR__ . '/TestAsset/plates.php');
+        $content = $this->fileContents(__DIR__ . '/TestAsset/plates.php');
         $content = str_replace('<?=$this->e($name)?>', $search, $content);
         $this->assertEquals($content, $result);
     }
@@ -228,7 +231,7 @@ final class PlatesRendererTest extends TestCase
         $renderer = new PlatesRenderer();
         $renderer->addPath(__DIR__ . '/TestAsset/test', 'test');
 
-        $expected = file_get_contents(__DIR__ . '/TestAsset/test/test.php');
+        $expected = $this->fileContents(__DIR__ . '/TestAsset/test/test.php');
         $test     = $renderer->render('test::test');
 
         $this->assertSame($expected, $test);
@@ -242,7 +245,7 @@ final class PlatesRendererTest extends TestCase
         $name = 'Plates';
         $renderer->addDefaultParam('plates', 'name', $name);
         $result  = $renderer->render('plates');
-        $content = file_get_contents(__DIR__ . '/TestAsset/plates.php');
+        $content = $this->fileContents(__DIR__ . '/TestAsset/plates.php');
         $content = str_replace('<?=$this->e($name)?>', $name, $content);
         $this->assertEquals($content, $result);
 
@@ -265,11 +268,11 @@ final class PlatesRendererTest extends TestCase
         $name = 'Plates';
         $renderer->addDefaultParam($renderer::TEMPLATE_ALL, 'name', $name);
         $result  = $renderer->render('plates');
-        $content = file_get_contents(__DIR__ . '/TestAsset/plates.php');
+        $content = $this->fileContents(__DIR__ . '/TestAsset/plates.php');
         $content = str_replace('<?=$this->e($name)?>', $name, $content);
         $this->assertEquals($content, $result);
         $result  = $renderer->render('plates-2');
-        $content = file_get_contents(__DIR__ . '/TestAsset/plates-2.php');
+        $content = $this->fileContents(__DIR__ . '/TestAsset/plates-2.php');
         $content = str_replace('<?=$this->e($name)?>', $name, $content);
         $this->assertEquals($content, $result);
     }
@@ -283,11 +286,11 @@ final class PlatesRendererTest extends TestCase
         $renderer->addDefaultParam($renderer::TEMPLATE_ALL, 'name', $name);
         $renderer->addDefaultParam('plates-2', 'name', $name2);
         $result  = $renderer->render('plates');
-        $content = file_get_contents(__DIR__ . '/TestAsset/plates.php');
+        $content = $this->fileContents(__DIR__ . '/TestAsset/plates.php');
         $content = str_replace('<?=$this->e($name)?>', $name, $content);
         $this->assertEquals($content, $result);
         $result  = $renderer->render('plates-2');
-        $content = file_get_contents(__DIR__ . '/TestAsset/plates-2.php');
+        $content = $this->fileContents(__DIR__ . '/TestAsset/plates-2.php');
         $content = str_replace('<?=$this->e($name)?>', $name2, $content);
         $this->assertEquals($content, $result);
     }
@@ -300,8 +303,16 @@ final class PlatesRendererTest extends TestCase
         $name2 = 'Saucers';
         $renderer->addDefaultParam($renderer::TEMPLATE_ALL, 'name', $name);
         $result  = $renderer->render('plates', ['name' => $name2]);
-        $content = file_get_contents(__DIR__ . '/TestAsset/plates.php');
+        $content = $this->fileContents(__DIR__ . '/TestAsset/plates.php');
         $content = str_replace('<?=$this->e($name)?>', $name2, $content);
         $this->assertEquals($content, $result);
+    }
+
+    private function fileContents(string $path): string
+    {
+        $content = file_get_contents($path);
+        self::assertNotFalse($content);
+
+        return $content;
     }
 }
