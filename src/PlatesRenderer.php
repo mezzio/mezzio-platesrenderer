@@ -10,6 +10,7 @@ use Mezzio\Template\ArrayParametersTrait;
 use Mezzio\Template\Exception;
 use Mezzio\Template\TemplatePath;
 use Mezzio\Template\TemplateRendererInterface;
+use Override;
 use ReflectionProperty;
 
 use function get_debug_type;
@@ -41,6 +42,7 @@ class PlatesRenderer implements TemplateRendererInterface
     /**
      * {@inheritDoc}
      */
+    #[Override]
     public function render(string $name, $params = []): string
     {
         $params = $this->normalizeParams($params);
@@ -90,6 +92,7 @@ class PlatesRenderer implements TemplateRendererInterface
      *
      * {@inheritDoc}
      */
+    #[Override]
     public function addDefaultParam(string $templateName, string $param, mixed $value): void
     {
         if ('' === trim($templateName)) {
