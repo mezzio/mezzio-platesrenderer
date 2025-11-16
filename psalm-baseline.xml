@@ -51,6 +51,7 @@
   <file src="src/PlatesRenderer.php">
     <DeprecatedClass>
       <code><![CDATA[TemplatePath]]></code>
+      <code><![CDATA[list<TemplatePath>]]></code>
       <code><![CDATA[new TemplatePath($folder->getPath(), $folder->getName())]]></code>
       <code><![CDATA[new TemplatePath($this->template->getDirectory())]]></code>
     </DeprecatedClass>
