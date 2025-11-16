@@ -72,9 +72,7 @@ class PlatesRenderer implements TemplateRendererInterface
         $this->template->addFolder($namespace, $path, true);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** @return list<TemplatePath> */
     public function getPaths(): array
     {
         $paths = $this->template->getDirectory()
