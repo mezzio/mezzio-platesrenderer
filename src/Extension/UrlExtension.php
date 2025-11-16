@@ -10,6 +10,7 @@ use Mezzio\Helper\ServerUrlHelper;
 use Mezzio\Helper\UrlHelper;
 use Mezzio\Helper\UrlHelperInterface;
 use Mezzio\Router\RouteResult;
+use Override;
 
 /**
  * @psalm-import-type UrlGeneratorOptions from UrlHelperInterface
@@ -31,6 +32,7 @@ class UrlExtension implements ExtensionInterface
      * - url($route = null, array $params = []) : string
      * - serverurl($path = null) : string
      */
+    #[Override]
     public function register(Engine $engine): void
     {
         $engine->registerFunction('url', $this->urlHelper);

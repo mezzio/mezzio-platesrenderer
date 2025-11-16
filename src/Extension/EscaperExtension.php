@@ -7,6 +7,7 @@ namespace Mezzio\Plates\Extension;
 use Laminas\Escaper\Escaper;
 use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
+use Override;
 
 /** @final */
 class EscaperExtension implements ExtensionInterface
@@ -30,6 +31,7 @@ class EscaperExtension implements ExtensionInterface
      * - escapeCss($string) : string
      * - escapeUrl($string) : string
      */
+    #[Override]
     public function register(Engine $engine): void
     {
         $engine->registerFunction('escapeHtml', [$this->escaper, 'escapeHtml']);
