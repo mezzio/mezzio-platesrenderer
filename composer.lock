@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "12838fc4dcb61da4badd2602ffe88e52",
+    "content-hash": "d8395a3f0014c60efd87eef6ae44e93f",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -65,28 +65,28 @@
         },
         {
             "name": "laminas/laminas-escaper",
-            "version": "2.18.0",
+            "version": "2.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-escaper.git",
-                "reference": "06f211dfffff18d91844c1f55250d5d13c007e18"
+                "reference": "766b8583bbf64be9d3330e7a075197f54c46f642"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-escaper/zipball/06f211dfffff18d91844c1f55250d5d13c007e18",
-                "reference": "06f211dfffff18d91844c1f55250d5d13c007e18",
+                "url": "https://api.github.com/repos/laminas/laminas-escaper/zipball/766b8583bbf64be9d3330e7a075197f54c46f642",
+                "reference": "766b8583bbf64be9d3330e7a075197f54c46f642",
                 "shasum": ""
             },
             "require": {
                 "ext-ctype": "*",
                 "ext-mbstring": "*",
-                "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+                "php": "~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0"
             },
             "conflict": {
                 "zendframework/zend-escaper": "*"
             },
             "require-dev": {
-                "infection/infection": "^0.31.0",
+                "infection/infection": "^0.32.0",
                 "laminas/laminas-coding-standard": "~3.1.0",
                 "phpunit/phpunit": "^11.5.42",
                 "psalm/plugin-phpunit": "^0.19.5",
@@ -118,12 +118,12 @@
             },
             "funding": [
                 {
-                    "url": "https://funding.communitybridge.org/projects/laminas-project",
-                    "type": "community_bridge"
+                    "url": "https://crowdfunding.linuxfoundation.org/initiatives/laminas-project",
+                    "type": "custom"
                 }
             ],
-            "time": "2025-10-14T18:31:13+00:00",
-            "published-time": "2025-10-14T19:13:23+00:00"
+            "time": "2026-11-10T12:33:38+00:00",
+            "published-time": "2026-11-10T12:34:26+00:00"
         },
         {
             "name": "league/plates",
@@ -192,21 +192,21 @@
         },
         {
             "name": "mezzio/mezzio-helpers",
-            "version": "5.20.0",
+            "version": "5.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mezzio/mezzio-helpers.git",
-                "reference": "a26ba04bd449d5cdb5ad38b17ce672365dbc9d90"
+                "reference": "2eb571e2f4a20b83ffd94b4d56a1720024a0cd39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mezzio/mezzio-helpers/zipball/a26ba04bd449d5cdb5ad38b17ce672365dbc9d90",
-                "reference": "a26ba04bd449d5cdb5ad38b17ce672365dbc9d90",
+                "url": "https://api.github.com/repos/mezzio/mezzio-helpers/zipball/2eb571e2f4a20b83ffd94b4d56a1720024a0cd39",
+                "reference": "2eb571e2f4a20b83ffd94b4d56a1720024a0cd39",
                 "shasum": ""
             },
             "require": {
                 "mezzio/mezzio-router": "^3.18 || ^4.0",
-                "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
+                "php": "~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0",
                 "psr/container": "^1.0 || ^2.0",
                 "psr/http-message": "^1.0.1 || ^2.0.0",
                 "psr/http-server-middleware": "^1.0"
@@ -219,11 +219,12 @@
             },
             "require-dev": {
                 "ext-json": "*",
+                "laminas/internal-tooling": "^1.0.0",
                 "laminas/laminas-coding-standard": "~3.1.0",
-                "laminas/laminas-diactoros": "^3.6",
-                "phpunit/phpunit": "^11.5.42",
-                "psalm/plugin-phpunit": "^0.19.5",
-                "vimeo/psalm": "^6.13.1"
+                "laminas/laminas-diactoros": "^3.10",
+                "phpunit/phpunit": "^11.5.57",
+                "psalm/plugin-phpunit": "^0.19.7",
+                "vimeo/psalm": "^6.20.10"
             },
             "suggest": {
                 "ext-json": "If you wish to use the JsonStrategy with BodyParamsMiddleware"
@@ -263,30 +264,30 @@
             },
             "funding": [
                 {
-                    "url": "https://funding.communitybridge.org/projects/laminas-project",
-                    "type": "community_bridge"
+                    "url": "https://crowdfunding.linuxfoundation.org/initiatives/laminas-project",
+                    "type": "custom"
                 }
             ],
-            "time": "2025-10-11T08:40:34+00:00",
-            "published-time": "2025-10-11T08:41:22+00:00"
+            "time": "2026-11-10T00:02:54+00:00",
+            "published-time": "2026-11-10T00:03:19+00:00"
         },
         {
             "name": "mezzio/mezzio-router",
-            "version": "4.2.0",
+            "version": "4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mezzio/mezzio-router.git",
-                "reference": "e7a6505d7e460ce30c4135e146241d7d24d81c27"
+                "reference": "28e5ce526c2ea58df14a93a44277a41e7fc820a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mezzio/mezzio-router/zipball/e7a6505d7e460ce30c4135e146241d7d24d81c27",
-                "reference": "e7a6505d7e460ce30c4135e146241d7d24d81c27",
+                "url": "https://api.github.com/repos/mezzio/mezzio-router/zipball/28e5ce526c2ea58df14a93a44277a41e7fc820a2",
+                "reference": "28e5ce526c2ea58df14a93a44277a41e7fc820a2",
                 "shasum": ""
             },
             "require": {
                 "fig/http-message-util": "^1.1.5",
-                "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
+                "php": "~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0",
                 "psr/container": "^1.1.2 || ^2.0",
                 "psr/http-factory": "^1.0.2",
                 "psr/http-message": "^1.0.1 || ^2.0.0",
@@ -298,13 +299,15 @@
                 "zendframework/zend-expressive-router": "*"
             },
             "require-dev": {
+                "boundwize/structarmed": "^0.21.8",
+                "laminas/internal-tooling": "^1.0.0",
                 "laminas/laminas-coding-standard": "~3.1.0",
-                "laminas/laminas-diactoros": "^3.6.0",
-                "laminas/laminas-servicemanager": "^4.4.0",
-                "laminas/laminas-stratigility": "^4.2.0",
-                "phpunit/phpunit": "^11.5.42",
-                "psalm/plugin-phpunit": "^0.19.5",
-                "vimeo/psalm": "^6.13.1"
+                "laminas/laminas-diactoros": "^3.10.0",
+                "laminas/laminas-servicemanager": "^4.5.1",
+                "laminas/laminas-stratigility": "^4.3.1",
+                "phpunit/phpunit": "^11.5.57",
+                "psalm/plugin-phpunit": "^0.22.2",
+                "vimeo/psalm": "^6.20.10"
             },
             "suggest": {
                 "mezzio/mezzio-fastroute": "^3.0 to use the FastRoute routing adapter",
@@ -345,38 +348,39 @@
             },
             "funding": [
                 {
-                    "url": "https://funding.communitybridge.org/projects/laminas-project",
-                    "type": "community_bridge"
+                    "url": "https://crowdfunding.linuxfoundation.org/initiatives/laminas-project",
+                    "type": "custom"
                 }
             ],
-            "time": "2026-01-09T11:44:24+00:00",
-            "published-time": "2026-01-09T11:46:24+00:00"
+            "time": "2026-11-10T09:34:13+00:00",
+            "published-time": "2026-11-10T09:34:51+00:00"
         },
         {
             "name": "mezzio/mezzio-template",
-            "version": "3.0.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mezzio/mezzio-template.git",
-                "reference": "49a797e19b167b208327854c81eb079937f0b161"
+                "reference": "6acd0a275986cf91ee5d0bc172c510af3296e7af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mezzio/mezzio-template/zipball/49a797e19b167b208327854c81eb079937f0b161",
-                "reference": "49a797e19b167b208327854c81eb079937f0b161",
+                "url": "https://api.github.com/repos/mezzio/mezzio-template/zipball/6acd0a275986cf91ee5d0bc172c510af3296e7af",
+                "reference": "6acd0a275986cf91ee5d0bc172c510af3296e7af",
                 "shasum": ""
             },
             "require": {
-                "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+                "php": "~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0"
             },
             "conflict": {
                 "zendframework/zend-expressive-template": "*"
             },
             "require-dev": {
+                "laminas/internal-tooling": "^1.0.0",
                 "laminas/laminas-coding-standard": "~3.1.0",
-                "phpunit/phpunit": "^11.5.42",
-                "psalm/plugin-phpunit": "^0.19.5",
-                "vimeo/psalm": "^6.13.1"
+                "phpunit/phpunit": "^11.5.57",
+                "psalm/plugin-phpunit": "^0.22.2",
+                "vimeo/psalm": "^6.20.10"
             },
             "suggest": {
                 "mezzio/mezzio-laminasviewrenderer": "^2.0 to use the laminas-view PhpRenderer template renderer",
@@ -410,12 +414,12 @@
             },
             "funding": [
                 {
-                    "url": "https://funding.communitybridge.org/projects/laminas-project",
-                    "type": "community_bridge"
+                    "url": "https://crowdfunding.linuxfoundation.org/initiatives/laminas-project",
+                    "type": "custom"
                 }
             ],
-            "time": "2025-10-11T09:18:27+00:00",
-            "published-time": "2025-10-13T12:50:39+00:00"
+            "time": "2026-11-10T21:13:23+00:00",
+            "published-time": "2026-11-10T21:14:07+00:00"
         },
         {
             "name": "psr/container",
@@ -1594,6 +1598,71 @@
             "published-time": "2026-10-31T17:39:05+00:00"
         },
         {
+            "name": "carthage-software/mago",
+            "version": "1.60.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/carthage-software/mago.git",
+                "reference": "3de548f9607a8d8d071f6e0deb2a0023107b8848"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/carthage-software/mago/zipball/3de548f9607a8d8d071f6e0deb2a0023107b8848",
+                "reference": "3de548f9607a8d8d071f6e0deb2a0023107b8848",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.1 || ~8.2 || ~8.3 || ~8.4 || ~8.5 || ~8.6",
+                "revolt/event-loop": "^1.0.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^10.5",
+                "twig/twig": "^3.30"
+            },
+            "suggest": {
+                "ext-curl": "To show binary download progress"
+            },
+            "bin": [
+                "composer/bin/mago"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "composer/src/functions.php",
+                    "composer/src/internal.php"
+                ],
+                "psr-4": {
+                    "Mago\\": "composer/src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT OR Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                }
+            ],
+            "description": "Mago is a toolchain for PHP that aims to provide a set of tools to help developers write better code.",
+            "keywords": [
+                "dev"
+            ],
+            "support": {
+                "issues": "https://github.com/carthage-software/mago/issues",
+                "source": "https://github.com/carthage-software/mago/tree/1.60.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/azjezz",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-11-16T02:22:34+00:00",
+            "published-time": "2026-11-16T02:23:00+00:00"
+        },
+        {
             "name": "composer/pcre",
             "version": "3.4.0",
             "source": {
@@ -2218,6 +2287,85 @@
             "published-time": "2026-09-29T22:12:43+00:00"
         },
         {
+            "name": "horde/yaml",
+            "version": "v3.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/horde/Yaml.git",
+                "reference": "4a2fee89751bb23f3989c0bf5de0a49899a15eb2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/horde/Yaml/zipball/4a2fee89751bb23f3989c0bf5de0a49899a15eb2",
+                "reference": "4a2fee89751bb23f3989c0bf5de0a49899a15eb2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "horde/test": "^3 || dev-FRAMEWORK_6_0",
+                "horde/util": "^3 || dev-FRAMEWORK_6_0"
+            },
+            "suggest": {
+                "horde/util": "^3 || dev-FRAMEWORK_6_0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-FRAMEWORK_6_0": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Horde_Yaml": "lib/"
+                },
+                "psr-4": {
+                    "Horde\\Yaml\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Ralf Lang",
+                    "email": "ralf.lang@ralf-lang.de",
+                    "role": "lead"
+                },
+                {
+                    "name": "Jan Schneider",
+                    "email": "jan@horde.org",
+                    "role": "lead"
+                },
+                {
+                    "name": "Mike Naberezny",
+                    "email": "mike@maintainable.com",
+                    "role": "lead"
+                },
+                {
+                    "name": "Chuck Hagenbuch",
+                    "email": "chuck@horde.org",
+                    "role": "lead"
+                }
+            ],
+            "description": "Roundtrip-capable YAML parsing and writing library",
+            "homepage": "https://www.horde.org/libraries/Horde_Yaml",
+            "keywords": [
+                "compliant",
+                "lossless",
+                "roundtrip"
+            ],
+            "support": {
+                "issues": "https://github.com/horde/Yaml/issues",
+                "source": "https://github.com/horde/Yaml/tree/v3.0.5"
+            },
+            "time": "2026-11-13T00:00:00+00:00",
+            "published-time": "2026-11-13T20:51:49+00:00"
+        },
+        {
             "name": "kelunik/certificate",
             "version": "v1.1.3",
             "source": {
@@ -2275,6 +2423,62 @@
             },
             "time": "2023-02-03T21:26:53+00:00",
             "published-time": "2023-02-03T21:33:41+00:00"
+        },
+        {
+            "name": "laminas/internal-tooling",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/internal-tooling.git",
+                "reference": "5faeaf5fe8c49093fa9686cbce84d04ad6401c81"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/internal-tooling/zipball/5faeaf5fe8c49093fa9686cbce84d04ad6401c81",
+                "reference": "5faeaf5fe8c49093fa9686cbce84d04ad6401c81",
+                "shasum": ""
+            },
+            "require": {
+                "carthage-software/mago": "^1.51.2",
+                "composer/semver": "^3.5",
+                "horde/yaml": "^3.0.3",
+                "php": "~8.2 || ~8.3 || ~8.4 || ~8.5 || ~8.6",
+                "php-collective/toml": "^0.1.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^11.5.57 || ^12.5.38 || ^13.4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Laminas\\Internal\\Migrations\\": "migrations/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Internal tooling configuration and defaults for Laminas and Mezzio projects",
+            "homepage": "https://laminas.dev",
+            "keywords": [
+                "dev",
+                "laminas"
+            ],
+            "support": {
+                "chat": "https://laminas.dev/chat",
+                "forum": "https://discourse.laminas.dev",
+                "issues": "https://github.com/laminas/internal-tooling/issues",
+                "rss": "https://github.com/laminas/internal-tooling/releases.atom",
+                "source": "https://github.com/laminas/internal-tooling"
+            },
+            "funding": [
+                {
+                    "url": "https://crowdfunding.linuxfoundation.org/initiatives/laminas-project",
+                    "type": "custom"
+                }
+            ],
+            "time": "2026-11-16T13:06:28+00:00",
+            "published-time": "2026-11-16T13:07:10+00:00"
         },
         {
             "name": "laminas/laminas-coding-standard",
@@ -2807,6 +3011,67 @@
             "published-time": "2022-02-21T01:04:30+00:00"
         },
         {
+            "name": "php-collective/toml",
+            "version": "0.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-collective/toml.git",
+                "reference": "51810282d85d6333c60c866019c0e6548e26e483"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-collective/toml/zipball/51810282d85d6333c60c866019c0e6548e26e483",
+                "reference": "51810282d85d6333c60c866019c0e6548e26e483",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "symfony/polyfill-mbstring": "^1.30"
+            },
+            "require-dev": {
+                "php-collective/code-sniffer": "dev-master",
+                "phpstan/phpstan": "^2.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.0"
+            },
+            "suggest": {
+                "ext-ds": "For improved performance with Set-based key tracking"
+            },
+            "bin": [
+                "bin/toml-validate"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpCollective\\Toml\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Scherer"
+                }
+            ],
+            "description": "A TOML parser and encoder for PHP with AST access and collected parse errors",
+            "homepage": "https://php-collective.github.io/toml/",
+            "keywords": [
+                "config",
+                "configuration",
+                "developer-tools",
+                "encoder",
+                "parser",
+                "toml"
+            ],
+            "support": {
+                "issues": "https://github.com/php-collective/toml/issues",
+                "source": "https://github.com/php-collective/toml/tree/0.1.5"
+            },
+            "time": "2026-05-31T05:16:19+00:00",
+            "published-time": "2026-05-31T05:36:07+00:00"
+        },
+        {
             "name": "phpdocumentor/reflection-common",
             "version": "2.2.1",
             "source": {
@@ -3037,6 +3302,71 @@
             },
             "time": "2026-10-30T19:36:28+00:00",
             "published-time": "2026-10-30T19:37:11+00:00"
+        },
+        {
+            "name": "phpstan/phpstan",
+            "version": "2.3.7",
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/90c91c2498849ab8cc4e873864bbf1cb2bf6ea12",
+                "reference": "90c91c2498849ab8cc4e873864bbf1cb2bf6ea12",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.0"
+            },
+            "conflict": {
+                "phpstan/phpstan-shim": "*"
+            },
+            "bin": [
+                "phpstan",
+                "phpstan.phar"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ondřej Mirtes"
+                },
+                {
+                    "name": "Markus Staab"
+                },
+                {
+                    "name": "Vincent Langlet"
+                }
+            ],
+            "description": "PHPStan - PHP Static Analysis Tool",
+            "keywords": [
+                "dev",
+                "static analysis"
+            ],
+            "support": {
+                "docs": "https://phpstan.org/user-guide/getting-started",
+                "forum": "https://github.com/phpstan/phpstan/discussions",
+                "issues": "https://github.com/phpstan/phpstan/issues",
+                "security": "https://github.com/phpstan/phpstan/security/policy",
+                "source": "https://github.com/phpstan/phpstan-src"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/ondrejmirtes",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/phpstan",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-11-19T10:31:11+00:00",
+            "published-time": "2026-11-19T10:31:27+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -3592,6 +3922,64 @@
             },
             "time": "2024-09-11T13:17:53+00:00",
             "published-time": "2024-09-11T13:21:14+00:00"
+        },
+        {
+            "name": "rector/rector",
+            "version": "2.8.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rectorphp/rector.git",
+                "reference": "bf2982e3e2b8dfbcb43e5589fa301431cb1e479e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/bf2982e3e2b8dfbcb43e5589fa301431cb1e479e",
+                "reference": "bf2982e3e2b8dfbcb43e5589fa301431cb1e479e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.0",
+                "phpstan/phpstan": "^2.3.5"
+            },
+            "conflict": {
+                "rector/rector-doctrine": "*",
+                "rector/rector-downgrade-php": "*",
+                "rector/rector-phpunit": "*",
+                "rector/rector-symfony": "*"
+            },
+            "bin": [
+                "bin/rector"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Instant Upgrade and Automated Refactoring of any PHP code",
+            "homepage": "https://getrector.com/",
+            "keywords": [
+                "automation",
+                "dev",
+                "migration",
+                "refactoring"
+            ],
+            "support": {
+                "issues": "https://github.com/rectorphp/rector/issues",
+                "source": "https://github.com/rectorphp/rector/tree/2.8.5"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-11-14T23:24:35+00:00",
+            "published-time": "2026-11-14T23:24:41+00:00"
         },
         {
             "name": "revolt/event-loop",
@@ -5830,16 +6218,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "6.20.11",
+            "version": "6.20.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "fca8e037ed356b9fc1afc213902e82dfad418eba"
+                "reference": "9dd07528c4f058df1572d40ab2db5c1566a728f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/fca8e037ed356b9fc1afc213902e82dfad418eba",
-                "reference": "fca8e037ed356b9fc1afc213902e82dfad418eba",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/9dd07528c4f058df1572d40ab2db5c1566a728f2",
+                "reference": "9dd07528c4f058df1572d40ab2db5c1566a728f2",
                 "shasum": ""
             },
             "require": {
@@ -5944,8 +6332,8 @@
                 "issues": "https://github.com/vimeo/psalm/issues",
                 "source": "https://github.com/vimeo/psalm"
             },
-            "time": "2026-11-11T21:00:48+00:00",
-            "published-time": "2026-11-11T22:27:01+00:00"
+            "time": "2026-11-18T12:17:11+00:00",
+            "published-time": "2026-11-18T12:31:30+00:00"
         },
         {
             "name": "webimpress/coding-standard",
@@ -6010,11 +6398,11 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+        "php": "~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0"
     },
     "platform-dev": {},
     "platform-overrides": {
-        "php": "8.2.99"
+        "php": "8.3.99"
     },
     "plugin-api-version": "2.11.0"
 }
