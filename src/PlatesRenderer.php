@@ -33,9 +33,7 @@ class PlatesRenderer implements TemplateRendererInterface
 
     public function __construct(?Engine $template = null)
     {
-        if (null === $template) {
-            $template = $this->createTemplate();
-        }
+        $template     ??= $this->createTemplate();
         $this->template = $template;
     }
 
